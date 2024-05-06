@@ -1,0 +1,144 @@
+:root {
+  --primary-background:#e30918;
+  --secondary-background: #000000;
+  --font-color:white;
+  --container-bg:#cccccc;
+}
+
+
+
+/* home-start*/
+/* home-end */
+
+
+    /* footer */
+#footer{
+  background: #f7f7f7;
+    padding: 3rem;
+  /* padding-top: 5rem; */
+  padding-top: 4rem;
+  padding-bottom: 80px;
+
+}
+
+.logo-footer{
+  /* max-width: 300px; */
+ 
+}
+
+.social-links h2{
+  padding-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+
+}
+.social-links img{
+  padding-bottom: 25px;
+}
+.social-icons{
+  display: flex;
+  gap: 1rem;
+  color: #777777;
+}
+.social-icons a{
+
+  color: #777777;
+}
+.social-icons a:hover{
+  color: #000;
+}
+.social-icons i:hover{
+  color: #000;
+}
+.social-icons a i{
+  box-shadow: rgba(0, 0, 0, 0.151) 0px 4px 12px;
+    padding: 0.4rem 1rem 0.4rem 1rem;
+    border-radius: 3px;
+    color:var(--primary-background);
+  font-size: 16px;
+  margin-right: 12px;
+}
+li{
+  list-style: none;
+}
+.useful-link h2{
+  padding-bottom: 15px;
+  font-size: 20px;
+    font-weight: 600;
+}
+.useful-link img{
+  padding-bottom: 15px;
+}
+.use-links{
+  line-height: 32px;
+}
+.use-links li i{
+  font-size: 14px;
+    padding-right: 8px;
+    color: #898989;
+}
+.use-links li a{
+  color: #303030;
+    font-size: 15px;
+    font-weight: 500;
+  color: #777777;
+}
+.use-links li a:hover{
+  color: #000;
+}
+.address h2{
+  padding-bottom: 15px;
+  font-size: 20px;
+    font-weight: 600;
+}
+.address img{
+  padding-bottom: 15px;
+}
+.address-links li a{
+  color: #303030;
+    font-size: 15px;
+    font-weight: 500;
+  color: #777777;
+
+}
+.address-links li i{
+  font-size: 16px;
+    padding-right: 8px;
+  color: var(--primary-background);
+
+}
+.address-links li i:nth-child(1){
+  padding-top: 9px;
+}
+.address-links .address1{
+  font-weight: 500;
+    font-size: 15px;
+  display: flex;
+}
+.address-links{
+      line-height: 32px;
+    color: #777777;
+}
+.copy-right-sec{
+  padding: 1.5rem;
+    background: var(--primary-background);
+    color: #fff;
+    text-align: center;
+}
+.copy-right-sec a{
+  color: var(--secondary-background);
+    font-weight: 500;
+}
+a{
+  text-decoration:none;
+}
+
+.back-to-top {
+  position: fixed;
+  /* display: none; */
+  color:var(--primary-background);
+  right: 30px;
+  bottom: 30px;
+  z-index: 11;
+  animation: action 1s infinite alternate;
+}

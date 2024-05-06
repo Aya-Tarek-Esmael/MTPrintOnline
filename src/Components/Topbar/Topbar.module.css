@@ -1,0 +1,45 @@
+
+:root {
+    --primary-background:#e30918;
+    --secondary-background: #000000;
+    --font-color:white;
+    --container-bg:#cccccc;
+  }
+  
+.topcontainer{
+    background-color: var(--primary-background);
+}
+.logo img{
+    margin-right:0px !important;
+  
+}
+ img{
+    margin-left: 70px;
+ }
+ .searchbtn{
+    background-color: var(--primary-background);
+
+ }
+ .searchbtn:hover{
+    background-color: var(--secondary-background);
+ }
+.icons{
+    color:var(--primary-background);
+}
+.social i:hover{
+    color: var(--font-color);
+    background-color:var(--secondary-background);
+    padding: 5px;
+    border-radius: 20%;
+}
+.fontcolor a{
+    color: var(--font-color);
+}
+
+.fontcolor a:hover,.logintitle a:hover{
+color:var(--secondary-background) ;
+}
+
+.logintitle a{
+color:var(--primary-background);
+}

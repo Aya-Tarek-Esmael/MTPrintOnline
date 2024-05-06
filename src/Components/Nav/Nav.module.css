@@ -1,0 +1,24 @@
+
+:root {
+    --primary-background: #ff0000;
+    --secondary-background: black;
+    --font-color:white;
+  }
+  
+
+
+.dropdown-menu{
+    background-color: rgb(150, 148, 148) transparent;
+}
+.navcontainer{
+    background-color:var(--secondary-background);
+    color: var(--font-color);
+   
+}
+.navcontainerul{
+    margin-right: -300px;
+}
+.btnnavcolor{
+    background-color: var(--primary-background);
+    color: var(--font-color);
+}

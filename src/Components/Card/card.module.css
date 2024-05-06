@@ -1,0 +1,14 @@
+:root {
+    --primary-background:#e30918;
+    --secondary-background: #000000;
+    --font-color:white;
+    --container-bg:#cccccc;
+  }
+  
+
+.cardcontain:hover{
+    border-color: var(--primary-background);
+}
+.cardbtn{
+    background-color: var(--primary-background);
+}
