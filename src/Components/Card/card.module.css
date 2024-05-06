@@ -12,3 +12,7 @@
 .cardbtn{
     background-color: var(--primary-background);
 }
+.cardcontain{
+    min-width:240px;
+    height: 338px;
+}
