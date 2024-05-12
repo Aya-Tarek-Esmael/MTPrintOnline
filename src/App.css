@@ -4,9 +4,22 @@
   --font-color:white;
   --container-bg:#cccccc;
 }
+body{
+  overflow-x: hidden;
+  direction: rtl;
+}
 
-
-
+.hovercolor:hover{
+  background-color: var(--primary-background);
+  color: var(--font-color);
+  
+}
+.texthover{
+  color: #666666;
+}
+.texthover:hover{
+  color: var(--primary-background);
+}
 /* home-start*/
 /* home-end */
 

@@ -6,7 +6,7 @@ import CardSlider from '../CardSlider/CardSlider'
 function Home() {
    
   return (
-    <div className='container-fluid '>
+    <div className='container-fluid'>
         <HomeSlider />
         <CardSlider />
     </div>

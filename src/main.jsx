@@ -10,11 +10,15 @@ import '../node_modules/popper.js';
 import '../node_modules/jquery';
 import App from './App.jsx'
 import './index.css'
+import { Provider } from 'react-redux';
+import { Store } from './Redux/store.js'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <>
     <BrowserRouter>
-    <App />
+    <Provider store={Store}>
+      <App />
+    </Provider>
     </BrowserRouter>
     
   </>

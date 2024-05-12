@@ -35,26 +35,7 @@ function Footer() {
     <footer id="footer">
       <div className="container">
         <div className="row">
-          <div className="col-md-3">
-            <a href="index.html">
-                <img src={logo} alt="" className="img-fluid logo-footer m-0"/>
-                </a>
-                      <div className="footer-about">
-                          <p>Lorem Ipsum is simply dummy text  the  printing  standard dummy text ever since the 1500s.  </p>
-                      </div>
-
-                     <div className="social-links">
-                       <h2>Follow Us</h2>
-                       <div className="social-icons">
-                        <li><a href=""><i className="fa-brands fa-facebook-f"></i></a></li>
-                        <li><a href=""><i className="fa-brands fa-instagram"></i></a></li>
-                        <li><a href=""><i className="fa-brands fa-linkedin-in"></i></a></li>
-                        <li><a href=""><i className="fa-brands fa-twitter"></i></a></li>
-
-                     </div>
-                    </div>
-                      
-          </div>
+         
           <div className="col-md-3">
             <div className="useful-link mt-4">
               <h2>Useful Links</h2>
@@ -90,7 +71,27 @@ function Footer() {
               </div>
             </div>
           </div>
-                  
+
+                 <div className="col-md-3">
+            <a href="index.html">
+                <img src={logo} alt="" className="img-fluid logo-footer m-0"/>
+                </a>
+                      <div className="footer-about">
+                          <p>Lorem Ipsum is simply dummy text  the  printing  standard dummy text ever since the 1500s.  </p>
+                      </div>
+
+                     <div className="social-links">
+                       <h2>Follow Us</h2>
+                       <div className="social-icons">
+                        <li><a href=""><i className="fa-brands fa-facebook-f"></i></a></li>
+                        <li><a href=""><i className="fa-brands fa-instagram"></i></a></li>
+                        <li><a href=""><i className="fa-brands fa-linkedin-in"></i></a></li>
+                        <li><a href=""><i className="fa-brands fa-twitter"></i></a></li>
+
+                     </div>
+                    </div>
+                      
+          </div>  
         </div>
       </div>
 
