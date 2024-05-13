@@ -1,5 +1,5 @@
 .quantity{
-    border-color: rgb(222, 229, 236);
+    border:2px solid rgb(222, 229, 236);
 }
 .containerbg{
     background-color: #f7f7f7;
@@ -17,4 +17,8 @@
   .zoomed {
     transform: scale(1.1); 
   }
-  
+  .borderstyle{
+    border:1px solid rgb(222, 229, 236);
+    border-radius: 5px;
+    
+  }

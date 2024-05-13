@@ -18,12 +18,48 @@ import LetterHead from './Components/LetterHead/LetterHead';
 import Envelopes from './Components/Envelopes/Envelopes';
 import Folders from './Components/Folders/Folders';
 import BannerProducts from './Components/BannerProducts/BannerProducts';
-import BannerProDetails from './Components/BannerProdDetails/BannerProDetails'
-import BannerProDetails2 from './Components/BannerProdDetails/BannerProDetails2'
-import BannerProDetails3 from './Components/BannerProdDetails/BannerProDetails3'
-import BannerProDetails4 from './Components/BannerProdDetails/BannerProDetails4'
-import BannerProDetails5 from './Components/BannerProdDetails/BannerProDetails5'
-import BannerProDetails6 from './Components/BannerProdDetails/BannerProDetails6'
+import BannerProDetailsStand from './Components/BannerProdDetails/BannerProDetailsStand'
+import BannerProDetailsXBanner from './Components/BannerProdDetails/BannerProDetailsXBanner'
+import BannerProDetailsBannerNormall from './Components/BannerProdDetails/BannerProDetailsBannerNormall'
+import BannerProDetailsBobUP  from './Components/BannerProdDetails/BannerProDetailsBobUp'
+import BannerProDetailsRollUp  from './Components/BannerProdDetails/BannerProDetailsRollUp'
+import BannerProDetailsFlex from './Components/BannerProdDetails/BannerProDetailsFlex'
+import BannerProDetailsCanvas from './Components/BannerProdDetails/BannerProDetailsCanvas'
+import BannerProDetailsVinyl from './Components/BannerProdDetails/BannerProDetailsVinyl'
+import BannerProDetailsWallpaper from './Components/BannerProdDetails/BannerProDetailsWallpaper'
+import BannerProDetailsCarVinyl from './Components/BannerProdDetails/BannerProDetailsCarVinyl';
+import BannerProDetailsStan from './Components/BannerProdDetails/BennerProDetailsStan';
+import BannerProDetailsSeeThrough from './Components/BannerProdDetails/BannerProDetailsSeeThrough';
+import BannerProDetailsBannerCoated from './Components/BannerProdDetails/BannerProDetailsBannerCoated';
+import BannerProDetailsGlossy from './Components/BannerProdDetails/BannerProDetailsGlossy';
+import BannerProDetailsReflectiveBanner from './Components/BannerProdDetails/BannerProDetailsReflectiveBanner';
+import ReflectiveBanner from './Components/BannerProduct/ReflectiveBanner';
+import BannerCoated from './Components/BannerProduct/BannerCoated';
+import BannerStand from './Components/BannerProduct/BannerStand';
+import BobUp from './Components/BannerProduct/BobUp';
+import Canvas from './Components/BannerProduct/Canvas';
+import CarVinyl from './Components/BannerProduct/CarVinyl';
+import Flex from './Components/BannerProduct/Flex';
+import RollUp from './Components/BannerProduct/RollUp';
+import SeeThrough from './Components/BannerProduct/SeeThrough';
+import NormallBanner from './Components/BannerProduct/NormallBanner';
+import Gloosy from './Components/BannerProduct/Gloosy';
+import XBanner from './Components/BannerProduct/XBanner';
+import Vinyl from './Components/BannerProduct/Vinyl';
+import Wallpaper from './Components/BannerProduct/Wallpaper';
+import Stan from './Components/BannerProduct/Stan';
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -51,22 +87,43 @@ function App() {
     <Route path='envelopes' element={<Envelopes />} />
     <Route path='folder' element={<Folders />} />
     <Route path='/bannerproducts' element={<BannerProducts />} />
-    <Route path='bannerprodetails/:id' element={<BannerProDetails />} />
-    <Route path='bannerprodetails2/:id' element={<BannerProDetails2 />} />
-    <Route path='bannerprodetails3/:id' element={<BannerProDetails3 />} />
-    <Route path='bannerprodetails4/:id' element={<BannerProDetails4 />} />
-    <Route path='bannerprodetails5/:id' element={<BannerProDetails5 />} />
-    <Route path='bannerprodetails6/:id' element={<BannerProDetails6 />} />
+    <Route path='/bannerproducts/reflectivebanner' element={<ReflectiveBanner />} />
+    <Route path='/bannerproducts/stan' element={<Stan />} />
+    <Route path='/bannerproducts/bannerCoated' element={<BannerCoated />} />
+    <Route path='/bannerproducts/canvas' element={<Canvas />} />
+    <Route path='/bannerproducts/xBanner' element={<XBanner />} />
+    <Route path='/bannerproducts/normallBanner' element={<NormallBanner />} />
+    <Route path='/bannerproducts/vinyl' element={<Vinyl />} />
+    <Route path='/bannerproducts/carVinyl' element={<CarVinyl/>} />
+    <Route path='/bannerproducts/flex' element={<Flex />} />
+    <Route path='/bannerproducts/bannerStand' element={<BannerStand />} />
+    <Route path='/bannerproducts/seeThrough' element={<SeeThrough/>} />
+    <Route path='/bannerproducts/rollUp' element={<RollUp />} />
+    <Route path='/bannerproducts/bobUp' element={<BobUp />} />
+    <Route path='/bannerproducts/gloosy' element={<Gloosy />} />
+    <Route path='/bannerproducts/wallpaper' element={<Wallpaper />} />
+
+
     
 
-
-
-
-
-
+    {/* product Details */}
+    <Route path='ادجستبل-ستاند/' element={<BannerProDetailsStand />} />
+    <Route path='اكس-بانر/' element={<BannerProDetailsXBanner />} />
+    <Route path='بانر-عادي/' element={<BannerProDetailsBannerNormall />} />
+    <Route path='بوب-اب-كامل/' element={<BannerProDetailsBobUP />} />
+    <Route path='roll-up/' element={<BannerProDetailsRollUp />} />
+    <Route path='flex/' element={<BannerProDetailsFlex/>} />
+    <Route path='canvas/' element={<BannerProDetailsCanvas/>} />
+    <Route path='vinyl/' element={<BannerProDetailsVinyl/>} />
+    <Route path='wallpaper/' element={<BannerProDetailsWallpaper/>} />
+    <Route path='carvinyl/' element={<BannerProDetailsCarVinyl/>} />
+    <Route path='stan/' element={<BannerProDetailsStan/>} />
+    <Route path='seethrough/' element={<BannerProDetailsSeeThrough/>} />
+    <Route path='bannercoated/' element={<BannerProDetailsBannerCoated/>} />
+    <Route path='glossy/' element={<BannerProDetailsGlossy/>} />
+    <Route path='reflectivebanner/' element={<BannerProDetailsReflectiveBanner/>} />
+   
     
-
-
     </Routes>
     <Footer />
     </div>

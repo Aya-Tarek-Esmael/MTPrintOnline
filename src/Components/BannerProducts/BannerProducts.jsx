@@ -4,12 +4,27 @@ import { getPersonalCards } from '../../Redux/slices/PersonalCardsSlice';
 import BannerProduct from '../BannerProduct/BannerProduct';
 import { Link } from 'react-router-dom';
 import style from './BannerProducts.module.css'
+import ReflectiveBanner from '../BannerProduct/ReflectiveBanner';
+import BannerCoated from '../BannerProduct/BannerCoated';
+import BannerStand from '../BannerProduct/BannerStand';
+import BobUp from '../BannerProduct/BobUp';
+import Canvas from '../BannerProduct/Canvas';
+import CarVinyl  from'../BannerProduct/CarVinyl';
+import Flex from '../BannerProduct/Flex';
+import RollUp from '../BannerProduct/RollUp';
+import SeeThrough from '../BannerProduct/SeeThrough';
+import NormallBanner from '../BannerProduct/NormallBanner';
+import Gloosy from '../BannerProduct/Gloosy';
+import XBanner from '../BannerProduct/XBanner';
+import Vinyl from '../BannerProduct/Vinyl';
+import Wallpaper from '../BannerProduct/Wallpaper';
+import Stan from '../BannerProduct/Stan';
 function BannerProducts() {
 
 	    
-    const dispatch = useDispatch();
-    const personalcards = useSelector(state => state.PersonalCardsReducer.personalcards);
-    const flag = useSelector(state => state.PersonalCardsReducer.loading);
+    // const dispatch = useDispatch();
+    // const personalcards = useSelector(state => state.PersonalCardsReducer.personalcards);
+    // const flag = useSelector(state => state.PersonalCardsReducer.loading);
 
 
     useEffect(() => {
@@ -17,7 +32,7 @@ function BannerProducts() {
         //     console.log(data.data.results)
         //     setMovies([...data.data.results]);
         // })
-        dispatch(getPersonalCards());
+        // dispatch(getPersonalCards());
     }, [])
   return (
    <>
@@ -44,19 +59,47 @@ function BannerProducts() {
 <p className="">عرض جميع النتائج 16</p>	
 </div>
 
+<div className='frex-wrap'>
+    <div className='d-flex col-12'>
+  <BannerStand   data={'data'} />
+  <XBanner  data={'data'} />
+   <ReflectiveBanner data={'data'}  />
+   <NormallBanner  data={'data'} />
+   </div>
+   <div className='d-flex col-12'>
+   <BobUp />
+   <BannerCoated  data={'data'} />
+   <Gloosy  data={'data'} />
+   <CarVinyl  data={'data'} />
+   </div>
+   <div className='d-flex col-12'>
+   <Flex data={'data'}  />
+   <Stan  data={'data'} />
+   <RollUp data={'data'}  />
+   <SeeThrough data={'data'} />
+   </div>
+   <div className='d-flex col-12'>
+   <Vinyl  data={'data'}  />
+   <Canvas  data={'data'} />
+   <Wallpaper data={'data'} />
+   </div>
+</div>
+
+
+
+
+
 
 
 {/* end */}
-
-{
+{/* {
             flag ? <h1>Loading</h1> : <div className='row'>
                 {
-                    personalcards.map((item) => {
-                        return <div key={item.id} className='col-xs-12 col-sm-3 col-md-3 col-lg-3'> <BannerProduct data={item} /></div>
+                    personalcards.map((item) => {return <div key={item.id} className='col-xs-12 col-sm-3 col-md-3 col-lg-3'> <BannerProduct data={item} /></div>
                     })
                 }
             </div>
-        }
+        } */}
 		
 
 </div>

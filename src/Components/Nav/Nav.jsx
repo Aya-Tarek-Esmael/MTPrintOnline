@@ -110,8 +110,23 @@ function Nav() {
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link " to="/bannerproducts" id="navbarDropdown2" role="button" onClick={toggleDropdown2} aria-haspopup="true" aria-expanded={isDropdownOpen2}> منتحات بانر <i className="fa fa-angle-down mt-1"></i> </NavLink>
                                     <div className={`dropdown-menu bg-light rounded-1 border-1 m-0  ${isDropdownOpen2 ? 'show' : ''}`}  style={{'textAlign': 'right'}} aria-labelledby="navbarDropdown2">
-                                        <span className="dropdown-item">S 1</span>
-                                        <span className="dropdown-item">S 2</span>
+                                        <Link to={`ادجستبل-ستاند/`} className="dropdown-item">ادجستل استاند</Link>
+                                        <Link to={`reflectivebanner/`} className="dropdown-item"> بانر عاكس</Link>
+                                        <Link to={`wallpaper/'`} className="dropdown-item"> ورق حائط</Link>
+                                        <Link to={`اكس-بانر/`} className="dropdown-item"> اكس بانر</Link>
+                                        <Link to={`stan/`} className="dropdown-item"> ستان</Link>
+                                        <Link to={`seethrough/`} className="dropdown-item"> سي ثرو</Link>
+                                        <Link to={`بانر-عادي/`} className="dropdown-item"> بانر عادي</Link>
+                                        <Link to={`canvas/`} className="dropdown-item"> كانفاس</Link>
+                                        <Link to={`vinyl/`} className="dropdown-item"> الفينيل</Link>
+                                        <Link to={`carvinyl/`} className="dropdown-item"> ملصق سيارات</Link>
+                                        <Link to={`roll-up/`} className="dropdown-item"> رول اب</Link>
+                                        <Link to={`بوب-اب-كامل/`} className="dropdown-item"> بوب اب كامل</Link>
+                                        <Link to={`flex/`} className="dropdown-item"> فليكس</Link>
+                                        <Link to={`glossy/`} className="dropdown-item"> جلوسي</Link>
+                                        <Link to={`bannercoated/`} className="dropdown-item"> بانر كوتيد</Link>
+
+
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown me-2">
