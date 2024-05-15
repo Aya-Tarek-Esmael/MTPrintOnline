@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import style from './Envelopes.module.css'
-import letterheadImg from '../../assets/letterhead.png'
+import envelopeImg from '../../assets/envelope.png'
 import { Link } from 'react-router-dom';
 function Envelopes() {
 
@@ -18,7 +18,6 @@ function Envelopes() {
     e.preventDefault();
     //selected choices 
     console.log('Selected Paper Type:', paperType);
-    console.log('Selected Cut Type:', cutType);
     console.log('Selected Size:', size);
     console.log('Selected Quantity:', quantity);
     console.log('Notes:', notes);
@@ -244,7 +243,7 @@ function Envelopes() {
 {/* leftside */}
 <div  className={`col-md-4  mt-4 mb-5`}>
      <div className={style.circlebg} >
-     <img src={letterheadImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
+     <img src={envelopeImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
      <div className="d-flex justify-content-center mt-5 ">

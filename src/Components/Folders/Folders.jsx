@@ -7,6 +7,7 @@ function Folder() {
       // State variables to hold selected choices
   const [paperType, setPaperType] = useState('');
   const [cutType, setCutType] = useState('');
+  const [solfanType, setSolfanType] = useState('');
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState('');
   const [notes, setNotes] = useState('');
@@ -19,6 +20,7 @@ function Folder() {
     e.preventDefault();
     //selected choices 
     console.log('Selected Paper Type:', paperType);
+    console.log('Selected Paper Type:', solfanType);
     console.log('Selected Cut Type:', cutType);
     console.log('Selected Size:', size);
     console.log('Selected Quantity:', quantity);
@@ -53,7 +55,7 @@ function Folder() {
                         paperType === 'كوشية 250 ' ? style.selected : ''
                       }`}
                       onClick={() => setPaperType('كوشية 250 ')}>
-                     كوشية 350 
+                     كوشية 250 
                     </div>
                     <div
                       className={`border me-1 col-3 py-1 hovercolor ${
@@ -92,41 +94,69 @@ function Folder() {
                     </div>
        </div>
        </div>
+        {/* item */}
+  <div className='mt-4'>
+       <label className='mb-2 fw-bold'> السلوفان </label>
+       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
+       <div
+                      className={`border col-4 p-1 hovercolor ${
+                        cutType === 'بدون' ? style.selected : ''
+                      }`}
+                      onClick={() => setSolfanType('بدون')}>
+                      بدون
+                    </div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${
+                        cutType === 'مط' ? style.selected : ''
+                      }`}
+                      onClick={() => setSolfanType('مط')}>
+                      مط
+                    </div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${
+                        cutType === 'لامع' ? style.selected : ''
+                      }`}
+                      onClick={() => setSolfanType('لامع')}>
+                      لامع
+                    </div>
+       </div>
+       </div>
        {/* item */}
        <div className='mt-4'>
        <label className='fw-bold'>المقاس</label>
-       <div className='d-flex mt-1 me-0 col-12 text-center '>
+       <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
        <div
-      className={`border hovercolor col-12 p-1 ${
+      className={`border hovercolor col-4 p-1 ${
         size === 'A3 (42 x 30)' ? style.selected : ''
       }`}
       onClick={() => setSize('A3 (42 x 30)')}>
       A3 (42 x 30)
     </div>
        <div
-      className={`border hovercolor col-12 p-1 ${
+      className={`border hovercolor col-4 me-1 p-1 ${
         size === 'A4 (21 x 30)' ? style.selected : ''
       }`}
       onClick={() => setSize('A4 (21 x 30)')}>
       A4 (21 x 30)
     </div>
     <div
-      className={`border hovercolor col-12 p-1 ${
+      className={`border hovercolor col-4 me-1 p-1 ${
         size === 'A5 (21 x 15)' ? style.selected : ''
       }`}
       onClick={() => setSize('A5 (21 x 15)')}>
       A5 (21 x 15)
     </div>
-   
+    </div>
+    <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
     <div
-      className={`border hovercolor col-12 p-1 ${
+      className={`border hovercolor col-6 p-1 ${
         size === 'B4 (34 x 24)' ? style.selected : ''
       }`}
       onClick={() => setSize('B4 (34 x 24)')}>
       B4 (34 x 24)
     </div>
     <div
-      className={`border hovercolor col-12 p-1 ${
+      className={`border hovercolor col-6 me-2 p-1 ${
         size === 'B5 (24 x 17)' ? style.selected : ''
       }`}
       onClick={() => setSize('B5 (24 x 17)')}>

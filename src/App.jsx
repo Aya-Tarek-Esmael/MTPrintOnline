@@ -7,7 +7,7 @@ import Home from './Components/Home/Home'
 import Footer from './Components/Footer/Footer';
 import Contact from './Components/Contact/Contact';
 import Brochure from './Components/Brochure/Brochure';
-import PersonalCards from './Components/PersonalCards/PersonalCars';
+import PersonalCards from './Components/PersonalCards/PersonalCards';
 import Receipts from './Components/Receipts/Receipts';
 import Magazine from './Components/Magazine/Magazine';
 import BlockNote from './Components/BlockNote/BlockNote';
@@ -48,6 +48,7 @@ import XBanner from './Components/BannerProduct/XBanner';
 import Vinyl from './Components/BannerProduct/Vinyl';
 import Wallpaper from './Components/BannerProduct/Wallpaper';
 import Stan from './Components/BannerProduct/Stan';
+import NormallCard from './Components/PersonalCards/NormallCard';
 
 
 
@@ -75,8 +76,17 @@ function App() {
     <Route path='/'  element={<Home/>} />
     <Route path='/الرئيسية'  element={<Home/>} />
     <Route path='/اتصل بنا'  element={<Contact/>} />
+  
+    <Route path='/personalcards/' element={ <PersonalCards />}/>
+    <Route path='/personalcards/كارت-عادي' element={<NormallCard />} />
+    
+
+
+
+
+
+    {/*  */}
     <Route path='/brochure'  element={<Brochure/>} />
-    <Route path='/personalcards' element={ <PersonalCards />}/>
     <Route path='receipts' element={<Receipts />} />
     <Route path='magazine' element={< Magazine />} />
     <Route path='blocknote' element={<BlockNote/>} />
