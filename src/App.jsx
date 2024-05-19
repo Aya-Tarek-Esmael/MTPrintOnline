@@ -17,6 +17,8 @@ import Catalogue from './Components/Catalogue/Catalogue';
 import LetterHead from './Components/LetterHead/LetterHead';
 import Envelopes from './Components/Envelopes/Envelopes';
 import Folders from './Components/Folders/Folders';
+import Books from './Components/Books/Books';
+import InvoiceBook from'./Components/InvoiceBook/InvoiceBook';
 import BannerProducts from './Components/BannerProducts/BannerProducts';
 import BannerProDetailsStand from './Components/BannerProdDetails/BannerProDetailsStand'
 import BannerProDetailsXBanner from './Components/BannerProdDetails/BannerProDetailsXBanner'
@@ -49,18 +51,15 @@ import Vinyl from './Components/BannerProduct/Vinyl';
 import Wallpaper from './Components/BannerProduct/Wallpaper';
 import Stan from './Components/BannerProduct/Stan';
 import NormallCard from './Components/PersonalCards/NormallCard';
-
-
-
-
-
-
-
-
-
-
-
-
+import CurveCard from './Components/PersonalCards/CurveCard';
+import OneColorCard from './Components/PersonalCards/OneColorCard';
+import SpotCard from './Components/PersonalCards/SpotCard';
+import StickerCard from './Components/PersonalCards/StickerCard';
+import MattCardTwoFaces from './Components/PersonalCards/MattCardTwoFaces';
+import SpotCurveCard from './Components/PersonalCards/SpotCurveCard';
+import MattLargeCard from './Components/PersonalCards/MattLargeCard';
+import Papers from './Components/Papers/Papers';
+import BannerProDetailsPrintAndCut from './Components/BannerProdDetails/BannerProDetailsPrintAndCut';
 
 
 
@@ -79,6 +78,20 @@ function App() {
   
     <Route path='/personalcards/' element={ <PersonalCards />}/>
     <Route path='/personalcards/كارت-عادي' element={<NormallCard />} />
+    <Route path='/personalcards/كارت-كيرف' element={<CurveCard />} />
+    <Route path='/personalcards/كارت عادي بظهر واحد لون' element={<OneColorCard />} />
+    <Route path='/personalcards/كارت سبوت مقاس 8.5*5' element={<SpotCard />} />
+    <Route path='/personalcards/كارت ستيكر' element={<StickerCard />} />
+    <Route path='/personalcards/كارت مط وجهين' element={<MattCardTwoFaces />} />
+    <Route path='/personalcards/كارت سبوت كيرف مقاس 5.5*9' element={<SpotCurveCard />} />
+    <Route path='/personalcards/كارت مط كبير بدون كيرف' element={<MattLargeCard />} />
+
+
+
+
+
+
+
     
 
 
@@ -86,7 +99,8 @@ function App() {
 
 
     {/*  */}
-    <Route path='/brochure'  element={<Brochure/>} />
+    <Route path='/papers/' element={<Papers />} />
+    <Route path='brochure'  element={<Brochure/>} />
     <Route path='receipts' element={<Receipts />} />
     <Route path='magazine' element={< Magazine />} />
     <Route path='blocknote' element={<BlockNote/>} />
@@ -96,7 +110,11 @@ function App() {
     <Route path='letterhead' element={<LetterHead />} />
     <Route path='envelopes' element={<Envelopes />} />
     <Route path='folder' element={<Folders />} />
-    <Route path='/bannerproducts' element={<BannerProducts />} />
+    <Route path='books' element={<Books />} />
+    <Route path='invoicebook' element={<InvoiceBook />} />
+
+{/*  */}
+    <Route path='/bannerproducts/' element={<BannerProducts />} />
     <Route path='/bannerproducts/reflectivebanner' element={<ReflectiveBanner />} />
     <Route path='/bannerproducts/stan' element={<Stan />} />
     <Route path='/bannerproducts/bannerCoated' element={<BannerCoated />} />
@@ -117,7 +135,7 @@ function App() {
     
 
     {/* product Details */}
-    <Route path='ادجستبل-ستاند/' element={<BannerProDetailsStand />} />
+    <Route path='/ادجستبل-ستاند/' element={<BannerProDetailsStand />} />
     <Route path='اكس-بانر/' element={<BannerProDetailsXBanner />} />
     <Route path='بانر-عادي/' element={<BannerProDetailsBannerNormall />} />
     <Route path='بوب-اب-كامل/' element={<BannerProDetailsBobUP />} />
@@ -132,6 +150,8 @@ function App() {
     <Route path='bannercoated/' element={<BannerProDetailsBannerCoated/>} />
     <Route path='glossy/' element={<BannerProDetailsGlossy/>} />
     <Route path='reflectivebanner/' element={<BannerProDetailsReflectiveBanner/>} />
+    <Route path='printandcut/' element={<BannerProDetailsPrintAndCut/>} />
+
    
     
     </Routes>

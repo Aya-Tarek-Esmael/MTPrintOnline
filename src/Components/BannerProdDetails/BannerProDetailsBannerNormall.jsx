@@ -18,11 +18,12 @@ function BannerProDetailsBannerNormall() {
   //     "بدون سلفنة": "0.00 ",
   // });
   const [typesAndPrices, setTypesAndPrices] = useState({
-    "خفيف": "160.0 ",
-    "وسط": "180.00 ",
-    "ثقيل": "200.00 ",
-    "مسلفن": "100.00 ",
-    "بدون سلفنة": "0.00 ",
+    "خفيف": "100.0 ",
+    "وسط": "120.00 ",
+    "ثقيل": "145.00 ",
+    "بدون": "0.00 ",
+    "سلوفان لامع": "60.00 ",
+    "سلوفان مط": "60.00 "
 
 });
   const isAddToCartDisabled = !selectedTypeBanner;
@@ -204,8 +205,10 @@ useEffect(() => {
                     <select className={`col-12 p-2 ${style.borderstyle}`} {...register('typesalfan')}
                      onChange={handleTypeSalfanChange}>
                         <option value="">اختر نوع السلفان</option>
-                        <option value="مسلفن">مسلفن</option>
-                        <option value="بدون سلفنة">بدون سلفنة</option>
+                        <option value="بدون">بدون</option>
+                        <option value="سلوفان لامع">سلوفان لامع</option>
+                        <option value="سلوفان مط">سلوفان مط</option>
+
                      </select>
                      {isPriceVisible &&  selectedTypeBanner && !selectedTypeSalfen && (
                              <>
@@ -331,7 +334,7 @@ useEffect(() => {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{(parseFloat(typesAndPrices[selectedTypeBanner]) + parseFloat(typesAndPrices[selectedTypeSalfen])) * quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{price * quantity} EGP</span>
                                      </div>
                                     </div>  
                                     {isPriceVisible && textareaValue && selectedFile && (
@@ -342,7 +345,7 @@ useEffect(() => {
                                     </div> 
                                     </>
                                     )}  
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {(parseFloat(typesAndPrices[selectedTypeBanner]) + parseFloat(typesAndPrices[selectedTypeSalfen])) * quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP  {price * quantity} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
@@ -373,17 +376,7 @@ useEffect(() => {
                                     <button type="submit" className={`btn btn-danger col-8 mt-2 mb-5 py-2 fs-5 me-1 ${isAddToCartDisabled ? 'disabled' : ''}`}>إضافة إلى السلة</button>
                                 </div>
                             </form>
-                   {/* <h2>Name:{proDetails.title}</h2>
-                   <h6>Descrition:{proDetails.description}</h6>
-                   <h6>Price:{proDetails.price}</h6>
-                   <h6>Quantity:{proDetails.quantity}</h6>
-                   <h6>Brand:{proDetails.brand.name}</h6>
-                   <h6>Category:{proDetails.category.name}</h6>
-                   <h6>Rating:{proDetails.ratingsAverage}</h6>
-                   {proDetails.images.map((image, index) => (
-                   <img key={index} src={image} alt={proDetails.title} className=' col-2 m-1' />
-                   ))} */}
-                   {/* <button className='btn btn-danger w-100 mt-3 mb-5' onClick=''>Add To Cart +</button> */}
+               
                 </div>
             </div>
 

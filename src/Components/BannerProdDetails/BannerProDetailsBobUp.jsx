@@ -13,10 +13,10 @@ function BannerProDetailsBobUp() {
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
     const [sizesAndPrices, setSizesAndPrices] = useState({
-      "2x3": "10,940.00 ",
-      "3x3": "11,510.00",
-      "3x4": "12,960.00 ",
-      "3x5": "13,920.00 "
+      "200x300": "10,940.00 ",
+      "300x300": "11,510.00",
+      "300x400": "12,960.00 ",
+      "300x500": "13,920.00 "
   });
   const isAddToCartDisabled = !selectedSize;
   const [textareaValue, setTextareaValue] = useState('');
@@ -160,10 +160,10 @@ function BannerProDetailsBobUp() {
                     {...register('size')}
                     onChange={handleSizeChange}>
                     <option value="">اختر المقاس</option>
-                    <option value="2x3"> 2x3 مقاس</option>
-                    <option value="3x3"> 3x3 مقاس</option>
-                    <option value="3x4"> 3x4 مقاس</option>
-                    <option value="3x4"> 3x5 مقاس </option>
+                    <option value="200x300"> 200x300 مقاس</option>
+                    <option value="300x300"> 300x300 مقاس</option>
+                    <option value="300x400"> 300x400 مقاس</option>
+                    <option value="300x500"> 300x500 مقاس </option>
                 </select>
             
             {isPriceVisible && selectedSize && (

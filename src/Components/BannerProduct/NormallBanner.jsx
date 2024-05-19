@@ -7,10 +7,11 @@ function NormallBanner({data}) {
 
 
   {/* cards container*/}
-  <li className={`card ${style.product}  border-0 pb-3 mt-3 mb-5 `}>
+  <li className={`card ${style.product} border-0 pb-3 mt-3 mb-5 col-lg-3 col-md-3 col-sm-12  col-xs-12 `}>
 	<div className="">
         <Link to={`/بانر-عادي/`} title="اكس بانر" className={style.cardimg}>
-			<img loading="lazy" width="300" height="300" src="https://amproadvertising.net/wp-content/uploads/2024/04/photo_2024-04-27_13-49-55-300x300.jpg" className={`${style.cardimg} px-2`}alt=""  sizes="(max-width: 360px) 147px, (max-width: 300px) 100vw, 300px" /></Link>
+		<img loading="lazy"  src="https://amproadvertising.net/wp-content/uploads/2024/04/photo_2024-04-27_13-49-55-300x300.jpg" className={`${style.cardimg} px-2 w-100`} alt=""   /></Link>
+
 			</div>
 			<div className="cardheader text-center">				
 				<div className="">

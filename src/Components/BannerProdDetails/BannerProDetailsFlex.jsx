@@ -13,8 +13,8 @@ function BannerProDetailsFlex() {
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedType, setSelectedType] = useState('');
     const [typesAndPrices, setTypesAndPrices] = useState({
-        "مع سلفنة": "420.00 ",
-        "بدون سلفنة": "320.00"
+        "مع سلفنة": "450.00 ",
+        "بدون سلفنة": "390.00"
   });
   const isAddToCartDisabled = !selectedType;
   const [textareaValue, setTextareaValue] = useState('');

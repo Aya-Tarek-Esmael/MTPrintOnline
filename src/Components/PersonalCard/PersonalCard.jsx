@@ -30,17 +30,17 @@ console.log(data);
     // personal card
 
     
-   <div className={`card  mb-4  ${style.cardcontain} `}>
-      <Link to={`/personalcarddet/${data.id}`}   className="text-dark">
+   <div className={`card  mb-4  ${style.cardcontain} ms-5`}>
+      <Link to={`/personalcards/${data.name}`}   className="text-dark">
        <img className="w-100"  style={{'margin':'auto','padding-top':'10px','height':'170px'}} src="https://images.prom.ua/3157769463_w640_h640_smartfon-iphone-xr.jpg" alt='carditem' />
     <div className="card-body text-center">
-      <h5 className="card-title">Card title</h5>
+      <h6 className="card-title">{data.name}</h6>
        </div>
        <div className="text-center">
        <button onClick={''}   className={` btn btn-danger w-75  ${style.cardbtn }`}>اضف الي السلة <i   className="fa-solid fa-cart-plus m-1 text-light fa-1x "></i></button>
        <div className={`${style.wishlistbtn} `}>
-       <button onClick={''}   className={` btn btn-danger ms-2  ${style.cardbtns }`}><i   className="fa-solid fa-heart text-light fa-1x "></i></button>
-       <button onClick={''}   className={` btn btn-danger ms-1  ${style.eyebtn} `}><i className="fa-solid fa-eye  text-light fa-1x "></i></button>
+       <button onClick={''}   className={` btn btn-danger me-1  ${style.cardbtns }`}><i   className="fa-solid fa-heart text-light fa-1x "></i></button>
+       <button onClick={''}   className={` btn btn-danger me-5  ${style.eyebtn} `}><i className="fa-solid fa-eye  text-light fa-1x "></i></button>
        
        </div>
        <div className={`${style.wishlistbtnmob} d-lg-none `}>

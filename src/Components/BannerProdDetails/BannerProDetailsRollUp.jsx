@@ -16,7 +16,6 @@ function BannerProDetailsRollUp() {
       "200x80": "1,100.00 ",
       "200x85": "1,175.00",
       "200x100": "1,350.00 ",
-      "200x120": "1,500.00 ",
       "200x150": "1,900.00 "
   });
   const isAddToCartDisabled = !selectedSize;
@@ -164,7 +163,6 @@ function BannerProDetailsRollUp() {
                     <option value="200x80"> فليكس مع سلفنة</option>
                     <option value="200x85"> فليكس بدون سلفنة</option>
                     <option value="200x100"> 200x100   سم</option>
-                    <option value="200x120"> 200x120   سم </option>
                     <option value="200x150"> 200x150   سم </option>
 
                 </select>

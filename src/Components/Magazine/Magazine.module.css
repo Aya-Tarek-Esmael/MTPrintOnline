@@ -6,12 +6,13 @@
   }
 
 
-.circlebg{
-/* background: rgb(236, 232, 232);
-border-radius: 50%; */
-
-}
-
+  .circlebg{
+    /* background-image: url('../../assets/circle.jpg');
+    background-size: cover;
+    height: 65%;
+    width: 97%; */
+    /* padding: 60px; */
+   }
 .cartbtn:hover{
     background-color:var(--primary-background);
     color: var(--font-color);
@@ -28,19 +29,28 @@ border-radius: 50%; */
    width:96%;
    }
 .textfont{
-    font-size: 13px;
+    font-size: 11px;
 
 }
 .textfont2{
     font-size: 11px;
 }
-.whr{
-    width: 256px;
+/* .whr{
+  width: 256px;
+} */
+.uploadbtn{
+cursor: pointer;
 }
-
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    .whr {
-      width: 333px;
-    }
+.selected{
+background-color:var(--primary-background);
+color:var(--font-color);
+}
+.divwidth{
+  width:98%;
   }
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  /* .whr {
+    width: 333px;
+  } */
+}

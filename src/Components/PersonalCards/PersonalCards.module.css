@@ -14,8 +14,8 @@
    
 }
 .cardcontain{
-    max-width:289px;
-    height: 320px;
+     max-width:289px;
+    height: 320px; 
     border-radius: 10px;
   
 }
@@ -47,8 +47,10 @@
    background-color: var(--primary-background);
   }
   .wishlistbtnmob{
-    margin-right: -160px;
-    margin-top:-30px;
+    /* margin-right: -160px;
+    margin-top:-30px; */
+    margin-top: -70px;
+    margin-right: -50px;
     z-index: 1111;
   }
 
@@ -66,4 +68,58 @@
     color: #777;
     text-decoration: none;
     transition: all 0.7s ease 0s;
+  }
+  .pfont{
+    font-size: 14px;
+
+  }
+  .widthImg{
+    width: 95%;
+    
+  }
+  .hrcolor{
+    border: 1px solid var(--primary-background);
+  }
+  .titlefont{
+    font-size: 14px;
+  }
+  .imageContainer {
+    position: relative;
+    overflow: hidden;
+    width:95%;
+    height:330px; 
+}
+
+.imageContainer img {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.3s ease;
+    transform-origin: center center;
+    position: absolute;
+}
+
+.imageContainer:hover img {
+    transform: scale(1.2);
+    
+}
+
+.imageContainer:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+  @media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .cardcontain{
+       max-width:550px; 
+     height: 320px; 
+     border-radius: 10px;
+    margin: 0px auto;
+ }
   }

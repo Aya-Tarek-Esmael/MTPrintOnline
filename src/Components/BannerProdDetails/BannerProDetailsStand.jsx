@@ -17,7 +17,9 @@ function BannerProDetailsStand() {
   
     const [sizesAndPrices, setSizesAndPrices] = useState({
       "مقاس 240×240": "500 ",
-      "مقاس 240×300": "1000 "
+      "مقاس 240×300": "1000 ",
+      "مقاس 200×300": "2000 "
+      
   });
   const isAddToCartDisabled = !selectedSize;
 
@@ -160,6 +162,8 @@ function BannerProDetailsStand() {
                     <option value="">اختر المقاس</option>
                     <option value="مقاس 240×240">مقاس 240×240</option>
                     <option value="مقاس 240×300">مقاس 240×300</option>
+                    <option value="مقاس 200×300">مقاس 200×300</option>
+
                 </select>
             
             {isPriceVisible && selectedSize && (

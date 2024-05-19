@@ -121,13 +121,13 @@ function BannerProDetailsSeeThrough() {
       const area = parseFloat(newWidth) * parseFloat(newHeight) *0.0001;
       setArea(area);
       console.log('area',area)
-      const newPrice = area * (450 );
+      const newPrice = area * (300 );
       setPrice(newPrice);
       console.log('price',price)
     }
   };
   useEffect(() => {
-    const newPrice = area * (450);
+    const newPrice = area * (300);
     setPrice(newPrice);
   }, [area]);
 

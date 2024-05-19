@@ -121,13 +121,13 @@ function BannerProDetailsReflectiveBanner() {
       const area = parseFloat(newWidth) * parseFloat(newHeight) *0.0001;
       setArea(area);
       console.log('area',area)
-      const newPrice = area * (480 );
+      const newPrice = area * (400 );
       setPrice(newPrice);
       console.log('price',price)
     }
   };
   useEffect(() => {
-    const newPrice = area * (480);
+    const newPrice = area * (400);
     setPrice(newPrice);
   }, [area]);
 

@@ -12,14 +12,21 @@ function BannerProDetailsVinyl() {
     const [quantity, setQuantity] = useState(1); 
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedType, setSelectedType] = useState('');
+    const [selectedPrintType, setSelectedPrintType] = useState('');
+    const [selectedTypeSalfen, setSelectedTypeSalfen] = useState('');
     const [typesAndPrices, setTypesAndPrices] = useState({
-        "فنيل شفاف لامع": "400.00",
-        "فنيل شفاف مط": "320.00",
-        "فنيل ابيض لامع ": "500.00",
-        "فنيل ابيض مط ":"700.00"
+        "فنيل شفاف لامع": "60.00",
+        "فنيل شفاف مط": "60.00",
+        "فنيل ابيض لامع ": "60.00",
+        "فنيل ابيض مط ":"60.00",
+        "Outdoor": "180.00",
+        "Indoor": "210.00",
+        "بدون": "0.00 ",
+        "سلوفان لامع": "60.00 ",
+        "سلوفان مط": "60.00 "
 
   });
-  const isAddToCartDisabled = !selectedType;
+  const isAddToCartDisabled = !selectedPrintType;
   const [textareaValue, setTextareaValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -89,7 +96,7 @@ function BannerProDetailsVinyl() {
   
   
 
-  const handleSizeChange = (e) => {
+  const handleTypeChange = (e) => {
       setSelectedType(e.target.value);
       setIsPriceVisible(true); 
   };
@@ -97,7 +104,10 @@ function BannerProDetailsVinyl() {
   const togglePriceVisibility = () => {
       setIsPriceVisible(!isPriceVisible);
   };
-
+  const resetSelectedPrintType = () => {
+    setSelectedPrintType('');
+  };
+  
   const handleQuantityChange = (e) => {
     const value = parseInt(e.target.value);
     if (!isNaN(value)) {
@@ -113,7 +123,14 @@ function BannerProDetailsVinyl() {
     setSelectedFile(e.target.files[0]);
   }
 
-
+  const handleTypeSalfanChange = (e) => {
+    setSelectedTypeSalfen(e.target.value);
+    setIsPriceVisible(true); 
+};
+  const handlePrintTypeChange = (e) => {
+    setSelectedPrintType(e.target.value);
+    setIsPriceVisible(true); 
+};
   const [width, setWidth] = useState('');
   const [height, setHeight] = useState('');
   const [area, setArea] = useState(0);
@@ -141,21 +158,26 @@ function BannerProDetailsVinyl() {
       const area = parseFloat(newWidth) * parseFloat(newHeight) *0.0001;
       setArea(area);
       console.log('area',area)
+      const selectedPrintTypePrice = parseFloat(typesAndPrices[selectedPrintType]);
       const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
-      const newPrice = area * (selectedTypePrice );
-      console.log(selectedTypePrice )
+      const selectedTypeSalfenPrice = parseFloat(typesAndPrices[selectedTypeSalfen]);
+      const newPrice = area * (selectedPrintTypePrice + selectedTypeSalfenPrice + selectedTypePrice);
+      console.log(selectedPrintTypePrice + selectedTypeSalfenPrice + selectedTypePrice)
       setPrice(newPrice);
       console.log('price',price)
     }
   };
   useEffect(() => {
+    const selectedPrintTypePrice = parseFloat(typesAndPrices[selectedPrintType]);
     const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
-    const newPrice = area * (selectedTypePrice);
+    const selectedTypeSalfenPrice = parseFloat(typesAndPrices[selectedTypeSalfen]);
+    const newPrice = area * (selectedPrintTypePrice + selectedTypeSalfenPrice + selectedTypePrice );
     setPrice(newPrice);
-  }, [area, selectedType]);
+  }, [area, selectedPrintType, selectedTypeSalfen,selectedType]);
 
 //  
   return (
+    <>
     <div>
         {proDetails? <div className={`container-fluid mb-3 pb-4 ${style.containerbg}`}>
             <div className="row px-5 mx-auto">
@@ -198,29 +220,58 @@ function BannerProDetailsVinyl() {
                     <p style={{'fontSize':'13px'}}>السعر يشمل التصميم والطباعة. نقدم مختلف المقاسات</p>
                     <form onSubmit={handleSubmit(onSubmit)}>
                     <div>
-                    <label className='fw-bold mt-2'>المقاس</label>
+                    <label className='fw-bold'>اختر نوع الطباعة</label>
+                    <select className={`col-12 p-2  ${style.borderstyle}`} {...register('printtype')}
+                     onChange={handlePrintTypeChange}
+                     value={selectedPrintType} >
+                        <option value=""> اختر نوع الطباعة</option>
+                        <option value="Indoor">Indoor</option>
+                        <option value="outdoor">outdoor</option>
+                     </select>
+                     </div>
+                    
+                    <div>
+                    <label className='fw-bold mt-2'>الفينيل</label>
                     <select
                     className={`col-12 p-2 mt-2 ${style.borderstyle}`}
-                    {...register('size')}
-                    onChange={handleSizeChange}>
+                    {...register('type')}
+                    onChange={handleTypeChange}>
                          <option value="">اختر نوع الفينيل</option>
                         <option value="فنيل شفاف لامع"> فنيل شفاف لامع</option>
                         <option value="فنيل شفاف مط">فنيل شفاف مط</option>
                         <option value="فنيل ابيض لامع "> فنيل ابيض لامع </option>
                         <option value="فنيل ابيض مط ">فنيل ابيض مط </option>
                      </select>
-            
-            {isPriceVisible && selectedType && (
-              <>
-                <div className='col-12 '>
-                    <button  className="text-danger btn" onClick={togglePriceVisibility}>ازالة </button>
-                </div>
-                <div>
-                     <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{typesAndPrices[selectedType]} EGP سعر المتر يبدأ من</span>
-                </div>
+                    </div>
+                    <div>
+                    <label className='fw-bold'>نوع السلفان</label>
+                    <select className={`col-12 p-2 ${style.borderstyle}`} {...register('typesalfan')}
+                     onChange={handleTypeSalfanChange}>
+                        <option value="">اختر نوع السلفان</option>
+                        <option value="بدون">بدون</option>
+                        <option value="سلوفان لامع">سلوفان لامع</option>
+                        <option value="سلوفان مط">سلوفان مط</option>
 
-                 
-                <div className='d-flex'>
+                     </select>
+                     {isPriceVisible &&  selectedPrintType && !selectedTypeSalfen && (
+                             <>
+                            <div className='col-12 '>
+                                 <button  className="text-danger btn" onClick={resetSelectedPrintType}>ازالة </button>
+                             </div>
+                                </>     
+               
+                           )}
+                 {isPriceVisible &&  selectedPrintType && selectedTypeSalfen && selectedType &&(
+             <>
+             <div className='col-12 '>
+                 <button  className="text-danger btn" onClick={togglePriceVisibility}>ازالة </button>
+
+             </div>
+             <div>
+                  <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedPrintType]) + parseFloat(typesAndPrices[selectedTypeSalfen]) + parseFloat(typesAndPrices[selectedTypeSalfen])} EGP</span>
+             </div>
+             
+             <div className='d-flex'>
                     <label className='col-6 mt-3' htmlFor='length'>الارتفاع (سنتيمتر)</label>
                     <input
                                             type="text"
@@ -272,24 +323,24 @@ function BannerProDetailsVinyl() {
 
 	
 	
-	<div className="mt-1 ">
+    <div className="mt-1 ">
 
-		<label className='col-6' htmlFor='productprice'>سعر المنتج</label>
+<label className='col-6' htmlFor='productprice'>سعر المنتج</label>
 
-        {/* <span className="product_price me-5">{productPrice}</span> */}
-        <input
-                                type="text"
-                                value={price}
-                                className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
-                                autoComplete="off"
-                                placeholder="0.00"
-                                readOnly
-                                
-                            />
-	</div>
-                </>     
-               
-               )}
+    {/* <span className="product_price me-5">{productPrice}</span> */}
+    <input
+                            type="text"
+                            value={price}
+                            className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
+                            autoComplete="off"
+                            placeholder="0.00"
+                            readOnly
+                            
+                        />
+</div>
+            </>     
+           
+           )}
                      </div>
                      <div>
                      <h5 className="fw-normal mt-4" data-addon-name="أكتب ملاحظاتك مع الطلب">أكتب ملاحظاتك مع الطلب</h5>
@@ -326,14 +377,14 @@ function BannerProDetailsVinyl() {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{parseFloat(typesAndPrices[selectedType] )* quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{price * quantity} EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {typesAndPrices[selectedType]* quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {price * quantity} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
@@ -374,7 +425,7 @@ function BannerProDetailsVinyl() {
 
          
     </div>
- 
+    </>
   )
 }
 

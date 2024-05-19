@@ -14,8 +14,7 @@ function BannerProDetails() {
     const [selectedSize, setSelectedSize] = useState('');
     const [sizesAndPrices, setSizesAndPrices] = useState({
       "60x160": "850.00 ",
-      "80x180": "1.050.00",
-      "21x29.7": "180.00 "
+      "80x180": "1.050.00"
 
   });
   const isAddToCartDisabled = !selectedSize;
@@ -163,7 +162,6 @@ function BannerProDetails() {
                     <option value="">اختر المقاس</option>
                     <option value="60x160">60x160 cm</option>
                     <option value="80x180">80x180 cm</option>
-                    <option value="21x29.7"> 21x29.7 cm</option>
                 </select>
             
             {isPriceVisible && selectedSize && (

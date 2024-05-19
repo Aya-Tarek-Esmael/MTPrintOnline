@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import style from './BannerproDetails.module.css'
 // import LoadingScrean from '../LoadingScrean/LoadingScrean';
 import bannerproimg from '../../assets/image2.jpg'
-function BannerProDetailsBannerCoated() {
+function BannerProDetailsGlossy() {
     const {id} =useParams();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
@@ -330,4 +330,4 @@ function BannerProDetailsBannerCoated() {
   )
 }
 
-export default BannerProDetailsBannerCoated
+export default BannerProDetailsGlossy

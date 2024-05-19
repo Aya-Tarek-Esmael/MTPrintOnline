@@ -28,21 +28,19 @@ border-radius: 50%; */
    width:96%;
    }
 .textfont{
-    font-size: 13px;
+    font-size: 11px;
 
 }
-.textfont2{
-    font-size: 11px;
-}
-.whr{
-    width: 256px;
-}
+
+
 .measurewidth{
   width: 98%;
 }
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    .whr {
-      width: 333px;
-    }
-  }
+
+.uploadbtn{
+  cursor: pointer;
+}
+.selected{
+  background-color:var(--primary-background);
+  color:var(--font-color);
+ }

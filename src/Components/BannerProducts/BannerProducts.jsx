@@ -19,6 +19,7 @@ import XBanner from '../BannerProduct/XBanner';
 import Vinyl from '../BannerProduct/Vinyl';
 import Wallpaper from '../BannerProduct/Wallpaper';
 import Stan from '../BannerProduct/Stan';
+import PrintAndCut from '../BannerProduct/PrintAndCut';
 function BannerProducts() {
 
 	    
@@ -36,11 +37,11 @@ function BannerProducts() {
     }, [])
   return (
    <>
-<div className='contanier-fluid mx-5 my-5 '>
+<div className='contanier-fluid px-5 my-5 ' style={{overflow:'hidden'}}>
 <h1 className="title page-title  my-4 col-xs-12 col-sm-12 col-md-12 col-lg-12 ">البانر</h1>
 <header className={`${style.productsheader} p-4 `}>	
 <div className="term-descriptionn "><p>يحتوي هذا القسم علي مجموعة من الـ بانر المميزة و المختلفة و المصممه خصيصا لك و لشركتك</p>
-<p>&#8220;الآن يمكنك طلب كل ما تحتاجه شركتك من مطبوعات وهدايا من خلال الموقع الخاص بشركة AMPRO Advertising أفضل شركة دعاية وإعلان في مِصر ذات سمعة طيبة وفكر إبداعي، حيث نسعى لتحقيق احتياجات عملائنا التسويقية، وتقديم أفضل المطبوعات الإعلانية لرجال الأعمال وأصحاب المشاريع التجارية وإنجازها في أوقات قياسية وذلك لأن الوقت في مجال الدعاية والإعلان هو عامل هام بالنسبة لنا ولعملائنا.&#8221;</p>
+<p>&#8220;الآن يمكنك طلب كل ما تحتاجه شركتك من مطبوعات وهدايا من خلال الموقع الخاص بشركة<span className='fw-bold'>  مطبعة </span> أفضل شركة دعاية وإعلان في مِصر ذات سمعة طيبة وفكر إبداعي، حيث نسعى لتحقيق احتياجات عملائنا التسويقية، وتقديم أفضل المطبوعات الإعلانية لرجال الأعمال وأصحاب المشاريع التجارية وإنجازها في أوقات قياسية وذلك لأن الوقت في مجال الدعاية والإعلان هو عامل هام بالنسبة لنا ولعملائنا.&#8221;</p>
 </div>
 </header>
 {/* end header */}
@@ -59,31 +60,29 @@ function BannerProducts() {
 <p className="">عرض جميع النتائج 16</p>	
 </div>
 
-<div className='frex-wrap'>
-    <div className='d-flex col-12'>
+
+    <div className=' col-lg-12 col-sm-12 col-md-12 d-md-flex flex-wrap'>
   <BannerStand   data={'data'} />
   <XBanner  data={'data'} />
    <ReflectiveBanner data={'data'}  />
    <NormallBanner  data={'data'} />
-   </div>
-   <div className='d-flex col-12'>
+
    <BobUp />
    <BannerCoated  data={'data'} />
    <Gloosy  data={'data'} />
    <CarVinyl  data={'data'} />
-   </div>
-   <div className='d-flex col-12'>
+
    <Flex data={'data'}  />
    <Stan  data={'data'} />
    <RollUp data={'data'}  />
    <SeeThrough data={'data'} />
-   </div>
-   <div className='d-flex col-12'>
+  
    <Vinyl  data={'data'}  />
    <Canvas  data={'data'} />
    <Wallpaper data={'data'} />
+   <PrintAndCut   data={'data'}/>
    </div>
-</div>
+
 
 
 

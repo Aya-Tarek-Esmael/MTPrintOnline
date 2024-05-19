@@ -31,12 +31,12 @@ function LetterHead() {
   return (
     <>
     
-    <div className='container-fluid my-5'>
+    <div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
      <h1 className='mx-4 mb-5'> ليترهيد- LetterHead </h1>
      <form onSubmit={handleSubmit}>
-    <div className='d-lg-flex  mx-0 '>
+     <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
-     <div className='col-md-6 ms-1 col-sm-12 px-sm-1'>
+     <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
               {/* item */}
               <div className=''>
        <label className='mb-2 fw-bold'>نوع الورق </label>
@@ -114,40 +114,40 @@ function LetterHead() {
      {/* item */}
      </div>
 
-     {/* ..... */}
-     <div className='left col-md-5 col-sm-12 me-md-4 '>
+  {/* ..... */}
+  <div className='left col-md-12 col-sm-12 col-lg-5 col-xs-12 me-lg-4 '>
      
-                    <div className='mb-4'></div>
-                           {/* item */}
-                      <div className=" d-flex justify-content-between border">
-                          <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
-                              <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-                          </Link>
+     <div className='mb-4'></div>
 
-                          <div className="">
-                              <div className="p-2 d-flex justify-content-between align-items-center ">
-                                  <div className="price-text fw-bold">
-                                      الإجمالي
-                                  </div>
-                                  <div className="price-number fw-bold">
-                                      00.00&nbsp;ج.م
-                                  </div>
-                              </div>
-                              <hr className={style.whr}/>
-                              <div className=" d-flex justify-content-between align-items-center">
-                                  <div className={style.textfont2}>
-                                      *
-                                      السعر غير شامل الشحن
-                                  </div>
-                                  <div className={style.textfont}>
-                                      سعر النسخة
-                                      00.00
-                                      
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-                 
+       <div className=" d-flex  border">
+           <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+               <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
+           </Link>
+
+           <div className="w-100">
+               <div className=" p-1 d-flex justify-content-between align-items-center ">
+                   <div className=" fw-bold">
+                       الإجمالي
+                   </div>
+                   <div className="price-number fw-bold">
+                       00.00&nbsp;ج.م
+                   </div>
+               </div>
+               {/* <hr className={style.whr}/> */}
+               <div className={`${style.textfont} mt-3  d-flex justify-content-between align-items-center border-top`}>
+                   <div className={`px-2 mt-3 ms-3`}>
+                       *
+                       السعر غير شامل الشحن
+                   </div>
+                   <div className={`px-2 mt-3  me-2`}>
+                       سعر النسخة
+                       00.00
+                       
+                   </div>
+               </div>
+           </div>
+       </div>
+  
 
 {/* item*/}
 
@@ -242,8 +242,8 @@ function LetterHead() {
 {/* rightside */}
 
 {/* leftside */}
-<div  className={`col-md-4  mt-4 mb-5`}>
-     <div className={style.circlebg} >
+<div  className={`col-md-12 col-lg-4 col-sm-12  mt-4 `}>
+     <div className={`${style.circlebg} px-5 `} >
      <img src={letterheadImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      

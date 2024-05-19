@@ -13,9 +13,9 @@ function BannerProDetailsCanvas() {
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedType, setSelectedType] = useState('');
     const [typesAndPrices, setTypesAndPrices] = useState({
-        "كانفس مط": "400.00",
-        "كانفس جليتر": "320.00",
-        "كانفس وبرا": "500.00"
+        "كانفس مط": "250.00",
+        "كانفس جليتر": "200.00",
+        "كانفس وبرا": "200.00"
   });
   const isAddToCartDisabled = !selectedType;
   const [textareaValue, setTextareaValue] = useState('');
@@ -324,14 +324,14 @@ function BannerProDetailsCanvas() {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{parseFloat(typesAndPrices[selectedType] )* quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{price * quantity} EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {typesAndPrices[selectedType]* quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {price * quantity} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
