@@ -8,7 +8,7 @@ function InvoiceBook() {
 
 
  const [size, setSize] = useState('');
- const [cover, setCover] = useState('');
+ const [type, setType] = useState('');
  const [quantity, setQuantity] = useState(20);
  const [paperNum, setPaperNum] = useState('');
  const [paperStart, setPaperStart] = useState('');
@@ -23,7 +23,7 @@ function InvoiceBook() {
        //selected choices 
       
        console.log('Selected PaperNum Type:', paperNum);
-       console.log('Selected Cover Type:', cover);
+       console.log('Selected  Type:', type);
        console.log('Selected Size:', size);
        console.log('Selected Quantity:', quantity);
        console.log('Notes:', notes);
@@ -80,23 +80,23 @@ function InvoiceBook() {
                     <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
                       <div
                      className={`border col-4 py-1 hovercolor ${
-                       cover === 'اصل وصورة'  ? style.selected : ''
+                       type === 'اصل وصورة'  ? style.selected : ''
                      }`}
-                     onClick={() => setCover('اصل وصورة')}>
+                     onClick={() => setType('اصل وصورة')}>
                     اصل وصورة
                    </div>
                    <div
                      className={`border me-1 col-4 py-1 hovercolor ${
-                       cover === 'اصل وصورتين '? style.selected : ''
+                       type === 'اصل وصورتين '? style.selected : ''
                      }`}
-                     onClick={() => setCover('اصل وصورتين')}>
+                     onClick={() => setType('اصل وصورتين')}>
                 اصل وصورتين
                    </div>
                    <div
                      className={`border me-1 col-4 py-1 hovercolor ${
-                       cover === 'اصل و 3 صور '? style.selected : ''
+                       type === 'اصل و 3 صور '? style.selected : ''
                      }`}
-                     onClick={() => setCover('اصل و 3 صور ')}>
+                     onClick={() => setType('اصل و 3 صور ')}>
                اصل و 3 صور 
                    </div>
       </div>

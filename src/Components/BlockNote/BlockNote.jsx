@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './BlockNote.module.css'
 import blocknoteImg from '../../assets/blocknote.png'
 import { Link } from 'react-router-dom';
@@ -27,9 +27,9 @@ function BlockNote() {
     console.log('Selected Paper Type:', paperNum);
     console.log('Selected Cut Type:', cutType);
     console.log('Selected Size:', size);
-    console.log('Selected Size:', close);
-    console.log('Selected Size:', closeSide);
-    console.log('Selected Quantity:', cover);
+    console.log('Selected close:', close);
+    console.log('Selected close side:', closeSide);
+    console.log('Selected cover:', cover);
     console.log('Notes:', notes);
     console.log('Uploaded File:', file);
     console.log('File Link:', fileLink);
@@ -38,103 +38,182 @@ function BlockNote() {
 
   return (
     <>
-    
-    <div className='container-fluid my-5'>
-     <h1 className='mx-4 mb-5'> بلوك نوت - Block Note </h1>
-    <div className='d-lg-flex  mx-0 '>
-    <div className='col-lg-8 d-lg-flex  px-4'>
-    <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
+      <div className='container-fluid my-5'>
+        <h1 className='mx-4 mb-5'> بلوك نوت - Block Note </h1>
+        <form onSubmit={handleSubmit}>
+          <div className='d-lg-flex  mx-0 '>
+            <div className='col-lg-8 d-lg-flex  px-4'>
+              <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
 
-      
+                {/* Paper Type */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'>نوع الورق </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-4 py-1 hovercolor ${paperType === '70 جرام' ? style.selected : ''}`}
+                      onClick={() => setPaperType('70 جرام')}
+                    > 70 جرام</div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${paperType === '80 جرام' ? style.selected : ''}`}
+                      onClick={() => setPaperType('80 جرام')}
+                    >80 جرام</div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${paperType === '100 جرام' ? style.selected : ''}`}
+                      onClick={() => setPaperType('100 جرام')}
+                    >100 جرام</div>
+                  </div>
+                </div>
 
-        {/* item */}
-        <div className='mt-2'>
-       <label className='mb-2 fw-bold'>نوع الورق </label>
-       <div className='d-flex text-center ms-2'>
-         <div className='border col-4 py-1 hovercolor'> 70 جرام</div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>80 جرام</div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>100جرام</div>
-       </div>
-       </div>
+                {/* Print Type */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> شكل الطباعة  </label>
+                  <div className='d-flex text-center ms-1'>
+                    <div
+                      className={`border col-6 p-1 hovercolor ${printType === 'وجة فقط' ? style.selected : ''}`}
+                      onClick={() => setPrintType('وجة فقط')}
+                    >وجة فقط </div>
+                    <div
+                      className={`border me-1 col-6 p-1 hovercolor ${printType === 'وجة وضهر' ? style.selected : ''}`}
+                      onClick={() => setPrintType('وجة وضهر')}
+                    >وجة وضهر</div>
+                  </div>
+                </div>
 
-        {/* item */}
+                {/* Cut Type */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> القص </label>
+                  <div className='d-flex text-center ms-1'>
+                    <div
+                      className={`border col-6 p-1 hovercolor ${cutType === 'عادى' ? style.selected : ''}`}
+                      onClick={() => setCutType('عادى')}
+                    >عادى</div>
+                    <div
+                      className={`border me-1 col-6 p-1 hovercolor ${cutType === 'كيرف' ? style.selected : ''}`}
+                      onClick={() => setCutType('كيرف')}
+                    >كيرف </div>
+                  </div>
+                </div>
 
-       {/* item */}
-       <div className='mt-2'>
-       <label className='mb-2 fw-bold'> شكل الطباعة  </label>
-       <div className='d-flex text-center ms-1'>
-         <div className='border  col-6 p-1 hovercolor '>وجة فقط </div>
-         <div className='border me-1  col-6 p-1 hovercolor'>وجة وضهر</div>
-       </div>
-       </div>
-        {/* item */}
-        <div className='mt-2'>
-       <label className='mb-2 fw-bold'> القص </label>
-       <div className='d-flex text-center ms-1'>
-         <div className='border  col-6 p-1 hovercolor '>عادى</div>
-         <div className='border me-1  col-6 p-1 hovercolor'>كيرف </div>
-       </div>
-       </div>
-               {/* item */}
-               <div className='mt-2'>
-       <label className='mb-2 fw-bold'> عدد الورق الداخلى  </label>
-       <div className='d-flex text-center ms-2'>
-         <div className='border col-4 py-1 hovercolor'>  25 ورقة </div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>  50 ورقة </div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>   100 ورقة  </div>
-       </div>
-       </div>
-        {/* item */}
-        <div className='mt-2'>
-       <label className='mb-2 fw-bold'> التقفيل  </label>
-       <div className='d-flex text-center ms-2'>
-         <div className='border col-4 py-1 hovercolor'> غراء = لزق </div>
-         <div className='border  me-1 col-4 py-1 hovercolor'> دبوس = دفتر </div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>  سلك  </div>
-       </div>
-       </div>
-        {/* item */}
-        <div className='mt-2'>
-       <label className='mb-2 fw-bold'> جة التقفيل  </label>
-       <div className='d-flex text-center ms-2'>
-         <div className='border col-3 py-1 hovercolor'> فوق</div>
-         <div className='border  me-1 col-3 py-1 hovercolor'> تحت</div>
-         <div className='border  me-1 col-3 py-1 hovercolor'>  شمال  </div>
-         <div className='border  me-1 col-3 py-1 hovercolor'>  يمين </div>
+                {/* Paper Number */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> عدد الورق الداخلى  </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-4 py-1 hovercolor ${paperNum === '25 ورقة' ? style.selected : ''}`}
+                      onClick={() => setPaperNum('25 ورقة')}
+                    >  25 ورقة </div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${paperNum === '50 ورقة' ? style.selected : ''}`}
+                      onClick={() => setPaperNum('50 ورقة')}
+                    >  50 ورقة </div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${paperNum === '100 ورقة' ? style.selected : ''}`}
+                      onClick={() => setPaperNum('100 ورقة')}
+                    >   100 ورقة  </div>
+                  </div>
+                </div>
 
-       </div>
-       </div>
-              {/* item */}
-              <div className='mt-2'>
-       <label className='mb-2 fw-bold'>الغلاف</label>
-       <div className='d-flex text-center ms-2'>
-       <div className='border   col-3 p-1 hovercolor'> بدون</div>
-         <div className='border me-1  col-3 p-1 hovercolor'> 150جرام</div>
-         <div className='border  me-1  col-3 p-1 hovercolor'>200جرام</div>
-         <div className='border  me-1  col-3 p-1 hovercolor'>300جرام لامع كوشيه</div>
-       </div>
-       </div>
+                {/* Close Type */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> التقفيل  </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-4 py-1 hovercolor ${close === 'غراء = لزق' ? style.selected : ''}`}
+                      onClick={() => setClose('غراء = لزق')}
+                    > غراء = لزق </div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${close === 'دبوس = دفتر' ? style.selected : ''}`}
+                      onClick={() => setClose('دبوس = دفتر')}
+                    > دبوس = دفتر </div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${close === 'سلك' ? style.selected : ''}`}
+                      onClick={() => setClose('سلك')}
+                    >  سلك  </div>
+                  </div>
+                </div>
 
-               {/* item */}
-               <div className=''>
-       <label className='fw-bold'>المقاس</label>
-       <div className=' mt-1 me-0 col-12 text-center '>
-        <div className='col-12 d-flex'>
-         <div className={`border hovercolor  col-4 py-1 `}>A4 (30 X 21)</div>
-         <div className={`border me-1 hovercolor col-4 py-1  `}>A5 (21 X 15)</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>A6 (15 X 10)</div>
-         </div>
-         <div className='col-12 d-flex mt-2'>
-         <div className={`border me-0 hovercolor col-4 py-1 `}>B4 (34 X 24)</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>B5 (24 X 17)</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>B6 (17 X 12)</div>
-         </div>
-       </div>
-       </div>
-              
-     {/* item */}
-     </div>
+                {/* Close Side */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> جة التقفيل  </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-3 py-1 hovercolor ${closeSide === 'فوق' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('فوق')}
+                    > فوق</div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'تحت' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('تحت')}
+                    > تحت</div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'شمال' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('شمال')}
+                    >  شمال  </div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'يمين' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('يمين')}
+                    >  يمين </div>
+                  </div>
+                </div>
 
+                {/* Cover */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'>الغلاف</label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-3 p-1 hovercolor ${cover === 'بدون' ? style.selected : ''}`}
+                      onClick={() => setCover('بدون')}
+                    > بدون</div>
+                    <div
+                      className={`border me-1 col-3 p-1 hovercolor ${cover === '150 جرام' ? style.selected : ''}`}
+                      onClick={() => setCover('150 جرام')}
+                    > 150جرام</div>
+                    <div
+                      className={`border me-1 col-3 p-1 hovercolor ${cover === '200 جرام' ? style.selected : ''}`}
+                      onClick={() => setCover('200 جرام')}
+                    >200جرام</div>
+                    <div
+                      className={`border me-1 col-3 p-1 hovercolor ${cover === '300 جرام لامع كوشيه' ? style.selected : ''}`}
+                      onClick={() => setCover('300 جرام لامع كوشيه')}
+                    >300جرام لامع كوشيه</div>
+                  </div>
+                </div>
+
+                {/* Size */}
+                <div className=''>
+                  <label className='fw-bold'>المقاس</label>
+                  <div className=' mt-1 me-0 col-12 text-center '>
+                    <div className='col-12 d-flex'>
+                      <div
+                        className={`border hovercolor col-4 py-1 ${size === 'A4 (30 X 21)' ? style.selected : ''}`}
+                        onClick={() => setSize('A4 (30 X 21)')}
+                      >A4 (30 X 21)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A5 (21 X 15)' ? style.selected : ''}`}
+                        onClick={() => setSize('A5 (21 X 15)')}
+                      >A5 (21 X 15)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A6 (15 X 10)' ? style.selected : ''}`}
+                        onClick={() => setSize('A6 (15 X 10)')}
+                      >A6 (15 X 10)</div>
+                    </div>
+                    <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border me-0 hovercolor col-4 py-1 ${size === 'B4 (34 X 24)' ? style.selected : ''}`}
+                        onClick={() => setSize('B4 (34 X 24)')}
+                      >B4 (34 X 24)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B5 (24 X 17)' ? style.selected : ''}`}
+                        onClick={() => setSize('B5 (24 X 17)')}
+                      >B5 (24 X 17)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B6 (17 X 12)' ? style.selected : ''}`}
+                        onClick={() => setSize('B6 (17 X 12)')}
+                      >B6 (17 X 12)</div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
   {/* ..... */}
   <div className='left col-md-12 col-sm-12 col-lg-5 col-xs-12 me-lg-4 '>
      
@@ -288,7 +367,7 @@ function BlockNote() {
                  </div>
     </div>
     </div>
-
+    </form>
     </div>
    </>
   )

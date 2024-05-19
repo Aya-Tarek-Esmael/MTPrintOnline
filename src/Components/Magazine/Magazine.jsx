@@ -89,13 +89,13 @@ function Magazine() {
                             {/* item */}
                             <div className='d-flex border justify-content-between p-2 mt-3'>
                                 <label className=''>عدد النسخ</label>
-                                <input type='text' placeholder='0' className='bg-light p-1 text-center border-0' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
+                                <input type='number' placeholder='0' className='bg-light p-1 text-center border-0' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                             </div>
 
                             {/* item */}
                             <div className="d-flex border py-4 mt-3 justify-content-center text-center">
-                                <div id="dZUpload" className="">
-                                    <label htmlFor='coverUpload' className="text-dark">
+                                <div id="dZUpload" className={`${style.uploadbtn}`}>
+                                <label htmlFor='coverUpload' className={`text-dark ${style.uploadbtn}`}>
                                         <i className="fa-solid fa-upload ms-2"></i>
                                         رفع تصميم الغلاف
                                     </label>

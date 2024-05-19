@@ -103,7 +103,7 @@ function LetterHead() {
           <div className='d-flex border justify-content-between p-2  mt-4'>
           <label className=''>الكمية</label>
           <input
-                    type='text'
+                    type='number'
                     placeholder='0'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}

@@ -1,74 +1,146 @@
-import React from 'react'
+import React, { useState } from 'react'
 import style from './Sticker.module.css'
 import stickerImg from '../../assets/sticker.png'
 import { Link } from 'react-router-dom';
+
 function Sticker() {
+      // State variables to hold selected choices
+      const [paperType, setPaperType] = useState('');
+      const [solfan, setSolfan] = useState('');
+      const [size, setSize] = useState('');
+      const [quantity, setQuantity] = useState('');
+      const [paperNum, setPaperNum] = useState('');
+      const [notes, setNotes] = useState('');
+      const [file, setFile] = useState('');
+      const [fileLink, setFileLink] = useState('');
+      const [deliveryDate, setDeliveryDate] = useState('');
+
+
+            // Function to handle form submission
+        const handleSubmit = (e) => {
+         e.preventDefault();
+         //selected choices 
+         console.log('Selected Paper Type:', paperType);
+         console.log('Selected solfan Type:', solfan);
+         console.log('Selected Size:', size);
+         console.log('Selected Quantity:', quantity);
+         console.log('Notes:', notes);
+         console.log('Uploaded File:', file);
+         console.log('File Link:', fileLink);
+         console.log('Delivery Date:', deliveryDate);
+        }
   return (
     <>
     
     <div className='container-fluid my-5'>
      <h1 className='mx-4 mb-5'> ستيكر- Sticker </h1>
+     <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
-    <div className='col-lg-8 d-lg-flex  px-4'>
+     <div className='col-lg-8 d-lg-flex  px-4'>
      <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
-      
 
         {/* item */}
         <div className=''>
-       <label className='mb-2 fw-bold'>نوع الورق </label>
-       <div className='d-flex text-center ms-2'>
-         <div className='border col-4 py-1 hovercolor'> جاك اصفر </div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>جاك ابيض </div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>TC </div>
-       </div>
-       </div>
-
-         {/* item */}
-         <div className='mt-4'>
-       <label className='mb-2 fw-bold'>السلوفان</label>
-       <div className='d-flex text-center ms-2'>
-         <div className='border col-4 py-1 hovercolor'> بدون</div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>مط</div>
-         <div className='border  me-1 col-4 py-1 hovercolor'>لامع</div>
-       </div>
-       </div>
-
+        <label className='mb-2 fw-bold'>نوع الورق </label>
+                                <div className='d-flex text-center ms-2'>
+                                    <div className={`border col-4 py-1 hovercolor ${paperType === 'جاك اصفر ' ? style.selected : ''}`} onClick={() => setPaperType('جاك اصفر ')}>جاك اصفر </div>
+                                    <div className={`border me-1 col-4 py-1 hovercolor ${paperType === 'جاك ابيض ' ? style.selected : ''}`} onClick={() => setPaperType('جاك ابيض ')}>جاك ابيض </div>
+                                    <div className={`border me-1 col-4 py-1 hovercolor ${paperType === 'TC' ? style.selected : ''}`} onClick={() => setPaperType('TC')}>TC</div>
+                                </div>
+                            </div>
+        {/* item */}
+        <div className='mt-4'>
+                                <label className='mb-2 fw-bold'>السلوفان</label>
+                                <div className='d-flex text-center ms-2'>
+                                    <div className={`border col-4 py-1 hovercolor ${solfan === 'بدون' ? style.selected : ''}`} onClick={() => setSolfan('بدون')}>بدون</div>
+                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'مط' ? style.selected : ''}`} onClick={() => setSolfan('مط')}>مط</div>
+                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'لامع' ? style.selected : ''}`} onClick={() => setSolfan('لامع')}>لامع</div>
+                                </div>
+                            </div>
 
 
-               {/* item */}
-               <div className='mt-4'>
-       <label className='fw-bold'>المقاس</label>
-       <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
-        <div className='col-12 d-flex '>
-         <div className={`border hovercolor  col-4 py-1 `}> دايرة 1.5 سم </div>
-         <div className={`border me-1 hovercolor col-4 py-1  `}>دايرة 3 سم </div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>دايرة 4 سم </div>
-         </div>
-         <div className='col-12 d-flex mt-2'>
-         <div className={`border me-0 hovercolor col-4 py-1 `}>دايرة 5 سم </div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>دايرة 7 سم </div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>دايرة 9 سم </div>
-         </div>
-         <div className='col-12 d-flex mt-2'>
-         <div className={`border me-0 hovercolor col-4 py-1 `}>11x5</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>11x18</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>10x5</div>
-         </div>
-         <div className='col-12 d-flex mt-2'>
-         <div className={`border me-0 hovercolor col-4 py-1 `}>14x5</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>30x20</div>
-         <div className={`border me-1 hovercolor col-4 py-1 `}>30x42</div> 
-         </div>
-       </div>
-       </div>
+        {/* item */}
+   
+      <div className='mt-4'>
+                  <label className='fw-bold'>المقاس</label>
+                  <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
+                  <div className='col-12 d-flex '>
+                      <div
+                        className={`border hovercolor  col-4 py-1 ${size === 'دايرة 1.5 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 1.5 سم ')}
+                      >دايرة 1.5 سم </div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 3 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 3 سم ')}
+                      >دايرة 3 سم </div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 4 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 4 سم ')}
+                      >دايرة 4 سم </div>
+                    </div>
+                    <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border hovercolor  col-4 py-1 ${size === 'دايرة 5 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 5 سم' )}
+                      >دايرة 5 سم</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 7 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 7 سم')}
+                      >دايرة 7 سم </div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 9 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 9 سم')}
+                        >دايرة 9 سم </div>
+                    </div>
+                 
+                  <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border me-0 hovercolor col-4 py-1 ${size === '11x5' ? style.selected : ''}`}
+                        onClick={() => setSize('11x5')}
+                      >11x5</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === '30x20' ? style.selected : ''}`}
+                        onClick={() => setSize('30x20')}
+                      >30x20</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === '30x42' ? style.selected : ''}`}
+                        onClick={() => setSize('30x42')}
+                      >30x42</div>
+                    </div>
+                 
+                  <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border me-0 hovercolor col-4 py-1 ${size === '14x5' ? style.selected : ''}`}
+                        onClick={() => setSize('14x5')}
+                      >14x5</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === '11x18' ? style.selected : ''}`}
+                        onClick={() => setSize('11x18')}
+                      >11x18</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === '10x5' ? style.selected : ''}`}
+                        onClick={() => setSize('10x5')}
+                      >10x5</div>
+                    </div>
+                  </div>
+                  </div>
+                  
+
+                        
            {/* item */}
            <div className='d-flex border justify-content-between p-2   mt-4'>
           <label className=''>الكمية</label>
-          <input type='text'  placeholder='0'  className='bg-light  p-1 text-center border-0 '/>
+          <input
+                    type='number'
+                    placeholder='0'
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    className='bg-light p-1 text-center border-0'
+                  />
          </div>     
      {/* item */}
+    
      </div>
-
   {/* ..... */}
   <div className='left col-md-12 col-sm-12 col-lg-5 col-xs-12 me-lg-4 '>
      
@@ -104,15 +176,21 @@ function Sticker() {
        </div>
   
 
-{/* 2*/}
+{/* item*/}
 
                      <div className="border mt-3">
                      <div className="justify-content-center text-center">
-                         <div id="dZUpload" className="py-5">
-                             <Link className="text-dark">
-                             <i className="fa-solid fa-cloud-arrow-up fa-2x"></i>
-                                 رفع الملف
-                             </Link>
+                     <div id="dZUpload" className={` ${style.uploadbtn} py-5 `}>
+                         <label htmlFor='fileUpload' className={` ${style.uploadbtn}text-dark`}>
+                             <i className={` ${style.uploadbtn} fa-solid fa-cloud-arrow-up fa-2x `}></i>
+                               <span className={style.uploadbtn}> رفع الملف</span>
+                            </label>
+                         <input
+                          type='file'
+                          id='fileUpload'
+                          style={{ display: 'none'}}
+                          onChange={(e) => setFile(e.target.files[0])}
+                             />
                          </div>
                          
                          
@@ -121,24 +199,37 @@ function Sticker() {
                          </div>
                      </div>
                  </div>
-
+{/* item */}
                  <div className="border">
                      <div className="d-flex  text-left" style={{'border-top': 0}}>
                      <i className="fa-solid fa-link mt-2 text-secondary me-2"></i>
-                         <input name="" type="text" id="" className="btn ms-0 w-100" placeholder="أو ضع رابط الملف" />
+                     <input
+                    name=''
+                    type='text'
+                    id=''
+                    className='btn ms-0 w-100'
+                    placeholder='أو ضع رابط الملف'
+                    value={fileLink}
+                    onChange={(e) => setFileLink(e.target.value)}
+                  />
                      </div>
                  </div>
-                    
-        
-               {/*  */}
+
+               {/* item */}
                
 
                <div className=" notes-input border mt-3">
                      <div className="">
-                         <input name="" type="text" id="" placeholder="ملاحظاتك مع الطلب (ان وجدت)" className='btn w-100 '/>
+                     <input
+                    type='text'
+                    placeholder='ملاحظاتك مع الطلب (ان وجدت)'
+                    className='btn w-100 '
+                    value={notes}
+                    onChange={(e) => setNotes(e.target.value)}
+                  />
                      </div>
                  </div>
-            {/*  */}
+            {/* item */}
             
             <div className="border mt-3 py-1 px-1 ">
                      <div className="d-flex align-items-center justify-content-between mb-2">
@@ -149,26 +240,32 @@ function Sticker() {
                              ميعاد التسليم   التقريبي
                          </div>
                          <div className="ne_font date-columns">
-                             <span>
-                                 07/05/2024</span>
+                             <span>07/05/2024</span>
                              <span className="break-line"> | </span>
-                             <span>
-                                 11:53PM</span>
+                             <span>11:53PM</span>
+
+                    {/* <input
+                      type='date'
+                      value={deliveryDate}
+                      onChange={(e) => setDeliveryDate(e.target.value)}
+                    /> */}
                          </div>
                      </div>
                  </div>
        {/*  */}
        {/* <div className={`border border-danger mt-3 ${style.cartdiv}`}> */}
                      {/* <div className={`d-flex justify-content-between text-center align-items-center `}> */}
-                         <Link id="" className={`border border-danger mt-3 w-100  btn main-btn width-fluid text-center align-items-center  ${style.cartbtn} `}  to="">
-                              أضف إلى السلة
-                             <i className={`fa-solid fa-cart-shopping  me-2 `}></i>
-                         </Link>    
+                     <button type='submit' className={`border border-danger mt-3 w-100 btn main-btn width-fluid text-center align-items-center ${style.cartbtn}`}>
+                         أضف إلى السلة
+                     <i className={`fa-solid fa-cart-shopping  me-2 `}></i>
+                     </button>
                      {/* </div> */}
                  {/* </div> */}
-
+                
      </div>
+    
     </div>
+
 
 {/* rightside */}
 
@@ -199,7 +296,7 @@ function Sticker() {
                  </div>
     </div>
     </div>
-
+    </form>
     </div>
    </>
   )
