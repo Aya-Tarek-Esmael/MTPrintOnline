@@ -7,7 +7,7 @@
 
 
   .circlebg{
-    background-image: url('../../assets/circle.jpg');
+    /* background-image: url('../../assets/circle.jpg'); */
     background-size: cover;
     height: 93%;
     width: 100%;
@@ -34,9 +34,6 @@
 
 }
 
-.whr{
-    width: 256px;
-}
 .uploadbtn{
   cursor: pointer;
 }
@@ -44,9 +41,3 @@
   background-color:var(--primary-background);
   color:var(--font-color);
  }
-@media only screen and (max-width: 768px) {
-    /* For mobile phones: */
-    .whr {
-      width: 333px;
-    }
-  }

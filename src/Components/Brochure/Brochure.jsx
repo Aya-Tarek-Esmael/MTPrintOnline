@@ -9,7 +9,6 @@ function Brochure() {
  const [printType, setPrintType] = useState('');
  const [size, setSize] = useState('');
  const [Flexion, setFlexion] = useState('');
- const [paperNum, setPaperNum] = useState('');
  const [solfanType, setSolfanType] = useState('');
  const [quantity, setQuantity] = useState(0);
  const [paperType, setPaperType] = useState('');
@@ -23,7 +22,8 @@ function Brochure() {
        e.preventDefault();
        //selected choices 
        console.log('Selected Print Type:', printType);
-       console.log('Selected PaperNum Type:', paperNum);
+       console.log('Selected Paper Type:', paperType);
+       console.log('Selected Flexion:', Flexion);
        console.log('Selected Paper Type:', solfanType);
        console.log('Selected Size:', size);
        console.log('Selected Quantity:', quantity);
@@ -32,59 +32,7 @@ function Brochure() {
        console.log('File Link:', fileLink);
        console.log('Delivery Date:', deliveryDate);
      };
-    const handleQuantityChange = (e) => {
-        setQuantity(Number(e.target.value));
-    };
-
-    const paperOptions = quantity < 1000 ? (
-        <>
-            <div
-                className={`border hovercolor col-4 py-2 ${style.textfont} ${paperType === 'كوشيه 115 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 115 جرام')}
-            >
-                كوشيه 115 جرام
-            </div>
-            <div
-                className={`border me-1 hovercolor col-4 py-2 ${style.textfont} ${paperType === 'كوشيه 200 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 200 جرام')}
-            >
-                كوشيه 200 جرام
-            </div>
-            <div
-                className={`border me-1 hovercolor col-4 py-2 ${style.textfont} ${paperType === 'كوشيه 250 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 250 جرام')}
-            >
-                كوشيه 250 جرام
-            </div>
-        </>
-    ) : (
-        <>
-            <div
-                className={`border hovercolor col-3 py-2 ${style.textfont} ${paperType === 'كوشيه 115 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 115 جرام')}
-            >
-                كوشيه 115 جرام
-            </div>
-            <div
-                className={`border me-1 hovercolor col-3 py-2 ${style.textfont} ${paperType === 'كوشيه 200 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 200 جرام')}
-            >
-                كوشيه 200 جرام
-            </div>
-            <div
-                className={`border me-1 hovercolor col-3 py-2 ${style.textfont} ${paperType === 'كوشيه 250 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 250 جرام')}
-            >
-                كوشيه 250 جرام
-            </div>
-            <div
-                className={`border me-1 hovercolor col-3 py-2 ${style.textfont} ${paperType === 'كوشيه 300 جرام' ? style.selected : ''}`}
-                onClick={() => setPaperType('كوشيه 300 جرام')}
-            >
-                كوشيه 300 جرام
-            </div>
-        </>
-    );
+ 
 
     return (
         <>
@@ -94,24 +42,70 @@ function Brochure() {
                 <div className='d-lg-flex mx-0'>
                     <div className='col-lg-8 d-lg-flex px-4'>
                         <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
-                             {/* item */}
-                             <div className='d-flex border justify-content-between p-2 mt-3 '>
-                                <label className=''>الكمية</label>
-                                <input
-                                    type='number'
-                                    placeholder='0'
-                                    value={quantity}
-                                    onChange={handleQuantityChange}
-                                    className='bg-light p-1 text-center border-0 '
-                                />
-                            </div>
+                            
+                            
+        {/* item */}
+      <div className='mt-4'>
+                  <label className='fw-bold'>المقاس</label>
+                  <div className={`mt-1 me-0 col-12 text-center ${style.divwidth}`}>
+                  <div className='col-12 d-flex '>
+                      <div
+                        className={`border hovercolor  col-3 py-1 ${size === 'دايرة 1.5 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 1.5 سم ')}
+                      >دايرة 1.5 سم </div>
+                      <div
+                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 3 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 3 سم ')}
+                      >دايرة 3 سم </div>
+                      <div
+                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 4 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 4 سم ')}
+                      >دايرة 4 سم </div>
+                       <div
+                        className={`border me-1 hovercolor col-3 py-1 ${size === '11x5' ? style.selected : ''}`}
+                        onClick={() => setSize('11x5')}
+                      >11x5</div>
+                    </div>
+                    <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border hovercolor  col-3 py-1 ${size === 'دايرة 5 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 5 سم' )}
+                      >دايرة 5 سم</div>
+                      <div
+                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 7 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 7 سم')}
+                      >دايرة 7 سم </div>
+                      <div
+                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 9 سم' ? style.selected : ''}`}
+                        onClick={() => setSize('دايرة 9 سم')}
+                        >دايرة 9 سم </div>
+                         <div
+                        className={`border me-1 hovercolor col-3 py-1 ${size === '11x5' ? style.selected : ''}`}
+                        onClick={() => setSize('11x5')}
+                      >11x5</div>
+                    </div>
+
+                  </div>
+                  </div>
+                  
+
                             {/* item */}
                             <div className='mt-3'>
                                 <label className='fw-bold'>نوع الورق</label>
-                                <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
-                                    {paperOptions}
+                                 <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
+                                    <div className='col-12 d-flex'>
+                                        <div className={`border hovercolor col-4 py-1 ${paperType === 'كوشيه 115جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 115جرام')}>كوشيه 115جرام</div>
+                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === 'كوشيه 200جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 200جرام')}>كوشيه 200جرام</div>
+                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === 'كوشيه 250جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 250جرام')}>كوشيه 250جرام</div>
+                                    </div>
+                                    <div className='col-12 d-flex mt-2'>
+                                        <div className={`border me-0 hovercolor col-4 py-1 ${paperType === 'كوشيه 300جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 300جرام')}>كوشيه 300جرام</div>
+                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === '80جرام عادي' ? style.selected : ''}`} onClick={() => setPaperType('80جرام عادي')}>80جرام عادي</div>
+                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === '100جرام عادي' ? style.selected : ''}`} onClick={() => setPaperType('100جرام عادي')}>100جرام عادي</div>
+                                    </div>
                                 </div>
                             </div>
+      
                                                                   {/* item */}
 <div className='mt-3'>
        <label className='mb-2 fw-bold'> شكل الطباعة </label>
@@ -183,7 +177,7 @@ function Brochure() {
        </div>
 
                                 {/* item */}
-  <div className='mt-2'>
+  <div className='mt-3'>
        <label className='mb-2 fw-bold'> السلوفان </label>
        <div className={`d-flex text-center ms-2 ${style.divwidth}`}>
        <div
@@ -209,15 +203,17 @@ function Brochure() {
                     </div>
        </div>
        </div>
-                            {/* item */}
-                            <div className='d-flex border justify-content-between p-2 mt-3'>
-                                <label className=''>عدد صفحات الملف المرسل</label>
+                         
+
+                             {/* item */}
+                             <div className='d-flex border justify-content-between p-2 mt-3 '>
+                                <label className=''>الكمية</label>
                                 <input
-                                type='text'
-                                placeholder='0'
-                                value={paperNum}
-                                onChange={(e) => setPaperNum(e.target.value)}
-                                className='bg-light p-1 text-center border-0'
+                                    type='number'
+                                    placeholder='0'
+                                    value={quantity}
+                                    onChange={(e) => setQuantity(e.target.value)}
+                                    className='bg-light p-1 text-center border-0 '
                                 />
                             </div>
                            

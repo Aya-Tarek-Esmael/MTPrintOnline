@@ -60,7 +60,6 @@ function Sticker() {
 
 
         {/* item */}
-   
       <div className='mt-4'>
                   <label className='fw-bold'>المقاس</label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>

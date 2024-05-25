@@ -34,6 +34,9 @@ border-radius: 50%; */
 .divwidth{
   width:98%;
   }
+  .measurewidth{
+    width:99%;
+    }
 .uploadbtn{
   cursor: pointer;
   }

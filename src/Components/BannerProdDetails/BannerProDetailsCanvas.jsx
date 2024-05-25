@@ -3,38 +3,66 @@ import React, { useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import style from './BannerproDetails.module.css'
-// import LoadingScrean from '../LoadingScrean/LoadingScrean';
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
 import bannerproimg from '../../assets/image2.jpg'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice'
 function BannerProDetailsCanvas() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedType, setSelectedType] = useState('');
-    const [typesAndPrices, setTypesAndPrices] = useState({
-        "كانفس مط": "250.00",
-        "كانفس جليتر": "200.00",
-        "كانفس وبرا": "200.00"
-  });
+    const [width, setWidth] = useState('');
+    const [height, setHeight] = useState('');
+    const [area, setArea] = useState('');
+    const [price, setPrice] = useState('');
+    const [typesAndPrices, setTypesAndPrices] = useState({});
+
+  //   const [typesAndPrices, setTypesAndPrices] = useState({
+  //       "كانفس مط": "250.00",
+  //       "كانفس جليتر": "200.00",
+  //       "كانفس وبرا": "200.00"
+  // });
   const isAddToCartDisabled = !selectedType;
   const [textareaValue, setTextareaValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
 
     console.log(id);
    
-    async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
+    async function getProDetails() {
+      let { data } = await axios.get(`http://localhost:8000/api/products/17/details`);
+      console.log(data)
+      console.log(data)
+      setProDetails(data);
 
-    }
+      // Initialize sizesAndPrices after fetching data
+      setTypesAndPrices({
+          [data.sizes[0].name]:data.sizes[0].price,
+          [data.sizes[1].name]:data.sizes[1].price,
+          [data.sizes[2].name]:data.sizes[2].price
 
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
+      });
+  }
+  const onSubmit = (formData) => {
+    event.preventDefault(); // Prevent default form submission
+    const totalAmount = price * quantity;
+    const itemData = {
+        id: proDetails.id,
+        name: proDetails.name,
+        size: selectedType,
+        quantity,
+        notes: textareaValue,
+        file: selectedFile,
+        price: totalAmount
     };
+    dispatch(addToCart(itemData));
+    console.log(itemData);
+};
+
+
 
     useEffect(() => {
       
@@ -87,7 +115,7 @@ function BannerProDetailsCanvas() {
   
   
 
-  const handleSizeChange = (e) => {
+  const handleTypeChange = (e) => {
       setSelectedType(e.target.value);
       setIsPriceVisible(true); 
   };
@@ -110,48 +138,47 @@ function BannerProDetailsCanvas() {
   const handleFileChange = (e) => {
     setSelectedFile(e.target.files[0]);
   }
-
-
-  const [width, setWidth] = useState('');
-  const [height, setHeight] = useState('');
-  const [area, setArea] = useState(0);
-  const [price, setPrice] = useState();
-  
   
   const handleWidthChange = (event) => {
-      const newWidth = event.target.value;
-      console.log(newWidth)
-      setWidth(newWidth);
-      recalculatePrice(newWidth, height);
-  };
-  
-  const handleHeightChange = (event) => {
-      const newHeight = event.target.value;
-      setHeight(newHeight);
-      recalculatePrice(width, newHeight);
-  };
-  
-  const recalculatePrice = (newWidth, newHeight) => {
-  
+    const newWidth = event.target.value;
+    setWidth(newWidth);
+    recalculatePrice(newWidth, height);
+};
+
+const handleHeightChange = (event) => {
+    const newHeight = event.target.value;
+    setHeight(newHeight);
+    recalculatePrice(width, newHeight);
+};
+
+const recalculatePrice = (newWidth, newHeight) => {
     const parsedWidth = parseFloat(newWidth);
     const parsedHeight = parseFloat(newHeight);
-    if (!isNaN(parsedWidth) && !isNaN(parsedHeight)) {
-      const area = parseFloat(newWidth) * parseFloat(newHeight) *0.0001;
-      setArea(area);
-      console.log('area',area)
-      const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
-      const newPrice = area * (selectedTypePrice );
-      console.log(selectedTypePrice )
-      setPrice(newPrice);
-      console.log('price',price)
+    if (!isNaN(parsedWidth) && !isNaN(parsedHeight) && parsedWidth > 0 && parsedHeight > 0) {
+        const area = parsedWidth * parsedHeight * 0.0001;
+        setArea(area);
+        const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
+        const newPrice = area * selectedTypePrice;
+        setPrice(newPrice);
+    } else {
+        setArea('');
+        setPrice('');
     }
-  };
+};
   useEffect(() => {
     const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
     const newPrice = area * (selectedTypePrice);
     setPrice(newPrice);
   }, [area, selectedType]);
+  
+ 
 
+
+  useEffect(() => {
+    if (proDetails) {
+      recalculatePrice(width, height);
+    }
+  }, [proDetails, width, height]);
 //  
   return (
     <div>
@@ -179,7 +206,7 @@ function BannerProDetailsCanvas() {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>كانفاس</h2>
+                    <h2>{proDetails.name}</h2>
                     <div>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     <i className="fa-solid fa-circle-arrow-left"></i>
@@ -201,11 +228,14 @@ function BannerProDetailsCanvas() {
                     <select
                     className={`col-12 p-2 mt-2 ${style.borderstyle}`}
                     {...register('size')}
-                    onChange={handleSizeChange}>
+                    onChange={handleTypeChange}>
                         <option value="">اختر نوع الكانفس</option>
-                        <option value="كانفس مط"> كانفس مط</option>
+                        {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name} مقاس </option>
+                                        ))}
+                        {/* <option value="كانفس مط"> كانفس مط</option>
                         <option value="كانفس جليتر">كانفس جليتر</option>
-                        <option value="كانفس وبرا"> كانفس وبرا </option>
+                        <option value="كانفس وبرا"> كانفس وبرا </option> */}
                      </select>
             
             {isPriceVisible && selectedType && (
@@ -261,7 +291,7 @@ function BannerProDetailsCanvas() {
                                  value={area}
                                 className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
                                 autoComplete="off"
-                                placeholder="0.00"
+                                placeholder=""
                                 readOnly
                               
                             />
@@ -321,22 +351,22 @@ function BannerProDetailsCanvas() {
                                   <>
                                     <div className='d-flex  justify-content-between py-1 '>
                                      <div className='col-6'>
-                                     <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
+                                     <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>كانفاس</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{price * quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{((price * quantity).toFixed(2))} EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {price * quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {((price * quantity).toFixed(2))} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
                                     <div className="quantity col-4 mt-2">
-                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية ادجستبل استاند</label>
+                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية كانفاس</label>
                     <input
                         type="number"
                         id="quantity"
@@ -368,7 +398,7 @@ function BannerProDetailsCanvas() {
 
             
         </div>
-           :<div>looding</div>}
+            :<LoadingScrean/>}
 
          
     </div>

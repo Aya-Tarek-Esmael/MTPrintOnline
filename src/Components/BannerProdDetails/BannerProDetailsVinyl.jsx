@@ -3,10 +3,13 @@ import React, { useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import style from './BannerproDetails.module.css'
-// import LoadingScrean from '../LoadingScrean/LoadingScrean';
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
 import bannerproimg from '../../assets/image2.jpg'
 function BannerProDetailsVinyl() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
@@ -14,42 +17,71 @@ function BannerProDetailsVinyl() {
     const [selectedType, setSelectedType] = useState('');
     const [selectedPrintType, setSelectedPrintType] = useState('');
     const [selectedTypeSalfen, setSelectedTypeSalfen] = useState('');
-    const [typesAndPrices, setTypesAndPrices] = useState({
-        "فنيل شفاف لامع": "60.00",
-        "فنيل شفاف مط": "60.00",
-        "فنيل ابيض لامع ": "60.00",
-        "فنيل ابيض مط ":"60.00",
-        "Outdoor": "180.00",
-        "Indoor": "210.00",
-        "بدون": "0.00 ",
-        "سلوفان لامع": "60.00 ",
-        "سلوفان مط": "60.00 "
+    const isAddToCartDisabled = !selectedPrintType;
+    const [textareaValue, setTextareaValue] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [typesAndPrices, setTypesAndPrices] = useState({});
+  //   const [typesAndPrices, setTypesAndPrices] = useState({
+  //       "فنيل شفاف لامع": "60.00",
+  //       "فنيل شفاف مط": "60.00",
+  //       "فنيل ابيض لامع ": "60.00",
+  //       "فنيل ابيض مط ":"60.00",
+  //       "Outdoor": "180.00",
+  //       "Indoor": "210.00",
+  //       "بدون": "0.00 ",
+  //       "سلوفان لامع": "60.00 ",
+  //       "سلوفان مط": "60.00 "
+
+  // });
+
+
+  console.log(id);
+  async function getProDetails() {
+    let { data } = await axios.get(`http://localhost:8000/api/products/16/details`);
+    console.log(data);
+    setProDetails(data);
+     // Initialize sizesAndPrices after fetching data
+     setTypesAndPrices({
+      [data.sizes[0].name]: data.sizes[0].price,
+      [data.sizes[1].name]: data.sizes[1].price,
+      [data.sizes[2].name]: data.sizes[2].price,
+      [data.sizes[3].name]: data.sizes[3].price,
+
+      [data.type[0].name]: data.type[0].price,
+      [data.type[1].name]: data.type[1].price,
+      [data.type[2].name]: data.type[2].price,
+
+      [data.in_outs[0].name]: data.in_outs[0].price,
+      [data.in_outs[1].name]: data.in_outs[1].price
 
   });
-  const isAddToCartDisabled = !selectedPrintType;
-  const [textareaValue, setTextareaValue] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
+  }
 
-    console.log(id);
-   
-    async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
-
-    }
-
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
+  const onSubmit = (formData) => {
+    event.preventDefault(); // Prevent default form submission
+    const totalAmount = price * quantity;
+    const itemData = {
+        id: proDetails.id,
+        name: proDetails.name,
+        type: selectedType,
+        printtype:selectedPrintType,
+        solfantype:selectedTypeSalfen,
+        quantity,
+        notes: textareaValue,
+        file: selectedFile,
+        price: totalAmount
     };
+    dispatch(addToCart(itemData));
+    console.log(itemData);
+};
 
-    useEffect(() => {
-      
-        getProDetails()
+
+  useEffect(() => {
     
-    }, [])
+      getProDetails()
+  
+  }, [])
+  // 
     // 
 
     const [isDragging, setIsDragging] = useState(false);
@@ -161,7 +193,7 @@ function BannerProDetailsVinyl() {
       const selectedPrintTypePrice = parseFloat(typesAndPrices[selectedPrintType]);
       const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
       const selectedTypeSalfenPrice = parseFloat(typesAndPrices[selectedTypeSalfen]);
-      const newPrice = area * (selectedPrintTypePrice + selectedTypeSalfenPrice + selectedTypePrice);
+      const newPrice = area * selectedPrintTypePrice + selectedTypeSalfenPrice + selectedTypePrice;
       console.log(selectedPrintTypePrice + selectedTypeSalfenPrice + selectedTypePrice)
       setPrice(newPrice);
       console.log('price',price)
@@ -176,6 +208,15 @@ function BannerProDetailsVinyl() {
   }, [area, selectedPrintType, selectedTypeSalfen,selectedType]);
 
 //  
+
+ 
+useEffect(() => {
+  if (proDetails) {
+    recalculatePrice(width, height);
+  }
+}, [proDetails, width, height]);
+
+
   return (
     <>
     <div>
@@ -203,7 +244,7 @@ function BannerProDetailsVinyl() {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>الفينيل</h2>
+                    <h2>{proDetails.name}</h2>
                     <div>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     <i className="fa-solid fa-circle-arrow-left"></i>
@@ -225,8 +266,11 @@ function BannerProDetailsVinyl() {
                      onChange={handlePrintTypeChange}
                      value={selectedPrintType} >
                         <option value=""> اختر نوع الطباعة</option>
-                        <option value="Indoor">Indoor</option>
-                        <option value="outdoor">outdoor</option>
+                        {proDetails.in_outs.map((type, index) => (
+                                            <option key={index} value={type.name}>{type.name} </option>
+                                        ))}
+                        {/* <option value="Indoor">Indoor</option>
+                        <option value="outdoor">outdoor</option> */}
                      </select>
                      </div>
                     
@@ -237,10 +281,13 @@ function BannerProDetailsVinyl() {
                     {...register('type')}
                     onChange={handleTypeChange}>
                          <option value="">اختر نوع الفينيل</option>
-                        <option value="فنيل شفاف لامع"> فنيل شفاف لامع</option>
+                         {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name} فينيل </option>
+                                        ))}
+                        {/* <option value="فنيل شفاف لامع"> فنيل شفاف لامع</option>
                         <option value="فنيل شفاف مط">فنيل شفاف مط</option>
                         <option value="فنيل ابيض لامع "> فنيل ابيض لامع </option>
-                        <option value="فنيل ابيض مط ">فنيل ابيض مط </option>
+                        <option value="فنيل ابيض مط ">فنيل ابيض مط </option> */}
                      </select>
                     </div>
                     <div>
@@ -248,9 +295,12 @@ function BannerProDetailsVinyl() {
                     <select className={`col-12 p-2 ${style.borderstyle}`} {...register('typesalfan')}
                      onChange={handleTypeSalfanChange}>
                         <option value="">اختر نوع السلفان</option>
-                        <option value="بدون">بدون</option>
+                        {proDetails.type.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name}  </option>
+                                        ))}
+                        {/* <option value="بدون">بدون</option>
                         <option value="سلوفان لامع">سلوفان لامع</option>
-                        <option value="سلوفان مط">سلوفان مط</option>
+                        <option value="سلوفان مط">سلوفان مط</option> */}
 
                      </select>
                      {isPriceVisible &&  selectedPrintType && !selectedTypeSalfen && (
@@ -268,7 +318,7 @@ function BannerProDetailsVinyl() {
 
              </div>
              <div>
-                  <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedPrintType]) + parseFloat(typesAndPrices[selectedTypeSalfen]) + parseFloat(typesAndPrices[selectedTypeSalfen])} EGP</span>
+                  <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedPrintType]) + parseFloat(typesAndPrices[selectedTypeSalfen]) + parseFloat(typesAndPrices[selectedType])} EGP</span>
              </div>
              
              <div className='d-flex'>
@@ -311,7 +361,7 @@ function BannerProDetailsVinyl() {
 			
             <input
                                 type="text"
-                                 value={area}
+                                 value={area.toFixed(2)}
                                 className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
                                 autoComplete="off"
                                 placeholder="0.00"
@@ -330,7 +380,7 @@ function BannerProDetailsVinyl() {
     {/* <span className="product_price me-5">{productPrice}</span> */}
     <input
                             type="text"
-                            value={price}
+                            value={price.toFixed(2)}
                             className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
                             autoComplete="off"
                             placeholder="0.00"
@@ -374,22 +424,22 @@ function BannerProDetailsVinyl() {
                                   <>
                                     <div className='d-flex  justify-content-between py-1 '>
                                      <div className='col-6'>
-                                     <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
+                                     <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>الفينيل</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{price * quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{((price * quantity).toFixed(2))} EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {price * quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {((price * quantity).toFixed(2))} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
                                     <div className="quantity col-4 mt-2">
-                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية ادجستبل استاند</label>
+                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية الفينيل</label>
                     <input
                         type="number"
                         id="quantity"
@@ -421,7 +471,7 @@ function BannerProDetailsVinyl() {
 
             
         </div>
-           :<div>looding</div>}
+           :<LoadingScrean/>}
 
          
     </div>

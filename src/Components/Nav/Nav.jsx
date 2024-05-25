@@ -4,6 +4,7 @@ import { NavLink, Link } from 'react-router-dom';
 import style from './Nav.module.css';
 
 function Nav() {
+    
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isNavOpen, setIsNavOpen] = useState(false);
@@ -63,22 +64,22 @@ function Nav() {
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link" to="/bannerproducts/" id="navbarDropdown2" role="button" onClick={() => toggleDropdown(2)} aria-haspopup="true" aria-expanded={activeDropdown === 2}>منتجات بانر<i className="fa fa-angle-down mt-1"></i></NavLink>
                                     <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 2 ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown2">
-                                        <Link to={`ادجستبل-ستاند/`} className="dropdown-item" onClick={closeMenus}>ادجستل استاند</Link>
-                                        <Link to={`reflectivebanner/`} className="dropdown-item" onClick={closeMenus}>بانر عاكس</Link>
-                                        <Link to={`wallpaper/`} className="dropdown-item" onClick={closeMenus}>ورق حائط</Link>
-                                        <Link to={`اكس-بانر/`} className="dropdown-item" onClick={closeMenus}>اكس بانر</Link>
-                                        <Link to={`stan/`} className="dropdown-item" onClick={closeMenus}>ستان</Link>
-                                        <Link to={`seethrough/`} className="dropdown-item" onClick={closeMenus}>سي ثرو</Link>
-                                        <Link to={`بانر-عادي/`} className="dropdown-item" onClick={closeMenus}>بانر عادي</Link>
-                                        <Link to={`canvas/`} className="dropdown-item" onClick={closeMenus}>كانفاس</Link>
-                                        <Link to={`vinyl/`} className="dropdown-item" onClick={closeMenus}>الفينيل</Link>
-                                        <Link to={`carvinyl/`} className="dropdown-item" onClick={closeMenus}>ملصق سيارات</Link>
-                                        <Link to={`roll-up/`} className="dropdown-item" onClick={closeMenus}>رول اب</Link>
-                                        <Link to={`بوب-اب-كامل/`} className="dropdown-item" onClick={closeMenus}>بوب اب كامل</Link>
-                                        <Link to={`flex/`} className="dropdown-item" onClick={closeMenus}>فليكس</Link>
-                                        <Link to={`glossy/`} className="dropdown-item" onClick={closeMenus}>جلوسي</Link>
-                                        <Link to={`bannercoated/`} className="dropdown-item" onClick={closeMenus}>بانر كوتيد</Link>
-                                        <Link to={`printandcut/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
+                                        <Link to={`/bannerproducts/5/`} className="dropdown-item" onClick={closeMenus}>ادجستل استاند</Link>
+                                        <Link to={`/bannerproducts/10/`} className="dropdown-item" onClick={closeMenus}>بانر عاكس</Link>
+                                        <Link to={`/bannerproducts/23/`} className="dropdown-item" onClick={closeMenus}>ورق حائط</Link>
+                                        <Link to={`/bannerproducts/8/`} className="dropdown-item" onClick={closeMenus}>اكس بانر</Link>
+                                        <Link to={`/bannerproducts/15/`} className="dropdown-item" onClick={closeMenus}>ستان</Link>
+                                        <Link to={`/bannerproducts/14/`} className="dropdown-item" onClick={closeMenus}>سي ثرو</Link>
+                                        <Link to={`/bannerproducts/9/`} className="dropdown-item" onClick={closeMenus}>بانر عادي</Link>
+                                        <Link to={`/bannerproducts/17/`} className="dropdown-item" onClick={closeMenus}>كانفاس</Link>
+                                        <Link to={`/bannerproducts/16/`} className="dropdown-item" onClick={closeMenus}>الفينيل</Link>
+                                        <Link to={`/bannerproducts/22/`} className="dropdown-item" onClick={closeMenus}>ملصق سيارات</Link>
+                                        <Link to={`/bannerproducts/7/`} className="dropdown-item" onClick={closeMenus}>رول اب</Link>
+                                        <Link to={`/bannerproducts/6/`} className="dropdown-item" onClick={closeMenus}>بوب اب كامل</Link>
+                                        <Link to={'/bannerproducts/13/'} className="dropdown-item" onClick={closeMenus}>فليكس</Link>
+                                        <Link to={`/bannerproducts/12/`} className="dropdown-item" onClick={closeMenus}>جلوسي</Link>
+                                        <Link to={`/bannerproducts/11/`} className="dropdown-item" onClick={closeMenus}>بانر كوتيد</Link>
+                                        <Link to={`/bannerproducts/18/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
 
                                     </div>
                                 </li>

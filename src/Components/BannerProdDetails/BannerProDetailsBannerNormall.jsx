@@ -5,14 +5,20 @@ import style from './BannerproDetails.module.css'
 // import LoadingScrean from '../LoadingScrean/LoadingScrean';
 import { Link, useParams } from 'react-router-dom';
 import bannerproimg from '../../assets/image2.jpg'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
 function BannerProDetailsBannerNormall() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedTypeBanner, setSelectedTypeBanner] = useState('');
     const [selectedTypeSalfen, setSelectedTypeSalfen] = useState('');
+    // const [typesAndPrices, setTypesAndPrices] = useState({});
+
   //   const [typesAndPrices, setTypesAndPrices] = useState({
   //     "مسلفن": "100.00 ",
   //     "بدون سلفنة": "0.00 ",
@@ -26,6 +32,8 @@ function BannerProDetailsBannerNormall() {
     "سلوفان مط": "60.00 "
 
 });
+
+
   const isAddToCartDisabled = !selectedTypeBanner;
   const [textareaValue, setTextareaValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
@@ -33,23 +41,48 @@ function BannerProDetailsBannerNormall() {
     console.log(id);
    
     async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
+      let { data } = await axios.get(`http://localhost:8000/api/products/9/details`);
+      console.log(data)
+      console.log(data)
+      setProDetails(data);
 
+      // Initialize sizesAndPrices after fetching data
+    //   setTypesAndPrices({
+    //     [data.sizes[0].name]: data.sizes[0].price,
+    //     [data.sizes[1].name]: data.sizes[1].price,
+    //     [data.sizes[2].name]: data.sizes[2].price,
+  
+    //     [data.type[0].name]: data.type[0].price,
+    //     [data.type[1].name]: data.type[1].price,
+    //     [data.type[2].name]: data.type[2].price
+  
+    // });
     }
 
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
-    };
-
+    const onSubmit = (formData) => {
+      event.preventDefault(); // Prevent default form submission
+      const totalAmount = price * quantity;
+      const itemData = {
+          id: proDetails.id,
+          name: proDetails.name,
+          bannertype: selectedTypeBanner,
+          solfantype:selectedTypeSalfen,
+          quantity,
+          notes: textareaValue,
+          file: selectedFile,
+          price: totalAmount
+      };
+      dispatch(addToCart(itemData));
+      console.log(itemData);
+  };
+  
+  
     useEffect(() => {
       
         getProDetails()
     
     }, [])
+    
     // 
 
     const [isDragging, setIsDragging] = useState(false);
@@ -119,8 +152,8 @@ const handleFileChange = (e) => {
 } 
 const [width, setWidth] = useState('');
 const [height, setHeight] = useState('');
-const [area, setArea] = useState(0);
-const [price, setPrice] = useState();
+const [area, setArea] = useState('');
+const [price, setPrice] = useState('');
 
 
 const handleWidthChange = (event) => {
@@ -140,17 +173,20 @@ const recalculatePrice = (newWidth, newHeight) => {
 
   const parsedWidth = parseFloat(newWidth);
   const parsedHeight = parseFloat(newHeight);
-  if (!isNaN(parsedWidth) && !isNaN(parsedHeight)) {
+  if (!isNaN(parsedWidth) && !isNaN(parsedHeight) && parsedWidth > 0 && parsedHeight > 0) {
     const area = parseFloat(newWidth) * parseFloat(newHeight) *0.0001;
-    setArea(area);
+    setArea(area.toFixed(2));
     console.log('area',area)
     const selectedTypeBannerPrice = parseFloat(typesAndPrices[selectedTypeBanner]);
     const selectedTypeSalfenPrice = parseFloat(typesAndPrices[selectedTypeSalfen]);
     const newPrice = area * (selectedTypeBannerPrice + selectedTypeSalfenPrice);
     console.log(selectedTypeBannerPrice + selectedTypeSalfenPrice)
-    setPrice(newPrice);
+    setPrice(newPrice.toFixed(2));
     console.log('price',price)
-  }
+  }  else {
+    setArea('');
+    setPrice('');
+}
 };
 useEffect(() => {
   const selectedTypeBannerPrice = parseFloat(typesAndPrices[selectedTypeBanner]);
@@ -183,7 +219,7 @@ useEffect(() => {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>بانر عادي</h2>
+                    <h2>{proDetails.name}</h2>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     </div>
                     <p style={{'fontSize':'13px'}}> بانر بجميع المقاسات خفيف وسط او تقيل. السعر يشمل التصميم والطباعة</p>
@@ -195,6 +231,9 @@ useEffect(() => {
                      onChange={handleTypeBannerChange}
                      value={selectedTypeBanner} >
                         <option value="">   اختر خامة البانر</option>
+                        {/* {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name} فينيل </option>
+                                        ))} */}
                         <option value="خفيف">خفيف</option>
                         <option value="وسط">وسط</option>
                         <option value="ثقيل">ثقيل</option>
@@ -205,10 +244,12 @@ useEffect(() => {
                     <select className={`col-12 p-2 ${style.borderstyle}`} {...register('typesalfan')}
                      onChange={handleTypeSalfanChange}>
                         <option value="">اختر نوع السلفان</option>
-                        <option value="بدون">بدون</option>
+                        {proDetails.type.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name}  </option>
+                                        ))}
+                        {/* <option value="بدون">بدون</option>
                         <option value="سلوفان لامع">سلوفان لامع</option>
-                        <option value="سلوفان مط">سلوفان مط</option>
-
+                        <option value="سلوفان مط">سلوفان مط</option> */}
                      </select>
                      {isPriceVisible &&  selectedTypeBanner && !selectedTypeSalfen && (
                              <>
@@ -271,7 +312,7 @@ useEffect(() => {
                                  value={area}
                                 className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
                                 autoComplete="off"
-                                placeholder="0.00"
+                                placeholder=""
                                 readOnly
                               
                             />
@@ -331,10 +372,10 @@ useEffect(() => {
                                   <>
                                     <div className='d-flex  justify-content-between py-1 '>
                                      <div className='col-6'>
-                                     <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
+                                     <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'> بانر عادي</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{price * quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{((price * quantity).toFixed(2))} EGP</span>
                                      </div>
                                     </div>  
                                     {isPriceVisible && textareaValue && selectedFile && (
@@ -345,12 +386,12 @@ useEffect(() => {
                                     </div> 
                                     </>
                                     )}  
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP  {price * quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP  {((price * quantity).toFixed(2))}</div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
                                     <div className="quantity col-4 mt-2">
-                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية ادجستبل استاند</label>
+                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية  بانر عادي</label>
                     <input
                         type="number"
                         id="quantity"
@@ -382,7 +423,7 @@ useEffect(() => {
 
             
         </div>
-           :<div>looding</div>}
+            :<LoadingScrean/>}
 
            {/*  */}
         

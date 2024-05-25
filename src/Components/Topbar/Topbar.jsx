@@ -1,9 +1,13 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import logo from '../../assets/MTBLOGO.png'
+import { useSelector } from 'react-redux'
 import style from './Topbar.module.css'
 
 function Topbar() {
+
+    const cart = useSelector(state => state.CartReducer.cart);
+    // console.log(cart[0].quantity);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [searchInput, setSearchInput] = useState('');
     const [filteredCategories, setFilteredCategories] = useState([]);
@@ -55,7 +59,7 @@ function Topbar() {
                         <div className="d-inline-flex align-items-center d-block d-lg-none">
                             <a href="" className="btn px-0 ml-2 me-1">
                                 <i className="fa-solid fa-bag-shopping me-1 text-light"></i>
-                                <span className="badge text-dark border border-dark rounded-circle" style={{ 'padding-bottom': '2px' }}>0</span>
+                                <span className="badge text-dark border border-dark rounded-circle" style={{ 'padding-bottom': '2px'}}>{cart.length}</span>
                             </a>
                             <a href="" className="btn px-0 ml-2">
                                 <i className="fa-solid fa-heart me-1 text-light"></i>
@@ -129,8 +133,8 @@ function Topbar() {
                         <div className='d-flex justifiy-content-space-between me-5'>
                             <i className={`fa-solid fa-bag-shopping fa-2x ${style.icons}`}></i>
                             <div className="me-2">
-                                <h6>السلة</h6>
-                                <h6 className='text-danger'> 0.00</h6>
+                                <Link to="/cart" className='text-dark'>السلة</Link>
+                                <h6 className='text-danger'>{cart.length}</h6>
                             </div>
                         </div>
                     </div>

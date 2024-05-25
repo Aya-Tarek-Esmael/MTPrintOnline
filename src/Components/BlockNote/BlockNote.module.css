@@ -7,7 +7,7 @@
 
 
   .circlebg{
-    background-image: url('../../assets/circle.jpg');
+    /* background-image: url('../../assets/circle.jpg'); */
     background-size: cover;
     height: 65%;
     width: 97%;
@@ -32,7 +32,9 @@
     font-size: 11px;
 
 }
-
+.measurewidth{
+  width: 99%;
+}
 .uploadbtn{
   cursor: pointer;
   }

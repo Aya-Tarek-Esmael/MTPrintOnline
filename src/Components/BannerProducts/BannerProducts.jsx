@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
 import { getPersonalCards } from '../../Redux/slices/PersonalCardsSlice';
 import BannerProduct from '../BannerProduct/BannerProduct';
 import { Link } from 'react-router-dom';
@@ -20,24 +21,36 @@ import Vinyl from '../BannerProduct/Vinyl';
 import Wallpaper from '../BannerProduct/Wallpaper';
 import Stan from '../BannerProduct/Stan';
 import PrintAndCut from '../BannerProduct/PrintAndCut';
+import axios from 'axios';
+import  {  useState } from 'react'
+
 function BannerProducts() {
 
-	    
-    // const dispatch = useDispatch();
-    // const personalcards = useSelector(state => state.PersonalCardsReducer.personalcards);
-    // const flag = useSelector(state => state.PersonalCardsReducer.loading);
+    const [allProducts,setAllProducts]=useState([]);
+    // const [sortBy, setSortBy] = useState('');
 
-
+    
+    async function getAllProducts(){
+      try{
+        let {data}=await axios.get('http://localhost:8000/api/categories/12')
+        // console.log(data.products)
+         setAllProducts(data.products);
+      }
+      catch(e){
+     console.log('Error: ',e)
+      }
+     
+    }
+ 
     useEffect(() => {
-        // axiosInstance.get("https://api.themoviedb.org/3/movie/popular?api_key=7a1c19ea3c361a4d3cc53eb70ef8298c").then(data => {
-        //     console.log(data.data.results)
-        //     setMovies([...data.data.results]);
-        // })
-        // dispatch(getPersonalCards());
-    }, [])
+      getAllProducts();
+    }, []);
+
+  
+    
   return (
    <>
-<div className='contanier-fluid px-5 my-5 ' style={{overflow:'hidden'}}>
+{allProducts? <div className='contanier-fluid px-5 my-5 ' style={{overflow:'hidden'}}>
 <h1 className="title page-title  my-4 col-xs-12 col-sm-12 col-md-12 col-lg-12 ">البانر</h1>
 <header className={`${style.productsheader} p-4 `}>	
 <div className="term-descriptionn "><p>يحتوي هذا القسم علي مجموعة من الـ بانر المميزة و المختلفة و المصممه خصيصا لك و لشركتك</p>
@@ -61,7 +74,7 @@ function BannerProducts() {
 </div>
 
 
-    <div className=' col-lg-12 col-sm-12 col-md-12 d-md-flex flex-wrap'>
+    {/* <div className=' col-lg-12 col-sm-12 col-md-12 d-md-flex flex-wrap'>
   <BannerStand   data={'data'} />
   <XBanner  data={'data'} />
    <ReflectiveBanner data={'data'}  />
@@ -81,7 +94,7 @@ function BannerProducts() {
    <Canvas  data={'data'} />
    <Wallpaper data={'data'} />
    <PrintAndCut   data={'data'}/>
-   </div>
+   </div> */}
 
 
 
@@ -91,17 +104,18 @@ function BannerProducts() {
 
 
 {/* end */}
-{/* {
-            flag ? <h1>Loading</h1> : <div className='row'>
+{
+             <div className=' col-lg-12 col-sm-12 col-md-12 d-md-flex flex-wrap '>
                 {
-                    personalcards.map((item) => {return <div key={item.id} className='col-xs-12 col-sm-3 col-md-3 col-lg-3'> <BannerProduct data={item} /></div>
+                    allProducts.map((item) => {return <div key={item.id} className='col-lg-3 col-md-3 col-sm-12  col-xs-12  pb-3 mt-3 mb-5 '> <BannerProduct data={item} /></div>
                     })
                 }
-            </div>
-        } */}
+            </div> 
+        }
 		
 
 </div>
+ : <LoadingScrean /> }
    </>
   )
 }

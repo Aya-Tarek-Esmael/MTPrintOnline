@@ -4,6 +4,7 @@ import { Routes ,Route} from 'react-router-dom';
 import Topbar from './Components/Topbar/Topbar'
 import Nav from './Components/Nav/Nav'
 import Home from './Components/Home/Home'
+import Cart from "./Components/Cart/Cart";
 import Footer from './Components/Footer/Footer';
 import Contact from './Components/Contact/Contact';
 import Brochure from './Components/Brochure/Brochure';
@@ -75,7 +76,8 @@ function App() {
     <Route path='/'  element={<Home/>} />
     <Route path='/الرئيسية'  element={<Home/>} />
     <Route path='/اتصل بنا'  element={<Contact/>} />
-  
+    <Route path="/cart" element={<Cart />} />
+    
     <Route path='/personalcards/' element={ <PersonalCards />}/>
     <Route path='/personalcards/كارت-عادي' element={<NormallCard />} />
     <Route path='/personalcards/كارت-كيرف' element={<CurveCard />} />
@@ -135,22 +137,22 @@ function App() {
     
 
     {/* product Details */}
-    <Route path='/ادجستبل-ستاند/' element={<BannerProDetailsStand />} />
-    <Route path='اكس-بانر/' element={<BannerProDetailsXBanner />} />
-    <Route path='بانر-عادي/' element={<BannerProDetailsBannerNormall />} />
-    <Route path='بوب-اب-كامل/' element={<BannerProDetailsBobUP />} />
-    <Route path='roll-up/' element={<BannerProDetailsRollUp />} />
-    <Route path='flex/' element={<BannerProDetailsFlex/>} />
-    <Route path='canvas/' element={<BannerProDetailsCanvas/>} />
-    <Route path='vinyl/' element={<BannerProDetailsVinyl/>} />
-    <Route path='wallpaper/' element={<BannerProDetailsWallpaper/>} />
-    <Route path='carvinyl/' element={<BannerProDetailsCarVinyl/>} />
-    <Route path='stan/' element={<BannerProDetailsStan/>} />
-    <Route path='seethrough/' element={<BannerProDetailsSeeThrough/>} />
-    <Route path='bannercoated/' element={<BannerProDetailsBannerCoated/>} />
-    <Route path='glossy/' element={<BannerProDetailsGlossy/>} />
-    <Route path='reflectivebanner/' element={<BannerProDetailsReflectiveBanner/>} />
-    <Route path='printandcut/' element={<BannerProDetailsPrintAndCut/>} />
+    <Route path='/bannerproducts/5/' element={<BannerProDetailsStand />} />
+    <Route path='/bannerproducts/8' element={<BannerProDetailsXBanner />} />
+    <Route path='/bannerproducts/9' element={<BannerProDetailsBannerNormall />} />
+    <Route path='/bannerproducts/6/' element={<BannerProDetailsBobUP />} />
+    <Route path='/bannerproducts/7/'element={<BannerProDetailsRollUp />} />
+    <Route path='/bannerproducts/13/' element={<BannerProDetailsFlex/>} />
+    <Route path='/bannerproducts/17/'element={<BannerProDetailsCanvas/>} />
+    <Route path='/bannerproducts/16/' element={<BannerProDetailsVinyl/>} />
+    <Route path='/bannerproducts/23/' element={<BannerProDetailsWallpaper/>} />
+    <Route path='/bannerproducts/22/'element={<BannerProDetailsCarVinyl/>} />
+    <Route path='/bannerproducts/15/' element={<BannerProDetailsStan/>} />
+    <Route path='/bannerproducts/14/' element={<BannerProDetailsSeeThrough/>} />
+    <Route path='/bannerproducts/11/' element={<BannerProDetailsBannerCoated/>} />
+    <Route path='/bannerproducts/12/' element={<BannerProDetailsGlossy/>} />
+    <Route path='/bannerproducts/10/' element={<BannerProDetailsReflectiveBanner/>} />
+    <Route path='/bannerproducts/18/' element={<BannerProDetailsPrintAndCut/>} />
 
    
     

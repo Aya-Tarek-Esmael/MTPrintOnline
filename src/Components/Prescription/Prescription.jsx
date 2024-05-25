@@ -9,7 +9,6 @@ function Prescription() {
  const [printType, setPrintType] = useState('');
  const [size, setSize] = useState('');
  const [cutType, setCutType] = useState('');
- const [cover, setCover] = useState('');
  const [close, setClose] = useState('');
  const [closeSide, setCloseSide] = useState('');
  const [quantity, setQuantity] = useState('');
@@ -26,7 +25,6 @@ function Prescription() {
     console.log('Selected Print Type:', printType);
     console.log('Selected PaperNum Type:', paperNum);
     console.log('Selected Cut Type:', cutType);
-    console.log('Selected Cover Type:', cover);
     console.log('Selected Size:', size);
     console.log('Selected close:', close);
     console.log('Selected close side:', closeSide);
@@ -176,28 +174,7 @@ function Prescription() {
                     >  يمين </div>
                   </div>
                 </div>
-       {/* Cover */}
-       <div className='mt-2'>
-                  <label className='mb-2 fw-bold'>الغلاف</label>
-                  <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-3 p-1 hovercolor ${cover === 'بدون' ? style.selected : ''}`}
-                      onClick={() => setCover('بدون')}
-                    > بدون</div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cover === '150 جرام' ? style.selected : ''}`}
-                      onClick={() => setCover('150 جرام')}
-                    > 150جرام</div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cover === '200 جرام' ? style.selected : ''}`}
-                      onClick={() => setCover('200 جرام')}
-                    >200جرام</div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cover === '300 جرام لامع كوشيه' ? style.selected : ''}`}
-                      onClick={() => setCover('300 جرام لامع كوشيه')}
-                    >300جرام لامع كوشيه</div>
-                  </div>
-                </div>
+     
         
                 {/* item */}
    

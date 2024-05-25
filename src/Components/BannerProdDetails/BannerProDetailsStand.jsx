@@ -2,11 +2,14 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import style from './BannerproDetails.module.css'
-// import LoadingScrean from '../LoadingScrean/LoadingScrean';
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
 import { Link, useParams } from 'react-router-dom';
 import bannerproimg from '../../assets/image2.jpg'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice'
 function BannerProDetailsStand() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
@@ -14,29 +17,42 @@ function BannerProDetailsStand() {
     const [selectedSize, setSelectedSize] = useState('');
     const [textareaValue, setTextareaValue] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
-  
-    const [sizesAndPrices, setSizesAndPrices] = useState({
-      "مقاس 240×240": "500 ",
-      "مقاس 240×300": "1000 ",
-      "مقاس 200×300": "2000 "
-      
-  });
+    const [sizesAndPrices, setSizesAndPrices] = useState({});
   const isAddToCartDisabled = !selectedSize;
 
     console.log(id);
    
-    async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
+    async function getProDetails() {
+      let { data } = await axios.get(`http://localhost:8000/api/products/5/details`);
+      console.log(data)
+      console.log(data.sizes[0].name)
+      setProDetails(data);
 
-    }
+      // Initialize sizesAndPrices after fetching data
+      setSizesAndPrices({
+          [data.sizes[0].name]: data.sizes[0].price,
+          [data.sizes[1].name]: data.sizes[1].price,
+          [data.sizes[2].name]: data.sizes[2].price
+      });
+  }
 
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
+
+  const onSubmit = (formData) => {
+    event.preventDefault(); // Prevent default form submission
+    const totalAmount = sizesAndPrices[selectedSize] * quantity;
+    const itemData = {
+        id: proDetails.id,
+        name: proDetails.name,
+        size: selectedSize,
+        quantity,
+        notes: textareaValue,
+        file: selectedFile,
+        price: totalAmount
     };
+    dispatch(addToCart(itemData));
+    console.log(itemData);
+};
+
 
     useEffect(() => {
       
@@ -137,7 +153,7 @@ function BannerProDetailsStand() {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>ادجستبل استاند</h2>
+                    <h2>{proDetails.name.slice(0, proDetails.name.indexOf('',15))}</h2>
                     <div>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     <i className="fa-solid fa-circle-arrow-left"></i>
@@ -159,10 +175,13 @@ function BannerProDetailsStand() {
                     className={`col-12 p-2 mt-2 ${style.borderstyle}`}
                     {...register('size')}
                     onChange={handleSizeChange}>
-                    <option value="">اختر المقاس</option>
-                    <option value="مقاس 240×240">مقاس 240×240</option>
-                    <option value="مقاس 240×300">مقاس 240×300</option>
-                    <option value="مقاس 200×300">مقاس 200×300</option>
+                   <option value="">اختر المقاس</option>
+                                        {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name} مقاس</option>
+                                        ))}
+
+                    {/* <option value="مقاس 240×300">مقاس 240×300</option>
+                    <option value="مقاس 200×300">مقاس 200×300</option> */}
 
                 </select>
             
@@ -213,7 +232,7 @@ function BannerProDetailsStand() {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>ادجستل استاند</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{sizesAndPrices[selectedSize] * quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{(parseFloat(sizesAndPrices[selectedSize] * quantity)).toFixed(2)} EGP</span>
                                      </div>
                                     </div>
                                     {textareaValue.trim() !== '' && selectedFile !== null || textareaValue.trim() == '' && selectedFile !== null || textareaValue.trim() !== '' && selectedFile == null(
@@ -226,7 +245,7 @@ function BannerProDetailsStand() {
                                     )} 
 
 
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {sizesAndPrices[selectedSize] * quantity}</div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {(parseFloat(sizesAndPrices[selectedSize] * quantity)).toFixed(2)} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
@@ -263,8 +282,7 @@ function BannerProDetailsStand() {
 
             
         </div>
-           :<div>looding</div>}
-
+          :<LoadingScrean/>}
            {/*  */}
        
     </div>

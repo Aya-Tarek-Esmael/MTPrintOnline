@@ -2,39 +2,61 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import style from './BannerproDetails.module.css'
-// import LoadingScrean from '../LoadingScrean/LoadingScrean';
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
 import { Link, useParams } from 'react-router-dom';
 import bannerproimg from '../../assets/image2.jpg'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice'
 function BannerProDetails() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
-    const [sizesAndPrices, setSizesAndPrices] = useState({
-      "60x160": "850.00 ",
-      "80x180": "1.050.00"
+    const [sizesAndPrices, setSizesAndPrices] = useState({});
+  //   const [sizesAndPrices, setSizesAndPrices] = useState({
+  //     "60x160": "850.00 ",
+  //     "80x180": "1.050.00"
 
-  });
+  // });
   const isAddToCartDisabled = !selectedSize;
   const [textareaValue, setTextareaValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
 
     console.log(id);
    
-    async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
+    async function getProDetails() {
+      let { data } = await axios.get(`http://localhost:8000/api/products/8/details`);
+      console.log(data)
+      console.log(data)
+      setProDetails(data);
 
-    }
+      // Initialize sizesAndPrices after fetching data
+      setSizesAndPrices({
+          [data.sizes[0].name]: data.sizes[0].price,
+          [data.sizes[1].name]: data.sizes[1].price
 
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
+      });
+  }
+
+
+  const onSubmit = (formData) => {
+    event.preventDefault(); // Prevent default form submission
+    const totalAmount = parseFloat(sizesAndPrices[selectedSize]) * quantity;
+    const itemData = {
+        id: proDetails.id,
+        name: proDetails.name,
+        size: selectedSize,
+        quantity,
+        notes: textareaValue,
+        file: selectedFile,
+        price: totalAmount
     };
+    dispatch(addToCart(itemData));
+    console.log(itemData);
+};
 
     useEffect(() => {
       
@@ -136,7 +158,7 @@ function BannerProDetails() {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>اكس بانر</h2>
+                    <h2>{proDetails.name}</h2>
                     <div>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     <i className="fa-solid fa-circle-arrow-left"></i>
@@ -160,8 +182,11 @@ function BannerProDetails() {
                     {...register('size')}
                     onChange={handleSizeChange}>
                     <option value="">اختر المقاس</option>
-                    <option value="60x160">60x160 cm</option>
-                    <option value="80x180">80x180 cm</option>
+                    {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name} سم </option>
+                                        ))}
+                    {/* <option value="60x160">60x160 cm</option>
+                    <option value="80x180">80x180 cm</option> */}
                 </select>
             
             {isPriceVisible && selectedSize && (
@@ -211,14 +236,14 @@ function BannerProDetails() {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{sizesAndPrices[selectedSize] * quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{(parseFloat(sizesAndPrices[selectedSize])* quantity).toFixed(2)}  EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {sizesAndPrices[selectedSize] * quantity}</div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {(parseFloat(sizesAndPrices[selectedSize])* quantity).toFixed(2)} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
@@ -249,23 +274,13 @@ function BannerProDetails() {
                                     <button type="submit" className={`btn btn-danger col-8 mt-2 mb-5 py-2 fs-5 me-1 ${isAddToCartDisabled ? 'disabled' : ''}`}>إضافة إلى السلة</button>
                                 </div>
                             </form>
-                   {/* <h2>Name:{proDetails.title}</h2>
-                   <h6>Descrition:{proDetails.description}</h6>
-                   <h6>Price:{proDetails.price}</h6>
-                   <h6>Quantity:{proDetails.quantity}</h6>
-                   <h6>Brand:{proDetails.brand.name}</h6>
-                   <h6>Category:{proDetails.category.name}</h6>
-                   <h6>Rating:{proDetails.ratingsAverage}</h6>
-                   {proDetails.images.map((image, index) => (
-                   <img key={index} src={image} alt={proDetails.title} className=' col-2 m-1' />
-                   ))} */}
-                   {/* <button className='btn btn-danger w-100 mt-3 mb-5' onClick=''>Add To Cart +</button> */}
+               
                 </div>
             </div>
 
             
         </div>
-           :<div>looding</div>}
+           :<LoadingScrean/>}
 
            {/*  */}
         

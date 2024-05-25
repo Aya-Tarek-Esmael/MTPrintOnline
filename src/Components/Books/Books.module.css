@@ -7,7 +7,7 @@
 
 
 .circlebg{
-  background-image: url('../../assets/circle.jpg');
+  /* background-image: url('../../assets/circle.jpg'); */
   background-size: cover;
   height: 93%;
   width: 100%;

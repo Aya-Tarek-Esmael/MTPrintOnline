@@ -2,9 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getPapers = createAsyncThunk("movie/getAllmovie", async () => {
-    let data = await axios.get("https://api.themoviedb.org/3/movie/popular?api_key=7a1c19ea3c361a4d3cc53eb70ef8298c");
-    return data.data.results;
+export const getPapers = createAsyncThunk("papers/getAllpapers", async () => {
+    let data = await axios.get('http://localhost:8000/api/categories/12');
+    return data.data.products;
+    
 })
 const PapersSlice = createSlice({
     name: "papercard",

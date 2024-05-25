@@ -2,10 +2,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import style from './BannerProduct.module.css'
 function NormallBanner({data}) {
+
+	
   return (
     <>
-
-
   {/* cards container*/}
   <li className={`card ${style.product} border-0 pb-3 mt-3 mb-5 col-lg-3 col-md-3 col-sm-12  col-xs-12 `}>
 	<div className="">

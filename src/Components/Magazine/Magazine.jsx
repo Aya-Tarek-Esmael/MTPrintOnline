@@ -7,10 +7,11 @@ function Magazine() {
     // State variables to hold selected choices
     const [paperType, setPaperType] = useState('');
     const [cover, setCover] = useState('');
+    const [paperNum, setPaperNum] = useState('');
     const [size, setSize] = useState('');
     const [solfan, setSolfan] = useState('');
     const [quantity, setQuantity] = useState('');
-    const [coverUpload, setCoverUpload] = useState('');
+    // const [coverUpload, setCoverUpload] = useState('');
     const [notes, setNotes] = useState('');
     const [file, setFile] = useState('');
     const [fileLink, setFileLink] = useState('');
@@ -21,10 +22,11 @@ function Magazine() {
         e.preventDefault();
         // Log selected choices
         console.log('Selected Paper Type:', paperType);
+        console.log('Selected Paper Num:', paperNum);
         console.log('Selected Cover:', cover);
         console.log('Selected Size:', size);
         console.log('Selected Solfan:', solfan);
-        console.log('Cover Upload:', coverUpload);
+        // console.log('Cover Upload:', coverUpload);
         console.log('Selected Quantity:', quantity);
         console.log('Notes:', notes);
         console.log('Uploaded File:', file);
@@ -92,8 +94,13 @@ function Magazine() {
                                 <input type='number' placeholder='0' className='bg-light p-1 text-center border-0' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
                             </div>
 
+   {/* item */}
+   <div className='d-flex border justify-content-between p-2 mt-3'>
+                                <label className=''>عدد الورق الداخلي</label>
+                                <input type='number' placeholder='0' className='bg-light p-1 text-center border-0' value={paperNum} onChange={(e) => setPaperNum(e.target.value)} />
+                            </div>
                             {/* item */}
-                            <div className="d-flex border py-4 mt-3 justify-content-center text-center">
+                            {/* <div className="d-flex border py-4 mt-3 justify-content-center text-center">
                                 <div id="dZUpload" className={`${style.uploadbtn}`}>
                                 <label htmlFor='coverUpload' className={`text-dark ${style.uploadbtn}`}>
                                         <i className="fa-solid fa-upload ms-2"></i>
@@ -105,8 +112,8 @@ function Magazine() {
                                         style={{ display: 'none' }}
                                         onChange={(e) => setCoverUpload(e.target.files[0])}
                                     />
-                                </div>
-                            </div>
+                                </div> 
+                            </div>*/}
                         </div>
 
 

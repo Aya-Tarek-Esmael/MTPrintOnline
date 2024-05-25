@@ -9,6 +9,8 @@ function Folder() {
   const [cutType, setCutType] = useState('');
   const [solfanType, setSolfanType] = useState('');
   const [size, setSize] = useState('');
+  const [innerPocket, setInnerPocket] = useState('');
+  const [heel, setHeel] = useState('');
   const [quantity, setQuantity] = useState('');
   const [notes, setNotes] = useState('');
   const [file, setFile] = useState('');
@@ -21,6 +23,8 @@ function Folder() {
     //selected choices 
     console.log('Selected Paper Type:', paperType);
     console.log('Selected Paper Type:', solfanType);
+    console.log('Selected Inner pocket:', innerPocket);
+    console.log('Selected Heel:', heel);
     console.log('Selected Cut Type:', cutType);
     console.log('Selected Size:', size);
     console.log('Selected Quantity:', quantity);
@@ -42,7 +46,7 @@ function Folder() {
               {/* item */}
               <div className=''>
        <label className='mb-2 fw-bold'>نوع الورق </label>
-       <div className='d-flex text-center ms-2'>
+       <div className={`d-flex text-center ms-2 ${style.measurewidth}`}>
        <div
                       className={`border me-1 col-3 py-1 hovercolor ${
                         paperType === 'كوشية 200 ' ? style.selected : ''
@@ -94,6 +98,33 @@ function Folder() {
                     </div>
        </div>
        </div>
+               {/* item */}
+  <div className='mt-4'>
+       <label className='mb-2 fw-bold'> الجيب الداخلي </label>
+       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
+       <div
+                      className={`border col-4 p-1 hovercolor ${
+                        innerPocket === 'بدون' ? style.selected : ''
+                      }`}
+                      onClick={() => setInnerPocket('بدون')}>
+                      بدون
+                    </div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${
+                        innerPocket === 'مط' ? style.selected : ''
+                      }`}
+                      onClick={() => setInnerPocket('مط')}>
+                      مط
+                    </div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${
+                        innerPocket === 'لامع' ? style.selected : ''
+                      }`}
+                      onClick={() => setInnerPocket('لامع')}>
+                      لامع
+                    </div>
+       </div>
+       </div>
         {/* item */}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'> السلوفان </label>
@@ -123,24 +154,17 @@ function Folder() {
        </div>
        {/* item */}
        <div className='mt-4'>
-       <label className='fw-bold'>المقاس</label>
+       <label className='fw-bold'>مقاس الفولدر مقفول </label>
        <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
        <div
-      className={`border hovercolor col-4 p-1 ${
-        size === 'A3 (42 x 30)' ? style.selected : ''
-      }`}
-      onClick={() => setSize('A3 (42 x 30)')}>
-      A3 (42 x 30)
-    </div>
-       <div
-      className={`border hovercolor col-4 me-1 p-1 ${
+      className={`border hovercolor col-6  p-1 ${
         size === 'A4 (21 x 30)' ? style.selected : ''
       }`}
       onClick={() => setSize('A4 (21 x 30)')}>
       A4 (21 x 30)
     </div>
     <div
-      className={`border hovercolor col-4 me-1 p-1 ${
+      className={`border hovercolor col-6 me-2 p-1 ${
         size === 'A5 (21 x 15)' ? style.selected : ''
       }`}
       onClick={() => setSize('A5 (21 x 15)')}>
@@ -165,7 +189,33 @@ function Folder() {
    
        </div>
        </div>
-       
+       {/* item */}
+  <div className='mt-4'>
+       <label className='mb-2 fw-bold'> فى حالة طلب كعب بدل الاثناء  </label>
+       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
+       <div
+                      className={`border col-4 p-1 hovercolor ${
+                        heel === 'بدون' ? style.selected : ''
+                      }`}
+                      onClick={() => setHeel('بدون')}>
+                      بدون
+                    </div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${
+                        heel === 'مط' ? style.selected : ''
+                      }`}
+                      onClick={() => setHeel('مط')}>
+                      مط
+                    </div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${
+                        heel === 'لامع' ? style.selected : ''
+                      }`}
+                      onClick={() => setHeel('لامع')}>
+                      لامع
+                    </div>
+       </div>
+       </div>
           {/* item */}
           <div className='d-flex border justify-content-between p-2  mt-4'>
           <label className=''>الكمية</label>

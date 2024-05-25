@@ -5,37 +5,64 @@ import style from './BannerproDetails.module.css'
 // import LoadingScrean from '../LoadingScrean/LoadingScrean';
 import { Link, useParams } from 'react-router-dom';
 import bannerproimg from '../../assets/image2.jpg'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
 function BannerProDetailsBobUp() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedSize, setSelectedSize] = useState('');
-    const [sizesAndPrices, setSizesAndPrices] = useState({
-      "200x300": "10,940.00 ",
-      "300x300": "11,510.00",
-      "300x400": "12,960.00 ",
-      "300x500": "13,920.00 "
-  });
+    const [sizesAndPrices, setSizesAndPrices] = useState({});
+
+  //   const [sizesAndPrices, setSizesAndPrices] = useState({
+  //     "200x300": "10,940.00 ",
+  //     "300x300": "11,510.00",
+  //     "300x400": "12,960.00 ",
+  //     "300x500": "13,920.00 "
+  // });
   const isAddToCartDisabled = !selectedSize;
   const [textareaValue, setTextareaValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
 
     console.log(id);
    
-    async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
+    async function getProDetails() {
+      let { data } = await axios.get(`http://localhost:8000/api/products/6/details`);
+      console.log(data)
+      console.log(data)
+      setProDetails(data);
 
-    }
+      // Initialize sizesAndPrices after fetching data
+      setSizesAndPrices({
+          [data.sizes[0].name]: data.sizes[0].price,
+          [data.sizes[1].name]: data.sizes[1].price,
+          [data.sizes[2].name]: data.sizes[2].price,
+          [data.sizes[3].name]: data.sizes[3].price
 
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
-    };
+      });
+  }
+
+
+    const onSubmit = (formData) => {
+      event.preventDefault(); // Prevent default form submission
+      const totalAmount = parseFloat(sizesAndPrices[selectedSize]) * quantity;
+      const itemData = {
+          id: proDetails.id,
+          name: proDetails.name,
+          size: selectedSize,
+          quantity,
+          notes: textareaValue,
+          file: selectedFile,
+          price: totalAmount
+      };
+      dispatch(addToCart(itemData));
+      console.log(itemData);
+  };
+  
 
     useEffect(() => {
       
@@ -137,7 +164,7 @@ function BannerProDetailsBobUp() {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>بوب اب كامل</h2>
+                    <h2>{proDetails.name}</h2>
                     <div>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     <i className="fa-solid fa-circle-arrow-left"></i>
@@ -160,10 +187,13 @@ function BannerProDetailsBobUp() {
                     {...register('size')}
                     onChange={handleSizeChange}>
                     <option value="">اختر المقاس</option>
-                    <option value="200x300"> 200x300 مقاس</option>
+                    {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name} مقاس </option>
+                                        ))}
+                    {/* <option value="200x300"> 200x300 مقاس</option>
                     <option value="300x300"> 300x300 مقاس</option>
                     <option value="300x400"> 300x400 مقاس</option>
-                    <option value="300x500"> 300x500 مقاس </option>
+                    <option value="300x500"> 300x500 مقاس </option> */}
                 </select>
             
             {isPriceVisible && selectedSize && (
@@ -213,19 +243,19 @@ function BannerProDetailsBobUp() {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{parseFloat(sizesAndPrices[selectedSize] )* quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{(parseFloat(sizesAndPrices[selectedSize])* quantity).toFixed(2)}  EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {parseFloat(sizesAndPrices[selectedSize] )* quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {(parseFloat(sizesAndPrices[selectedSize])* quantity).toFixed(2)} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
                                     <div className="quantity col-4 mt-2">
-                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية ادجستبل استاند</label>
+                                        <label className="screen-reader-text d-none" htmlFor="quantity">كمية بوب اب</label>
                     <input
                         type="number"
                         id="quantity"
@@ -257,7 +287,7 @@ function BannerProDetailsBobUp() {
 
             
         </div>
-           :<div>looding</div>}
+          :<LoadingScrean/>}
 
          
     </div>

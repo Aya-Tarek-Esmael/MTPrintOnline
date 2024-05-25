@@ -6,12 +6,15 @@ import { Link } from 'react-router-dom';
 function BlockNote() {
          // State variables to hold selected choices
   const [paperType, setPaperType] = useState('');
-  const [printType, setPrintType] = useState('');
   const [paperNum, setPaperNum] = useState('');
+  const [intPaperType, setIntPaperType] = useState('');
   const [cutType, setCutType] = useState('');
+  const [coverType, setCoverType] = useState('');
+  const [solfan, setSolfan] = useState('');
   const [close, setClose] = useState('');
   const [closeSide, setCloseSide] = useState('');
   const [size, setSize] = useState('');
+  const [quantity, setQuantity] = useState('');
   const [cover, setCover] = useState('');
   const [notes, setNotes] = useState('');
   const [file, setFile] = useState('');
@@ -23,10 +26,13 @@ function BlockNote() {
     e.preventDefault();
     //selected choices 
     console.log('Selected Paper Type:', paperType);
-    console.log('Selected print Type:', printType);
-    console.log('Selected Paper Type:', paperNum);
+    console.log('Selected Paper Num:', paperNum);
+    console.log('Selected Paper Type:', intPaperType);
     console.log('Selected Cut Type:', cutType);
+    console.log('Selected cover  Type:', coverType);
+    console.log('Selected solfan Type:', solfan);
     console.log('Selected Size:', size);
+    console.log('Selected Quantity:', quantity);
     console.log('Selected close:', close);
     console.log('Selected close side:', closeSide);
     console.log('Selected cover:', cover);
@@ -45,143 +51,10 @@ function BlockNote() {
             <div className='col-lg-8 d-lg-flex  px-4'>
               <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
 
-                {/* Paper Type */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'>نوع الورق </label>
-                  <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-4 py-1 hovercolor ${paperType === '70 جرام' ? style.selected : ''}`}
-                      onClick={() => setPaperType('70 جرام')}
-                    > 70 جرام</div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperType === '80 جرام' ? style.selected : ''}`}
-                      onClick={() => setPaperType('80 جرام')}
-                    >80 جرام</div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperType === '100 جرام' ? style.selected : ''}`}
-                      onClick={() => setPaperType('100 جرام')}
-                    >100 جرام</div>
-                  </div>
-                </div>
-
-                {/* Print Type */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'> شكل الطباعة  </label>
-                  <div className='d-flex text-center ms-1'>
-                    <div
-                      className={`border col-6 p-1 hovercolor ${printType === 'وجة فقط' ? style.selected : ''}`}
-                      onClick={() => setPrintType('وجة فقط')}
-                    >وجة فقط </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${printType === 'وجة وضهر' ? style.selected : ''}`}
-                      onClick={() => setPrintType('وجة وضهر')}
-                    >وجة وضهر</div>
-                  </div>
-                </div>
-
-                {/* Cut Type */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'> القص </label>
-                  <div className='d-flex text-center ms-1'>
-                    <div
-                      className={`border col-6 p-1 hovercolor ${cutType === 'عادى' ? style.selected : ''}`}
-                      onClick={() => setCutType('عادى')}
-                    >عادى</div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${cutType === 'كيرف' ? style.selected : ''}`}
-                      onClick={() => setCutType('كيرف')}
-                    >كيرف </div>
-                  </div>
-                </div>
-
-                {/* Paper Number */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'> عدد الورق الداخلى  </label>
-                  <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-4 py-1 hovercolor ${paperNum === '25 ورقة' ? style.selected : ''}`}
-                      onClick={() => setPaperNum('25 ورقة')}
-                    >  25 ورقة </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperNum === '50 ورقة' ? style.selected : ''}`}
-                      onClick={() => setPaperNum('50 ورقة')}
-                    >  50 ورقة </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperNum === '100 ورقة' ? style.selected : ''}`}
-                      onClick={() => setPaperNum('100 ورقة')}
-                    >   100 ورقة  </div>
-                  </div>
-                </div>
-
-                {/* Close Type */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'> التقفيل  </label>
-                  <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-4 py-1 hovercolor ${close === 'غراء = لزق' ? style.selected : ''}`}
-                      onClick={() => setClose('غراء = لزق')}
-                    > غراء = لزق </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${close === 'دبوس = دفتر' ? style.selected : ''}`}
-                      onClick={() => setClose('دبوس = دفتر')}
-                    > دبوس = دفتر </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${close === 'سلك' ? style.selected : ''}`}
-                      onClick={() => setClose('سلك')}
-                    >  سلك  </div>
-                  </div>
-                </div>
-
-                {/* Close Side */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'> جة التقفيل  </label>
-                  <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-3 py-1 hovercolor ${closeSide === 'فوق' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('فوق')}
-                    > فوق</div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'تحت' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('تحت')}
-                    > تحت</div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'شمال' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('شمال')}
-                    >  شمال  </div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'يمين' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('يمين')}
-                    >  يمين </div>
-                  </div>
-                </div>
-
-                {/* Cover */}
-                <div className='mt-2'>
-                  <label className='mb-2 fw-bold'>الغلاف</label>
-                  <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-3 p-1 hovercolor ${cover === 'بدون' ? style.selected : ''}`}
-                      onClick={() => setCover('بدون')}
-                    > بدون</div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cover === '150 جرام' ? style.selected : ''}`}
-                      onClick={() => setCover('150 جرام')}
-                    > 150جرام</div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cover === '200 جرام' ? style.selected : ''}`}
-                      onClick={() => setCover('200 جرام')}
-                    >200جرام</div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cover === '300 جرام لامع كوشيه' ? style.selected : ''}`}
-                      onClick={() => setCover('300 جرام لامع كوشيه')}
-                    >300جرام لامع كوشيه</div>
-                  </div>
-                </div>
-
                 {/* Size */}
                 <div className=''>
                   <label className='fw-bold'>المقاس</label>
-                  <div className=' mt-1 me-0 col-12 text-center '>
+                  <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                     <div className='col-12 d-flex'>
                       <div
                         className={`border hovercolor col-4 py-1 ${size === 'A4 (30 X 21)' ? style.selected : ''}`}
@@ -212,6 +85,192 @@ function BlockNote() {
                     </div>
                   </div>
                 </div>
+               
+     {/* Cover Type */}
+     <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> الغلاف </label>
+                  <div className='d-flex text-center ms-1'>
+                    <div
+                      className={`border col-6 p-1 hovercolor ${coverType === 'عادى' ? style.selected : ''}`}
+                      onClick={() => setCoverType('عادى')}
+                    >عادى</div>
+                    <div
+                      className={`border me-2 col-6 p-1 hovercolor ${cutType === 'كيرف' ? style.selected : ''}`}
+                      onClick={() => setCoverType('كيرف')}
+                    >كيرف </div>
+                  </div>
+                </div>
+                {/* Cover */}
+                <div className='mt-2'>
+                  <label className='mb-2 fw-bold'> نوع ورق الغلاف</label>
+                  <div className={`col-12 text-center ${style.measurewidth}`}>
+                  <div className='col-12 d-flex'>
+                    <div
+                      className={`border col-4 p-1 hovercolor ${cover === '200' ? style.selected : ''}`}
+                      onClick={() => setCover('200')}
+                    > 200</div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${cover === '250' ? style.selected : ''}`}
+                      onClick={() => setCover('150 جرام')}
+                    > 150جرام</div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${cover === '200 جرام' ? style.selected : ''}`}
+                      onClick={() => setCover('200 جرام')}
+                    >200جرام</div>
+                    </div>
+                     <div className='col-12 d-flex mt-2'>
+                    <div
+                      className={`border  col-6 p-1 hovercolor ${cover === '300 جرام لامع كوشيه' ? style.selected : ''}`}
+                      onClick={() => setCover('300 جرام لامع كوشيه')}
+                    >300جرام لامع كوشيه</div>
+                     <div
+                      className={`border me-2 col-6 p-1 hovercolor ${cover === '300 جرام لامع كوشيه' ? style.selected : ''}`}
+                      onClick={() => setCover('300 جرام لامع كوشيه')}
+                    >300جرام لامع كوشيه</div>
+                    </div>
+                  </div>
+                </div>
+  {/* item */}
+  <div className='mt-4'>
+                                <label className='mb-2 fw-bold'>سلوفان الغلاف</label>
+                                <div className='d-flex text-center ms-2'>
+                                    <div className={`border col-4 py-1 hovercolor ${solfan === 'بدون' ? style.selected : ''}`} onClick={() => setSolfan('بدون')}>بدون</div>
+                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'مط' ? style.selected : ''}`} onClick={() => setSolfan('مط')}>مط</div>
+                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'لامع' ? style.selected : ''}`} onClick={() => setSolfan('لامع')}>لامع</div>
+                                </div>
+                            </div>
+
+                 {/* Cut Type */}
+                 <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> القص </label>
+                  <div className='d-flex text-center ms-1'>
+                    <div
+                      className={`border col-6 p-1 hovercolor ${cutType === 'عادى' ? style.selected : ''}`}
+                      onClick={() => setCutType('عادى')}
+                    >عادى</div>
+                    <div
+                      className={`border me-1 col-6 p-1 hovercolor ${cutType === 'كيرف' ? style.selected : ''}`}
+                      onClick={() => setCutType('كيرف')}
+                    >كيرف </div>
+                  </div>
+                </div>
+             
+                {/* Paper Number */}
+                <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> عدد الورق الداخلى  </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border me-1 col-6 py-1 hovercolor ${paperNum === '50 ورقة' ? style.selected : ''}`}
+                      onClick={() => setPaperNum('50 ورقة')}
+                    >  50 ورقة </div>
+                    <div
+                      className={`border me-1 col-6 py-1 hovercolor ${paperNum === '100 ورقة' ? style.selected : ''}`}
+                      onClick={() => setPaperNum('100 ورقة')}
+                    >   100 ورقة  </div>
+                  </div>
+                </div>
+       {/* Cover */}
+       <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> نوع الورق الداخلي</label>
+                  <div className={`col-12 text-center ${style.measurewidth}`}>
+                  <div className='col-12 d-flex'>
+                    <div
+                      className={`border col-4 p-1 hovercolor ${intPaperType === '200' ? style.selected : ''}`}
+                      onClick={() => setIntPaperType('200')}
+                    > 200</div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${intPaperType === '250' ? style.selected : ''}`}
+                      onClick={() => setIntPaperType('150 جرام')}
+                    > 150جرام</div>
+                    <div
+                      className={`border me-1 col-4 p-1 hovercolor ${intPaperType === '200 جرام' ? style.selected : ''}`}
+                      onClick={() => setIntPaperType('200 جرام')}
+                    >200جرام</div>
+                    </div>
+                     <div className='col-12 d-flex mt-2'>
+                    <div
+                      className={`border  col-6 p-1 hovercolor ${intPaperType === '300 جرام لامع كوشيه' ? style.selected : ''}`}
+                      onClick={() => setIntPaperType('300 جرام لامع كوشيه')}
+                    >300جرام لامع كوشيه</div>
+                     <div
+                      className={`border me-2 col-6 p-1 hovercolor ${intPaperType === '300 جرام لامع كوشيه' ? style.selected : ''}`}
+                      onClick={() => setIntPaperType('300 جرام لامع كوشيه')}
+                    >300جرام لامع كوشيه</div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Paper Type */}
+                <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> شكل الورق الداخلي</label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-4 py-1 hovercolor ${paperType === '70 جرام' ? style.selected : ''}`}
+                      onClick={() => setPaperType('70 جرام')}
+                    > 70 جرام</div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${paperType === '80 جرام' ? style.selected : ''}`}
+                      onClick={() => setPaperType('80 جرام')}
+                    >80 جرام</div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${paperType === '100 جرام' ? style.selected : ''}`}
+                      onClick={() => setPaperType('100 جرام')}
+                    >100 جرام</div>
+                  </div>
+                </div>
+                {/* Close Type */}
+                <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> التقفيل  </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-4 py-1 hovercolor ${close === 'غراء = لزق' ? style.selected : ''}`}
+                      onClick={() => setClose('غراء = لزق')}
+                    > غراء = لزق </div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${close === 'دبوس = دفتر' ? style.selected : ''}`}
+                      onClick={() => setClose('دبوس = دفتر')}
+                    > دبوس = دفتر </div>
+                    <div
+                      className={`border me-1 col-4 py-1 hovercolor ${close === 'سلك' ? style.selected : ''}`}
+                      onClick={() => setClose('سلك')}
+                    >  سلك  </div>
+                  </div>
+                </div>
+
+                {/* Close Side */}
+                <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> جة التقفيل  </label>
+                  <div className='d-flex text-center ms-2'>
+                    <div
+                      className={`border col-3 py-1 hovercolor ${closeSide === 'فوق' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('فوق')}
+                    > فوق</div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'تحت' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('تحت')}
+                    > تحت</div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'شمال' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('شمال')}
+                    >  شمال  </div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'يمين' ? style.selected : ''}`}
+                      onClick={() => setCloseSide('يمين')}
+                    >  يمين </div>
+                  </div>
+                </div>
+                     {/* item */}
+          <div className='d-flex border justify-content-between p-2  mt-4'>
+          <label className=''>الكمية</label>
+          <input
+                    type='text'
+                    placeholder='0'
+                    value={quantity}
+                    onChange={(e) => setQuantity(e.target.value)}
+                    className='bg-light p-1 text-center border-0'
+                  />
+         </div>
+              
 
               </div>
   {/* ..... */}

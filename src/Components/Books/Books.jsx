@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import style from './Books.module.css'
-import BooksImg from '../../assets/receipts.jpg'
+import BooksImg from '../../assets/book.png'
 import { Link } from 'react-router-dom';
 function Books() {
   
  // State variables to hold selected choices
 
-  const [printType, setPrintType] = useState('');
   const [size, setSize] = useState('');
   const [cover, setCover] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -21,7 +20,7 @@ function Books() {
     const handleSubmit = (e) => {
         e.preventDefault();
         //selected choices 
-        console.log('Selected Print Type:', printType);
+
         console.log('Selected Paper Type:', paper);
         console.log('Selected PaperNum Type:', paperNum);
         console.log('Selected Cover Type:', cover);
@@ -44,32 +43,40 @@ function Books() {
                      {/* item */}
                      <div className=''>
                      <label className='mb-2 fw-bold'>مقاس الطباعة(مقاس الصفحة الواحدة)</label>
-                     <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                       <div
-                      className={`border col-4 py-1 hovercolor ${
-                        size === 'A5 (21 X 15)'  ? style.selected : ''
-                      }`}
-                      onClick={() => setSize('A5 (21 X 15)')}>
-                     A5 (21 X 15)
+                     <div className={` text-center ms-1 ${style.divwidth}`}>
+                    <div className='col-12 d-flex'>
+                      <div
+                        className={`border hovercolor col-4 py-1 ${size === 'A4 (30 X 21)' ? style.selected : ''}`}
+                        onClick={() => setSize('A4 (30 X 21)')}
+                      >A4 (30 X 21)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A5 (21 X 15)' ? style.selected : ''}`}
+                        onClick={() => setSize('A5 (21 X 15)')}
+                      >A5 (21 X 15)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A6 (15 X 10)' ? style.selected : ''}`}
+                        onClick={() => setSize('A6 (15 X 10)')}
+                      >A6 (15 X 10)</div>
                     </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${
-                        size === 'A6 (15 X 10)' ? style.selected : ''
-                      }`}
-                      onClick={() => setSize('A6 (15 X 10)')}>
-                   A6 (15 X 10)
+                    <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border me-0 hovercolor col-4 py-1 ${size === 'B4 (34 X 24)' ? style.selected : ''}`}
+                        onClick={() => setSize('B4 (34 X 24)')}
+                      >B4 (34 X 24)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B5 (24 X 17)' ? style.selected : ''}`}
+                        onClick={() => setSize('B5 (24 X 17)')}
+                      >B5 (24 X 17)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B6 (17 X 12)' ? style.selected : ''}`}
+                        onClick={() => setSize('B6 (17 X 12)')}
+                      >B6 (17 X 12)</div>
                     </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${
-                        size === 'A4(30 X 21)' ? style.selected : ''
-                      }`}
-                      onClick={() => setSize('A4(30 X 21)')}>
-                     A4(30 X 21)
-                    </div>
-       </div>
-       </div>
+                  </div>
+                </div>
+               
          {/* item */}
-         <div className=''>
+         <div className='mt-3'>
                      <label className='mb-2 fw-bold'>الغلاف</label>
                      <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
                        <div
@@ -95,47 +102,27 @@ function Books() {
                     </div>
        </div>
        </div>
-{/* item */}
-<div className='mt-4'>
-       <label className='mb-2 fw-bold'> اوجه الطباعة </label>
-       <div className='d-flex text-center ms-1'>
-       <div
-                      className={`border col-6 p-1 hovercolor ${
-                        printType === 'وجه فقط' ? style.selected : ''
-                      }`}
-                      onClick={() => setPrintType('وجه فقط')}>
-                      وجه فقط
-                    </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${
-                        printType === 'وجه وضهر' ? style.selected : ''
-                      }`}
-                      onClick={() => setPrintType('وجه وضهر')}>
-                      وجه وضهر
-                    </div>
-       </div>
-       </div>
        
         {/* item */}
         <div className='mt-4'>
        <label className='fw-bold'>الورق الداخلي</label>
        <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
        <div
-      className={`border hovercolor col-4 p-1 ${
+      className={`border hovercolor col-4 px-1 ${
         paper === '80 جرام ورق عادى' ? style.selected : ''
       }`}
       onClick={() => setPaper('80 جرام ورق عادى')}>
      80 جرام ورق عادى
     </div>
        <div
-      className={`border hovercolor col-4 me-1 p-1 ${
+      className={`border hovercolor col-4 me-1 px-1 ${
         paper === '100 جرام ورق عادى' ? style.selected : ''
       }`}
       onClick={() => setPaper('100 جرام ورق عادى')}>
      100 جرام ورق عادى
     </div>
     <div
-      className={`border hovercolor col-4 me-1 p-1 ${
+      className={`border hovercolor col-4 me-1 px-1 ${
         paper === '100 جرام ورق عادى' ? style.selected : ''
       }`}
       onClick={() => setPaper('100 جرام ورق عادى')}>
@@ -144,14 +131,14 @@ function Books() {
     </div>
     <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
     <div
-      className={`border hovercolor col-6 p-1 ${
+      className={`border hovercolor col-6 p-2 ${
         paper === '150 جرام كوشية لامع' ? style.selected : ''
       }`}
       onClick={() => setPaper('150 جرام كوشية لامع')}>
       150 جرام كوشية لامع
     </div>
     <div
-      className={`border hovercolor col-6 me-2 p-1 ${
+      className={`border hovercolor col-6 me-2 p-2 ${
         paper === '150 جرام كوشية مطفى ' ? style.selected : ''
       }`}
       onClick={() => setPaper('150 جرام كوشية مطفى ')}>
@@ -162,7 +149,7 @@ function Books() {
        </div>
         {/* item */}
         <div className='d-flex border justify-content-between p-2  mt-4'>
-          <label className=''>عدد الورق</label>
+          <label className=''>عدد الصفحات</label>
           <input
                     type='text'
                     placeholder='0'

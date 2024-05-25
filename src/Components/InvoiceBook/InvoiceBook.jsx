@@ -46,34 +46,41 @@ function InvoiceBook() {
     <div className='col-lg-8 d-lg-flex  px-4'>
      <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
    
-                    {/* item */}
-                    <div className=''>
-                    <label className='mb-2 fw-bold'> المقاس</label>
-                    <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                    <div
-                     className={`border  col-4 py-1 hovercolor ${
-                       size === 'A4(30 X 21)' ? style.selected : ''
-                     }`}
-                     onClick={() => setSize('A4(30 X 21)')}>
-                    A4(30 X 21)
-                   </div>
+                {/* Size */}
+                <div className=''>
+                  <label className='fw-bold'>المقاس</label>
+                  <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
+                    <div className='col-12 d-flex'>
                       <div
-                     className={`border me-1 col-4 py-1 hovercolor ${
-                       size === 'A5 (21 X 15)'  ? style.selected : ''
-                     }`}
-                     onClick={() => setSize('A5 (21 X 15)')}>
-                    A5 (21 X 15)
-                   </div>
-                   <div
-                     className={`border me-1 col-4 py-1 hovercolor ${
-                       size === 'A6 (15 X 10)' ? style.selected : ''
-                     }`}
-                     onClick={() => setSize('A6 (15 X 10)')}>
-                  A6 (15 X 10)
-                   </div>
-                
-      </div>
-      </div>
+                        className={`border hovercolor col-4 py-1 ${size === 'A4 (30 X 21)' ? style.selected : ''}`}
+                        onClick={() => setSize('A4 (30 X 21)')}
+                      >A4 (30 X 21)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A5 (21 X 15)' ? style.selected : ''}`}
+                        onClick={() => setSize('A5 (21 X 15)')}
+                      >A5 (21 X 15)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A6 (15 X 10)' ? style.selected : ''}`}
+                        onClick={() => setSize('A6 (15 X 10)')}
+                      >A6 (15 X 10)</div>
+                    </div>
+                    <div className='col-12 d-flex mt-2'>
+                      <div
+                        className={`border me-0 hovercolor col-4 py-1 ${size === 'B4 (34 X 24)' ? style.selected : ''}`}
+                        onClick={() => setSize('B4 (34 X 24)')}
+                      >B4 (34 X 24)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B5 (24 X 17)' ? style.selected : ''}`}
+                        onClick={() => setSize('B5 (24 X 17)')}
+                      >B5 (24 X 17)</div>
+                      <div
+                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B6 (17 X 12)' ? style.selected : ''}`}
+                        onClick={() => setSize('B6 (17 X 12)')}
+                      >B6 (17 X 12)</div>
+                    </div>
+                  </div>
+                </div>
+               
         {/* item */}
         <div className=''>
                     <label className='mb-2 fw-bold'>النوع</label>

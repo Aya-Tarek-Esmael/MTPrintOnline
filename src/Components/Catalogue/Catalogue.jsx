@@ -10,7 +10,9 @@ function Catalogue() {
      const [size, setSize] = useState('');
      const [solfan, setSolfan] = useState('');
      const [quantity, setQuantity] = useState('');
-     const [catalogueUpload, setCatalogueUpload] = useState('');
+    const [paperNum, setPaperNum] = useState('');
+  const [cutType, setCutType] = useState('');
+    //  const [catalogueUpload, setCatalogueUpload] = useState('');
      const [notes, setNotes] = useState('');
      const [file, setFile] = useState('');
      const [fileLink, setFileLink] = useState('');
@@ -24,8 +26,10 @@ function Catalogue() {
          console.log('Selected Cover:', cover);
          console.log('Selected Size:', size);
          console.log('Selected Solfan:', solfan);
-         console.log('Catalogue Upload:', catalogueUpload);
+         console.log('Selected Cut Type:', cutType);
+        //  console.log('Catalogue Upload:', catalogueUpload);
          console.log('Selected Quantity:', quantity);
+        console.log('Selected Paper Num:', paperNum);
          console.log('Notes:', notes);
          console.log('Uploaded File:', file);
          console.log('File Link:', fileLink);
@@ -49,7 +53,7 @@ function Catalogue() {
                                         <div className={`border me-1 hovercolor col-4 py-1 ${paperType === 'كوشيه 200جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 200جرام')}>كوشيه 200جرام</div>
                                         <div className={`border me-1 hovercolor col-4 py-1 ${paperType === 'كوشيه 250جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 250جرام')}>كوشيه 250جرام</div>
                                     </div>
-                                    <div className='col-12 d-flex mt-3'>
+                                    <div className='col-12 d-flex mt-2'>
                                         <div className={`border me-0 hovercolor col-4 py-1 ${paperType === 'كوشيه 300جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 300جرام')}>كوشيه 300جرام</div>
                                         <div className={`border me-1 hovercolor col-4 py-1 ${paperType === '80جرام عادي' ? style.selected : ''}`} onClick={() => setPaperType('80جرام عادي')}>80جرام عادي</div>
                                         <div className={`border me-1 hovercolor col-4 py-1 ${paperType === '100جرام عادي' ? style.selected : ''}`} onClick={() => setPaperType('100جرام عادي')}>100جرام عادي</div>
@@ -69,10 +73,18 @@ function Catalogue() {
 
          {/* item */}
          <div className='mt-3'>
-                                <label className='mb-2 fw-bold'>مقاس المجلة مقفولة</label>
-                                <div className='d-flex text-center ms-1'>
-                                    <div className={`border col-6 p-1 hovercolor ${size === 'A3 (19 X 21)' ? style.selected : ''}`} onClick={() => setSize('A3 (19 X 21)')}>A3 (19 X 21)</div>
-                                    <div className={`border me-1 col-6 p-1 hovercolor ${size === 'A4 (21 X 30)' ? style.selected : ''}`} onClick={() => setSize('A4 (21 X 30)')}>A4 (21 X 30)</div>
+                                <label className='mb-2 fw-bold'>مقاس الكتالوح مقفول </label>
+                                <div className={`col-12 text-center ms-1 ${style.measurewidth}`}>
+                                <div className='col-12 d-flex'>
+                                    <div className={`border col-4 p-1 hovercolor ${size === 'A3 (19 X 21)' ? style.selected : ''}`} onClick={() => setSize('A3 (19 X 21)')}>A3 (19 X 21)</div>
+                                    <div className={`border me-1 col-4 p-1 hovercolor ${size === 'A4 (21 X 30)' ? style.selected : ''}`} onClick={() => setSize('A4 (21 X 30)')}>A4 (21 X 30)</div>
+                                    <div className={`border me-1 col-4 p-1 hovercolor ${size === 'A3 (19 X 21)' ? style.selected : ''}`} onClick={() => setSize('A3 (19 X 21)')}>A3 (19 X 21)</div>
+                                    </div>
+                                    <div className='col-12 d-flex mt-2'>
+                                    <div className={`border  col-4 p-1 hovercolor ${size === 'A4 (21 X 30)' ? style.selected : ''}`} onClick={() => setSize('A4 (21 X 30)')}>A4 (21 X 30)</div>
+                                    <div className={`border me-1 col-4 p-1 hovercolor ${size === 'A3 (19 X 21)' ? style.selected : ''}`} onClick={() => setSize('A3 (19 X 21)')}>A3 (19 X 21)</div>
+                                    <div className={`border me-1 col-4 p-1 hovercolor ${size === 'A4 (21 X 30)' ? style.selected : ''}`} onClick={() => setSize('A4 (21 X 30)')}>A4 (21 X 30)</div>
+                                    </div>
                                 </div>
                             </div>
      {/* item */}
@@ -84,13 +96,33 @@ function Catalogue() {
                                     <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'لامع' ? style.selected : ''}`} onClick={() => setSolfan('لامع')}>لامع</div>
                                 </div>
                             </div>
+
+                                 {/* Cut Type */}
+                 <div className='mt-3'>
+                  <label className='mb-2 fw-bold'> القص </label>
+                  <div className='d-flex text-center ms-1'>
+                    <div
+                      className={`border col-6 p-1 hovercolor ${cutType === 'عادى' ? style.selected : ''}`}
+                      onClick={() => setCutType('عادى')}
+                    >عادى</div>
+                    <div
+                      className={`border me-1 col-6 p-1 hovercolor ${cutType === 'كيرف' ? style.selected : ''}`}
+                      onClick={() => setCutType('كيرف')}
+                    >كيرف </div>
+                  </div>
+                </div>
           {/* item */}
           <div className='d-flex border justify-content-between p-2  mt-3'>
           <label className=''>عدد النسخ </label>
           <input type='number' placeholder='0' className='bg-light p-1 text-center border-0' value={quantity} onChange={(e) => setQuantity(e.target.value)} />
          </div>
+            {/* item */}
+   <div className='d-flex border justify-content-between p-2 mt-3'>
+                                <label className=''>عدد الورق الداخلي</label>
+                                <input type='number' placeholder='0' className='bg-light p-1 text-center border-0' value={paperNum} onChange={(e) => setPaperNum(e.target.value)} />
+                            </div>
               {/* item */}
-                     <div className="d-flex border py-4 mt-3 justify-content-center text-center">
+                     {/* <div className="d-flex border py-4 mt-3 justify-content-center text-center">
                                 <div id="dZUpload" className={`${style.uploadbtn}`}>
                                     <label htmlFor='catalogueUpload' className={`text-dark ${style.uploadbtn}`}>
                                         <i className="fa-solid fa-upload ms-2"></i>
@@ -103,7 +135,7 @@ function Catalogue() {
                                         onChange={(e) => setCatalogueUpload(e.target.files[0])}
                                     />
                                 </div>
-                            </div>
+                            </div> */}
 
 
      {/* item */}

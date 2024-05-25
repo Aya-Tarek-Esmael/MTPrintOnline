@@ -3,37 +3,63 @@ import React, { useEffect, useState} from 'react'
 import { Link, useParams } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import style from './BannerproDetails.module.css'
-// import LoadingScrean from '../LoadingScrean/LoadingScrean';
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
 import bannerproimg from '../../assets/image2.jpg'
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
 function BannerProDetailsFlex() {
     const {id} =useParams();
+    const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
     const [proDetails, setProDetails] = useState(null);
     const [quantity, setQuantity] = useState(1); 
     const [isPriceVisible, setIsPriceVisible] = useState(false);
     const [selectedType, setSelectedType] = useState('');
-    const [typesAndPrices, setTypesAndPrices] = useState({
-        "مع سلفنة": "450.00 ",
-        "بدون سلفنة": "390.00"
-  });
-  const isAddToCartDisabled = !selectedType;
-  const [textareaValue, setTextareaValue] = useState('');
-  const [selectedFile, setSelectedFile] = useState(null);
+    const [width, setWidth] = useState('');
+    const [height, setHeight] = useState('');
+    const [area, setArea] = useState('');
+    const [price, setPrice] = useState('');
+    const isAddToCartDisabled = !selectedType;
+    const [textareaValue, setTextareaValue] = useState('');
+    const [selectedFile, setSelectedFile] = useState(null);
+    const [typesAndPrices, setTypesAndPrices] = useState({});
+  //   const [typesAndPrices, setTypesAndPrices] = useState({
+  //       "مع سلفنة": "450.00 ",
+  //       "بدون سلفنة": "390.00"
+  // });
+ 
 
     console.log(id);
    
-    async function getProDetails(){
-        // let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products/${id}`);
-        let {data}= await axios.get(`https://ecommerce.routemisr.com/api/v1/products`);
-        console.log(data)
-         setProDetails(data.data);
-
+    async function getProDetails() {
+      let { data } = await axios.get(`http://localhost:8000/api/products/13/details`);
+    
+       console.log(data)
+      console.log(data);
+      setProDetails(data);
+             // Initialize sizesAndPrices after fetching data
+             setTypesAndPrices({
+              [data.sizes[0].name]: data.sizes[0].price,
+              [data.sizes[1].name]: data.sizes[1].price
+            
+          });
     }
 
-    const onSubmit = (data) => {
-        console.log(data);
-        //logic for submitting the form data here
-    };
+    const onSubmit = (formData) => {
+      event.preventDefault(); // Prevent default form submission
+      const totalAmount = price * quantity;
+      const itemData = {
+          id: proDetails.id,
+          name: proDetails.name,
+          type: selectedType,
+          quantity,
+          notes: textareaValue,
+          file: selectedFile,
+          price: totalAmount
+      };
+      dispatch(addToCart(itemData));
+      console.log(itemData);
+  };
 
     useEffect(() => {
       
@@ -111,11 +137,7 @@ function BannerProDetailsFlex() {
   }
 
 
-  const [width, setWidth] = useState('');
-  const [height, setHeight] = useState('');
-  const [area, setArea] = useState(0);
-  const [price, setPrice] = useState();
-  
+ 
   
   const handleWidthChange = (event) => {
       const newWidth = event.target.value;
@@ -134,24 +156,29 @@ function BannerProDetailsFlex() {
   
     const parsedWidth = parseFloat(newWidth);
     const parsedHeight = parseFloat(newHeight);
-    if (!isNaN(parsedWidth) && !isNaN(parsedHeight)) {
+    if (!isNaN(parsedWidth) && !isNaN(parsedHeight) && parsedWidth > 0 && parsedHeight > 0) {
       const area = parseFloat(newWidth) * parseFloat(newHeight) *0.0001;
-      setArea(area);
+      setArea(area.toFixed(2));
       console.log('area',area)
       const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
-      const newPrice = area * (selectedTypePrice );
+      const newPrice = area * (parseFloat(selectedTypePrice));
       console.log(selectedTypePrice )
-      setPrice(newPrice);
+      setPrice(newPrice.toFixed(2));
       console.log('price',price)
-    }
+    } else {
+      setArea('');
+      setPrice('');
+  }
   };
   useEffect(() => {
     const selectedTypePrice = parseFloat(typesAndPrices[selectedType]);
-    const newPrice = area * (selectedTypePrice);
-    setPrice(newPrice);
+    const newPrice = area * (parseFloat(selectedTypePrice))
+    setPrice(newPrice.toFixed(2));
   }, [area, selectedType]);
 
 //  
+
+
   return (
     <div>
         {proDetails? <div className={`container-fluid mb-3 pb-4 ${style.containerbg}`}>
@@ -178,7 +205,7 @@ function BannerProDetailsFlex() {
 
                 <div className="col-md-5 px-4 mt-5 ">
                     <div className='d-flex justify-content-between'>
-                    <h2>فليكس</h2>
+                    <h2>{proDetails.name}</h2>
                     <div>
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     <i className="fa-solid fa-circle-arrow-left"></i>
@@ -196,14 +223,18 @@ function BannerProDetailsFlex() {
                     <form onSubmit={handleSubmit(onSubmit)}>
                     {/* <div className='col-12 mt-4'> */}
                         <div>
-                    <label className='fw-bold mt-2'>المقاس</label>
+                    <label className='fw-bold mt-2'>النوع</label>
                     <select
                     className={`col-12 p-2 mt-2 ${style.borderstyle}`}
                     {...register('size')}
                     onChange={handleSizeChange}>
                     <option value="">اختر النوع</option>
+                    {proDetails.sizes.map((size, index) => (
+                                            <option key={index} value={size.name}>{size.name}</option>
+                                        ))}
+{/* 
                     <option value="مع سلفنة"> فليكس مع سلفنة</option>
-                    <option value="بدون سلفنة"> فليكس بدون سلفنة</option>
+                    <option value="بدون سلفنة"> فليكس بدون سلفنة</option> */}
 
                 </select>
             
@@ -260,7 +291,7 @@ function BannerProDetailsFlex() {
                                  value={area}
                                 className={`w-25 me-5  py-2 border-0 btn  rounded text-center ${style.quantity} col-6`}
                                 autoComplete="off"
-                                placeholder="0.00"
+                                placeholder=""
                                 readOnly
                               
                             />
@@ -323,14 +354,14 @@ function BannerProDetailsFlex() {
                                      <div className="text-danger">x <span>{quantity}</span> <span className='fw-bold'>اكس بانر</span></div>
                                      </div>
                                      <div>
-                                       <span className=' col-6 mx-3 text-danger fw-bold'>{parseFloat(typesAndPrices[selectedType] )* quantity} EGP</span>
+                                       <span className=' col-6 mx-3 text-danger fw-bold'>{(parseFloat(price * quantity)).toFixed(2)} EGP</span>
                                      </div>
                                     </div>  
                                     <div className='col-12 '>
                                      <div className="text-danger h-auto overflow-x-hidden">أكتب ملاحظاتك مع الطلب: {textareaValue.split('\n').map((line, index) => (<div key={index}>{line}-</div>))}</div>
                                      <div className="text-danger">  هل يوجد لديك تصميم (ارفع تصميم): {selectedFile ? selectedFile.name : ''}-</div>
                                     </div>   
-                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {typesAndPrices[selectedType]* quantity} </div>
+                                      <div className='text-danger text-center col-12 mt-3 py-3 border-top border-bottom fs-4'>المجموع EGP {(parseFloat(price * quantity)).toFixed(2)} </div>
                                       </>
                                     )}
                                 <div className="d-flex w-100 mt-4">
@@ -367,7 +398,7 @@ function BannerProDetailsFlex() {
 
             
         </div>
-           :<div>looding</div>}
+            :<LoadingScrean/>}
 
          
     </div>

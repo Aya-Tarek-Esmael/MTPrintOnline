@@ -42,25 +42,32 @@ function LetterHead() {
        <label className='mb-2 fw-bold'>نوع الورق </label>
        <div className='d-flex text-center ms-2'>
        <div
-                      className={`border col-4 py-1 hovercolor ${
+                      className={`border col-3 py-1 hovercolor ${
                         paperType === '70 جرام' ? style.selected : ''
                       }`}
                       onClick={() => setPaperType('70 جرام')}>
                       70 جرام
                     </div>
                     <div
-                      className={`border me-1 col-4 py-1 hovercolor ${
+                      className={`border me-1 col-3 py-1 hovercolor ${
                         paperType === '80 جرام' ? style.selected : ''
                       }`}
                       onClick={() => setPaperType('80 جرام')}>
                       80 جرام
                     </div>
                     <div
-                      className={`border me-1 col-4 py-1 hovercolor ${
+                      className={`border me-1 col-3 py-1 hovercolor ${
                         paperType === '100 جرام' ? style.selected : ''
                       }`}
                       onClick={() => setPaperType('100 جرام')}>
                       100 جرام
+                    </div>
+                    <div
+                      className={`border me-1 col-3 py-1 hovercolor ${
+                        paperType === '120 جرام' ? style.selected : ''
+                      }`}
+                      onClick={() => setPaperType('120 جرام')}>
+                      120 جرام
                     </div>
        </div>
        </div>
@@ -247,7 +254,7 @@ function LetterHead() {
      <img src={letterheadImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
-     <div className="d-flex justify-content-center mt-5 ">
+     <div className="d-flex justify-content-center mt-3 ">
                      <Link id="" className="d-flex col-md-5 texthover" to='/'>
                         <i className="fa-solid fa-chalkboard-user mt-1"></i>
                          <span className="text ms-2">إرشادات الطباعة</span>
