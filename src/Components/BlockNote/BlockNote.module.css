@@ -35,6 +35,15 @@
 .measurewidth{
   width: 99%;
 }
+.divwidth{
+  width: 97%;
+}
+.marg{
+ width:32.3%;
+}
+/* .paper{
+  width:46.3%;
+} */
 .uploadbtn{
   cursor: pointer;
   }

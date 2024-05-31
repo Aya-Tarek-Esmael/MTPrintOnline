@@ -21,7 +21,7 @@
 
  }
  .searchbtn:hover{
-    background-color: var(--secondary-background);
+    background-color: rgb(172, 8, 8);
  }
 .icons{
     color:var(--primary-background);

@@ -1,10 +1,16 @@
-import React, { useState } from 'react'
 import style from './Envelopes.module.css'
 import envelopeImg from '../../assets/envelope.png'
 import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
+import axios from 'axios'
 function Envelopes() {
 
           // State variables to hold selected choices
+  const dispatch = useDispatch();
+  const [proDetails, setProDetails] = useState(null);
   const [paperType, setPaperType] = useState('');
   const [size, setSize] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -12,11 +18,39 @@ function Envelopes() {
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
+  const [internalPaperPrice, setInternalPaperPrice] = useState({});
+  const [sizesAndSquares, setSizesAndSquares] = useState({});
+  const [price, setPrice] = useState(0.00);
+  // const [solfanPrice, setSolfanPrice] = useState({});
+  // const [coverTypePrice, setCoverTypePrice] = useState({});
+    async function getProDetails() {
+        let { data } = await axios.get(`http://localhost:8000/api/products/27/details`);
+        console.log(data);
+        setProDetails(data);
+        setSizesAndSquares({
+            [data.sizes[0].name]: data.sizes[0].price,
+            [data.sizes[1].name]: data.sizes[1].price,
+            [data.sizes[2].name]: data.sizes[2].price,
+            [data.sizes[3].name]: data.sizes[3].price
+      
+         });
+        
+         setInternalPaperPrice({
+            [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+            [data.type_in_paper[1].name]: data.type_in_paper[1].price
+          });
 
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //selected choices 
+    }
+
+    useEffect(() => {
+      
+        getProDetails()
+    
+    }, [])
+    // Function to handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+      //selected choices 
     console.log('Selected Paper Type:', paperType);
     console.log('Selected Size:', size);
     console.log('Selected Quantity:', quantity);
@@ -24,13 +58,39 @@ function Envelopes() {
     console.log('Uploaded File:', file);
     console.log('File Link:', fileLink);
     console.log('Delivery Date:', deliveryDate);
-  };
+        const itemData = {
+          id:proDetails.id,
+          name:proDetails.name,
+            paperType,
+            size,
+            quantity,
+            notes,
+            file,
+            fileLink,
+            deliveryDate,
+            price
+          };
+   
+        console.log(itemData);
+        dispatch(addToCart(itemData));
+    };
 
-  return (
-    <>
-    
-    <div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
-     <h1 className='mx-4 mb-5'> اظرف- Envelopes </h1>
+
+      // Function to calculate the total price
+  const calculateTotalPrice = () => {
+      const totalCost= (parseFloat(sizesAndSquares[size]) + parseFloat(internalPaperPrice[paperType])) * quantity ;
+      setPrice(totalCost);
+  }
+    // Update total price whenever relevant state variables change
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [paperType,size, quantity]);
+
+return (
+<>
+{proDetails?<div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
+     <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -39,60 +99,49 @@ function Envelopes() {
               <div className=''>
        <label className='mb-2 fw-bold'>نوع الورق </label>
        <div className='d-flex text-center ms-2'>
-       <div
-                      className={`border col-6 py-1 hovercolor ${
-                        paperType === 'غزالة عادى '? style.selected : ''
-                      }`}
-                      onClick={() => setPaperType('غزالة عادى')}>
-                     غزالة عادى 
-                    </div>
-                    <div
-                      className={`border me-1 col-6 py-1 hovercolor ${
-                        paperType === 'غزالة لزق ذاتى ' ? style.selected : ''
-                      }`}
-                      onClick={() => setPaperType('غزالة لزق ذاتى ')}>
-                     غزالة لزق ذاتى 
-                    </div>
-                    
+       {proDetails.type_in_paper.map((papertype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-6 py-1 hovercolor ${paperType === papertype.name ? style.selected : ''}`}
+              onClick={() =>setPaperType(papertype.name)}
+            >
+              {papertype.name}
+            </div>
+          ))}
        </div>
        </div>
 
        {/* item */}
        <div className='mt-4'>
        <label className='fw-bold'>المقاس</label>
-       <div className=' mt-1 me-0 col-12 text-center '>
+       <div className={` mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
         <div className='d-flex'>
-       <div
-      className={`border hovercolor col-6 p-1 ${
-        size === 'DL (11 x 22)' ? style.selected : ''
-      }`}
-      onClick={() => setSize('DL (11 x 22)')}>
-     DL (11 x 22)ظرف ثلث
-    </div>
-    <div
-      className={`border hovercolor col-6 me-1 p-1 ${
-        size === 'C3 (32 x 46)' ? style.selected : ''
-      }`}
-      onClick={() => setSize('C3 (32 x 46)')}>
-     C3 (32 x 46)
-    </div>
+        <div
+              className={`border hovercolor me-0  col-6 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[0].name)}
+            >
+              {proDetails.sizes[0].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-6 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[1].name)}
+            >
+              {proDetails.sizes[1].name}
+            </div>
     </div>
     <div className='d-flex mt-2'>
     <div
-      className={`border hovercolor col-6 p-1 ${
-        size === 'C4 (23 x 32)' ? style.selected : ''
-      }`}
-      onClick={() => setSize('C4 (23 x 32)')}>
-     C4 (23 x 32)
-    </div>
-    
-    <div
-      className={`border hovercolor col-6 me-1 p-1 ${
-        size === 'C5 (23 x 16)' ? style.selected : ''
-      }`}
-      onClick={() => setSize('C5 (23 x 16)')}>
-   C5 (23 x 16)
-    </div>
+              className={`border me-0 hovercolor col-6 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[2].name)}
+            >
+              {proDetails.sizes[2].name}
+            </div>
+            <div
+              className={`border hovercolor me-1  col-6 py-1 ${style.marg} ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[3].name)}
+            >
+              {proDetails.sizes[3].name}
+            </div>
 </div>
 
        </div>
@@ -102,7 +151,8 @@ function Envelopes() {
           <div className='d-flex border justify-content-between p-2  mt-4'>
           <label className=''>الكمية</label>
           <input
-                    type='text'
+                    type='number'
+                    min='0'
                     placeholder='0'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
@@ -119,9 +169,9 @@ function Envelopes() {
                     <div className='mb-4'></div>
      
                       <div className=" d-flex  border">
-                          <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+                          <div  className=" justify-content-between align-items-center bg-danger text-light p-4" onClick={calculateTotalPrice} style={{'cursor':'pointer'}} >
                               <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-                          </Link>
+                          </div>
 
                           <div className="w-100">
                               <div className=" p-1 d-flex justify-content-between align-items-center ">
@@ -129,7 +179,7 @@ function Envelopes() {
                                       الإجمالي
                                   </div>
                                   <div className="price-number fw-bold">
-                                      00.00&nbsp;ج.م
+                                  {price?parseFloat(price.toFixed(2)): '0.00'}ج.م
                                   </div>
                               </div>
                               {/* <hr className={style.whr}/> */}
@@ -138,9 +188,9 @@ function Envelopes() {
                                       *
                                       السعر غير شامل الشحن
                                   </div>
-                                  <div className={`px-2 mt-3  me-2`}>
+                                  <div className={`px-0 mt-3  me-2`}>
                                       سعر النسخة
-                                      00.00
+                                      {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                                       
                                   </div>
                               </div>
@@ -267,6 +317,7 @@ function Envelopes() {
     </div>
     </form>
     </div>
+    : <loodingScreen/>}
    </>
   )
 }

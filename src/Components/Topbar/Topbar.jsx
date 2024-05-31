@@ -46,8 +46,8 @@ function Topbar() {
         <>
             {/* Topbar Start  */}
             <div className={`container-fluid ${style.topcontainer}`}>
-                <div className="row py-1 px-xl-5">
-                    <div className="col-lg-6 text-center text-lg-right d-flex">
+                <div className="row py-1 px-xl-3">
+                    <div className="col-lg-6 text-center text-lg-right d-flex justify-content-between">
                         <div className="d-inline-flex align-items-center">
                             <div className={`btn-group mx-3 ${style.fontcolor}`}>
                                 <span className="text-light"><i className="fa-solid fa-phone-flip ms-2"></i> 012345678910 </span>
@@ -58,13 +58,13 @@ function Topbar() {
 
                         <div className="d-inline-flex align-items-center d-block d-lg-none">
                             <a href="" className="btn px-0 ml-2 me-1">
-                                <i className="fa-solid fa-bag-shopping me-1 text-light"></i>
-                                <span className="badge text-dark border border-dark rounded-circle" style={{ 'padding-bottom': '2px'}}>{cart.length}</span>
+                                <i className="fa-solid fa-bag-shopping ms-2 text-light"></i>
+                                <span className="badge text-light border border-dark bg-dark rounded-circle" style={{ 'padding-bottom': '2px'}}>{cart.length}</span>
                             </a>
-                            <a href="" className="btn px-0 ml-2">
-                                <i className="fa-solid fa-heart me-1 text-light"></i>
-                                <span className="badge text-dark border border-dark rounded-circle" style={{ 'padding-bottom': '2px' }}>0</span>
-                            </a>
+                            {/* <a href="" className="btn px-0 ml-2">
+                                <i className="fa-solid fa-heart ms-2 text-light"></i>
+                                <span className="badge text-light border border-dark rounded-circle" style={{ 'padding-bottom': '2px' }}>0</span>
+                            </a> */}
                         </div>
                     </div>
 
@@ -83,7 +83,7 @@ function Topbar() {
                 {/* ///endtopbar */}
                 {/* middlebar */}
                 <div className="row align-items-center bg-light py-1 px-xl-5 d-none d-lg-flex">
-                    <div className="col-lg-3 col-3">
+                    <div className="col-lg-3 col-3  ">
                         <img src={logo} alt='logo' className='w-75' />
                     </div>
                     <div className="col-lg-5 col-5 border rounded-pill p-0">
@@ -97,9 +97,38 @@ function Topbar() {
                                             All Categories <i className="fa fa-angle-down mt-1 text-secondary"></i>
                                         </button>
                                         <div className={`dropdown-menu justify-content-end ${isDropdownOpen ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="dropdownMenuButton">
-                                            <Link className="dropdown-item text-right" to="/personalcards/" onClick={closeDropdown}>كروت شخصية</Link>
-                                            <Link className="dropdown-item text-right" to="brochure" onClick={closeDropdown}>بروشور</Link>
-                                            <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>كتب كتيبات</a>
+                                           
+                                             {/* كروت شخصية */}
+                                        <Link className="dropdown-item text-right" to="/personalcards/" onClick={closeDropdown}>كروت شخصية</Link>
+                                        <Link className="dropdown-item text-right" to="/papers/26/" onClick={closeDropdown}>بروشور</Link>
+                                        <Link to='/papers/34/' className="dropdown-item text-right" onClick={closeDropdown}>مجلات</Link>
+                                        <Link to='/papers/24/' className="dropdown-item text-right" onClick={closeDropdown}>بلوك نوت</Link>
+                                        <Link to='/papers/26/' className="dropdown-item" onClick={closeDropdown}>روشتات</Link>
+                                        <Link to='/papers/31/' className="dropdown-item text-right" onClick={closeDropdown}>ستيكر</Link>
+                                        <Link to='/papers/33/' className="dropdown-item text-right" onClick={closeDropdown}>كتالوج</Link>
+                                        <Link to='/papers/29/' className="dropdown-item text-right" onClick={closeDropdown}>ليترهيد</Link>
+                                        <Link to='/papers/27/' className="dropdown-item text-right" onClick={closeDropdown}>اظرف</Link>
+                                        <Link to='/papers/32/' className="dropdown-item text-right" onClick={closeDropdown}>فولدر</Link>
+                                        <Link to='/papers/25/' className="dropdown-item text-right" onClick={closeDropdown}>كتب</Link>
+                                        <Link to='/papers/28/' className="dropdown-item text-right" onClick={closeDropdown}>دفتر فواتير</Link>
+                                          {/* منتحات البانر */}
+                                          <Link to={`/bannerproducts/5/`} className="dropdown-item text-right " onClick={closeDropdown}>ادجستل استاند</Link>
+                                        <Link to={`/bannerproducts/10/`} className="dropdown-item text-right" onClick={closeDropdown}>بانر عاكس</Link>
+                                        <Link to={`/bannerproducts/23/`} className="dropdown-item text-right" onClick={closeDropdown}>ورق حائط</Link>
+                                        <Link to={`/bannerproducts/8/`} className="dropdown-item text-right" onClick={closeDropdown}>اكس بانر</Link>
+                                        <Link to={`/bannerproducts/15/`} className="dropdown-item text-right" onClick={closeDropdown}>ستان</Link>
+                                        <Link to={`/bannerproducts/14/`} className="dropdown-item text-right" onClick={closeDropdown}>سي ثرو</Link>
+                                        <Link to={`/bannerproducts/9/`} className="dropdown-item text-right" onClick={closeDropdown}>بانر عادي</Link>
+                                        <Link to={`/bannerproducts/17/`} className="dropdown-item text-right" onClick={closeDropdown}>كانفاس</Link>
+                                        <Link to={`/bannerproducts/16/`} className="dropdown-item text-right" onClick={closeDropdown}>الفينيل</Link>
+                                        <Link to={`/bannerproducts/22/`} className="dropdown-item text-right" onClick={closeDropdown}>ملصق سيارات</Link>
+                                        <Link to={`/bannerproducts/7/`} className="dropdown-item text-right" onClick={closeDropdown}>رول اب</Link>
+                                        <Link to={`/bannerproducts/6/`} className="dropdown-item text-right" onClick={closeDropdown}>بوب اب كامل</Link>
+                                        <Link to={'/bannerproducts/13/'} className="dropdown-item text-right" onClick={closeDropdown}>فليكس</Link>
+                                        <Link to={`/bannerproducts/12/`} className="dropdown-item text-right" onClick={closeDropdown}>جلوسي</Link>
+                                        <Link to={`/bannerproducts/11/`} className="dropdown-item text-right" onClick={closeDropdown}>بانر كوتيد</Link>
+                                        <Link to={`/bannerproducts/18/`} className="dropdown-item text-right" onClick={closeDropdown}>برنت اند كات</Link>
+                                            {/* <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>كتب كتيبات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ملصقات واستيكرات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ورق لعب بلوت</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>بنرات</a>
@@ -109,7 +138,7 @@ function Topbar() {
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>التغليف</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ستاندات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>لوحات ومجسمات</a>
-                                            <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>بوكسات</a>
+                                            <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>بوكسات</a> */}
                                         </div>
                                     </div>
                                 </div>

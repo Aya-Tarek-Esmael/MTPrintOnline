@@ -4,7 +4,8 @@ import { getPapers } from '../../Redux/slices/PapersSlice';
 import PaperCard from './PaperCard';
 import { Link } from 'react-router-dom';
 import style from './Papers.module.css';
-
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { addToCart } from '../../Redux/slices/CartSlice';
 function Papers() {
     const dispatch = useDispatch();
     const papers = useSelector(state => state.PapersReducer.papers);
@@ -30,7 +31,7 @@ function Papers() {
                 {/* personal cards */}
                 {/* <div className='container-fluid d-md-flex flex-wrap col-12'> */}
                     {flag ? (
-                        <h1>Loading</h1>
+                     <LoadingScrean/>
                     ) : (
                         <div className='row'>
                             {papers.map((item) => (

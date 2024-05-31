@@ -1,39 +1,120 @@
-import React, { useState } from 'react'
 import style from './Sticker.module.css'
 import stickerImg from '../../assets/sticker.png'
 import { Link } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
+import axios from 'axios'
 function Sticker() {
       // State variables to hold selected choices
+      const dispatch = useDispatch();
+      const [proDetails, setProDetails] = useState(null);
       const [paperType, setPaperType] = useState('');
       const [solfan, setSolfan] = useState('');
       const [size, setSize] = useState('');
-      const [quantity, setQuantity] = useState('');
-      const [paperNum, setPaperNum] = useState('');
+      const [quantity, setQuantity] = useState(0);
       const [notes, setNotes] = useState('');
       const [file, setFile] = useState('');
       const [fileLink, setFileLink] = useState('');
       const [deliveryDate, setDeliveryDate] = useState('');
+      const [sizesAndSquares, setSizesAndSquares] = useState({});
+      const [solfanPrice, setSolfanPrice] = useState({});
+      const [internalPaperPrice, setInternalPaperPrice] = useState({});
+      const [price, setPrice] = useState(0.00);
+  
+        async function getProDetails() {
+            let { data } = await axios.get(`http://localhost:8000/api/products/31/details`);
+            console.log(data);
+            setProDetails(data);
+            setSizesAndSquares({
+                [data.sizes[0].name]: data.sizes[0].price,
+                [data.sizes[1].name]: data.sizes[1].price,
+                [data.sizes[2].name]: data.sizes[2].price,
+                [data.sizes[3].name]: data.sizes[3].price,
+                [data.sizes[4].name]: data.sizes[4].price,
+                [data.sizes[5].name]: data.sizes[5].price,
+                [data.sizes[6].name]: data.sizes[6].price,
+                [data.sizes[7].name]: data.sizes[7].price,
+                [data.sizes[8].name]: data.sizes[8].price,
+                [data.sizes[9].name]: data.sizes[9].price,
+                [data.sizes[10].name]: data.sizes[10].price,
+                [data.sizes[11].name]: data.sizes[11].price
+          
+             });
+            setSolfanPrice({
+                [data.type[0].name]: data.type[0].price,
+                [data.type[1].name]: data.type[1].price,
+                [data.type[2].name]: data.type[2].price
+             });
 
-
-            // Function to handle form submission
-        const handleSubmit = (e) => {
-         e.preventDefault();
-         //selected choices 
-         console.log('Selected Paper Type:', paperType);
-         console.log('Selected solfan Type:', solfan);
-         console.log('Selected Size:', size);
-         console.log('Selected Quantity:', quantity);
-         console.log('Notes:', notes);
-         console.log('Uploaded File:', file);
-         console.log('File Link:', fileLink);
-         console.log('Delivery Date:', deliveryDate);
+             setInternalPaperPrice({
+                [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+                [data.type_in_paper[1].name]: data.type_in_paper[1].price,
+                [data.type_in_paper[2].name]: data.type_in_paper[2].price
+              });
+          
         }
+        useEffect(() => {
+          
+            getProDetails()
+        
+        }, [])
+        
+    const printcolorCost= 1;
+    const pricePerCm2 = 0.25;
+    // Function to calculate the total price
+const calculateTotalPrice = () => {
+  const paperCost = parseFloat(quantity) * parseFloat(sizesAndSquares[size]) * parseFloat(pricePerCm2);
+  console.log(paperCost)  
+
+  // const printingCost =parseFloat(quantity) * parseFloat(sizesAndSquares[size]) * parseFloat(printcolorCost) ;
+  // console.log(printingCost)
+  // const solfanCost =parseFloat(quantity) * parseFloat(sizesAndSquares[size]) *  parseFloat( solfanPrice[solfan]);
+  //       console.log(solfanCost)
+  // const totalCost = parseFloat(paperCost  + printingCost + solfanCost);
+  const totalCost = parseFloat(paperCost);
+  // console.log(totalCost);
+  setPrice(totalCost);
+}
+        // Function to handle form submission
+        const handleSubmit = (e) => {
+            e.preventDefault();
+           //selected choices 
+           console.log('Selected Paper Type:', paperType);
+           console.log('Selected solfan Type:', solfan);
+           console.log('Selected Size:', size);
+           console.log('Selected Quantity:', quantity);
+           console.log('Notes:', notes);
+           console.log('Uploaded File:', file);
+           console.log('File Link:', fileLink);
+           console.log('Delivery Date:', deliveryDate);
+            const itemData = {
+                paperType,
+                solfan,
+                size,
+                quantity,
+                notes,
+                file,
+                fileLink,
+                deliveryDate,
+                price
+              };
+       
+            console.log(itemData);
+            dispatch(addToCart(itemData));
+        };
+
+        // Update total price whenever relevant state variables change
+        useEffect(() => {
+            // calculateTotalPrice();
+            setPrice();
+          }, [paperType,solfan, size, quantity]);
+    
   return (
     <>
-    
-    <div className='container-fluid my-5'>
-     <h1 className='mx-4 mb-5'> ستيكر- Sticker </h1>
+    {proDetails?<div className='container-fluid my-5'>
+    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
      <div className='col-lg-8 d-lg-flex  px-4'>
@@ -43,19 +124,30 @@ function Sticker() {
         <div className=''>
         <label className='mb-2 fw-bold'>نوع الورق </label>
                                 <div className='d-flex text-center ms-2'>
-                                    <div className={`border col-4 py-1 hovercolor ${paperType === 'جاك اصفر ' ? style.selected : ''}`} onClick={() => setPaperType('جاك اصفر ')}>جاك اصفر </div>
-                                    <div className={`border me-1 col-4 py-1 hovercolor ${paperType === 'جاك ابيض ' ? style.selected : ''}`} onClick={() => setPaperType('جاك ابيض ')}>جاك ابيض </div>
-                                    <div className={`border me-1 col-4 py-1 hovercolor ${paperType === 'TC' ? style.selected : ''}`} onClick={() => setPaperType('TC')}>TC</div>
-                                </div>
+                                {proDetails.type_in_paper.map((papertype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-4 py-1 hovercolor ${paperType === papertype.name ? style.selected : ''}`}
+              onClick={() =>setPaperType(papertype.name)}
+            >
+              {papertype.name}
+            </div>
+          ))}
+           </div>
                             </div>
         {/* item */}
         <div className='mt-4'>
                                 <label className='mb-2 fw-bold'>السلوفان</label>
                                 <div className='d-flex text-center ms-2'>
-                                    <div className={`border col-4 py-1 hovercolor ${solfan === 'بدون' ? style.selected : ''}`} onClick={() => setSolfan('بدون')}>بدون</div>
-                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'مط' ? style.selected : ''}`} onClick={() => setSolfan('مط')}>مط</div>
-                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'لامع' ? style.selected : ''}`} onClick={() => setSolfan('لامع')}>لامع</div>
-                                </div>
+                                {proDetails.type.map((solfantype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-4 py-1 hovercolor ${solfan === solfantype.name ? style.selected : ''}`}
+              onClick={() =>setSolfan(solfantype.name)}
+            >
+              {solfantype.name}
+            </div>
+          ))}</div>
                             </div>
 
 
@@ -64,62 +156,86 @@ function Sticker() {
                   <label className='fw-bold'>المقاس</label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                   <div className='col-12 d-flex '>
-                      <div
-                        className={`border hovercolor  col-4 py-1 ${size === 'دايرة 1.5 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 1.5 سم ')}
-                      >دايرة 1.5 سم </div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 3 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 3 سم ')}
-                      >دايرة 3 سم </div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 4 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 4 سم ')}
-                      >دايرة 4 سم </div>
+                  <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[0].name)}
+            >
+              {proDetails.sizes[0].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[1].name)}
+            >
+              {proDetails.sizes[1].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[2].name)}
+            >
+              {proDetails.sizes[2].name}
+            </div>
                     </div>
                     <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border hovercolor  col-4 py-1 ${size === 'دايرة 5 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 5 سم' )}
-                      >دايرة 5 سم</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 7 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 7 سم')}
-                      >دايرة 7 سم </div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'دايرة 9 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 9 سم')}
-                        >دايرة 9 سم </div>
+                    <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[3].name)}
+            >
+              {proDetails.sizes[3].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[4].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[4].name)}
+            >
+              {proDetails.sizes[4].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[5].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[5].name)}
+            >
+              {proDetails.sizes[5].name}
+            </div>
                     </div>
                  
                   <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border me-0 hovercolor col-4 py-1 ${size === '11x5' ? style.selected : ''}`}
-                        onClick={() => setSize('11x5')}
-                      >11x5</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === '30x20' ? style.selected : ''}`}
-                        onClick={() => setSize('30x20')}
-                      >30x20</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === '30x42' ? style.selected : ''}`}
-                        onClick={() => setSize('30x42')}
-                      >30x42</div>
+                  <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[6].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[6].name)}
+            >
+              {proDetails.sizes[6].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[7].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[7].name)}
+            >
+              {proDetails.sizes[7].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[8].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[8].name)}
+            >
+              {proDetails.sizes[8].name}
+            </div>
                     </div>
                  
                   <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border me-0 hovercolor col-4 py-1 ${size === '14x5' ? style.selected : ''}`}
-                        onClick={() => setSize('14x5')}
-                      >14x5</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === '11x18' ? style.selected : ''}`}
-                        onClick={() => setSize('11x18')}
-                      >11x18</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === '10x5' ? style.selected : ''}`}
-                        onClick={() => setSize('10x5')}
-                      >10x5</div>
+                  <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[9].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[9].name)}
+            >
+              {proDetails.sizes[9].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[10].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[10].name)}
+            >
+              {proDetails.sizes[10].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[11].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[11].name)}
+            >
+              {proDetails.sizes[11].name}
+            </div>
                     </div>
                   </div>
                   </div>
@@ -132,6 +248,7 @@ function Sticker() {
           <input
                     type='number'
                     placeholder='0'
+                    min='0'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                     className='bg-light p-1 text-center border-0'
@@ -146,9 +263,9 @@ function Sticker() {
      <div className='mb-4'></div>
 
        <div className=" d-flex  border">
-           <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+           <div  className=" justify-content-between align-items-center bg-danger text-light p-4"  onClick={calculateTotalPrice} style={{'cursor':'pointer'}}  >
                <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-           </Link>
+           </div>
 
            <div className="w-100">
                <div className=" p-1 d-flex justify-content-between align-items-center ">
@@ -156,7 +273,7 @@ function Sticker() {
                        الإجمالي
                    </div>
                    <div className="price-number fw-bold">
-                       00.00&nbsp;ج.م
+                   {price?parseFloat(price.toFixed(2)): '0.00'}ج.م
                    </div>
                </div>
                {/* <hr className={style.whr}/> */}
@@ -165,9 +282,9 @@ function Sticker() {
                        *
                        السعر غير شامل الشحن
                    </div>
-                   <div className={`px-2 mt-3  me-2`}>
+                   <div className={`px-0 mt-3  me-2`}>
                        سعر النسخة
-                       00.00
+                       {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                        
                    </div>
                </div>
@@ -297,6 +414,7 @@ function Sticker() {
     </div>
     </form>
     </div>
+    :<LoadingScrean/>}
    </>
   )
 }

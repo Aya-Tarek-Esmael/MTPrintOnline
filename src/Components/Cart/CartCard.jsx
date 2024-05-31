@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import bannerproimg from '../../assets/image2.jpg';
 
 function CartCard({ data }) {
-    // console.log(data.name)
+ console.log(data)
     const nav = useNavigate();
     const dispatch = useDispatch();
     function add() {
@@ -27,15 +27,15 @@ function CartCard({ data }) {
             <img className="card-img-top" src={bannerproimg} />
 
             <div className="card-body">
-                <p className="card-title text-center"><span className='font text-center'></span>{data.name.slice(0, data.name.indexOf('',15))}</p>
+                <h6 className="card-title text-center fw-bold " style={{'fontSize':'15px'}}><span className='font text-center'></span>{data.name.slice(0, data.name.indexOf('',25))}</h6>
                 {/* <p className="card-title">  <span className='font'>Notes: </span>{data.notes}</p> */}
                 {/* <p className="card-title">  <span className='font'>File: </span>{data.file}</p> */}
                 <p className="card-title"><span className='font fw-bold'>السعر: </span> {data.price}</p>
                 <p  className="card-title"><span className='font fw-bold' id='qua'>الكمية: </span>{data.quantity}</p>
-                {/* <button className="btn btn-primary" onClick={''}>Details</button> */}
-                <i  onClick={add}   className="fa-solid fa-cart-plus m-4 text-primary fa-2x "></i>
+                {/* <button className="btn btn-primary" onClick={''}  style={{'cursor':'pointer'}}>Details</button> */}
+                <i  onClick={add}   className="fa-solid fa-cart-plus m-4 text-dark fa-2x " style={{'cursor':'pointer'}}></i>
                 {/* <button className="btn btn-primary" onClick={add}>Add</button> */}
-                <i onClick={remove}  className="fa-solid fa-trash m-4 text-danger fa-2x "></i>
+                <i onClick={remove}  className="fa-solid fa-trash m-4 text-danger fa-2x " style={{'cursor':'pointer'}}></i>
                 {/* <button className="btn btn-primary" onClick={remove}>Remove</button> */}
                
             </div>

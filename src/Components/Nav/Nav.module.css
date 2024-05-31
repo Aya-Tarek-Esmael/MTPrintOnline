@@ -22,3 +22,6 @@
     background-color: var(--primary-background);
     color: var(--font-color);
 }
+.btnnavcolor:hover{
+    background-color: rgb(172, 8, 8);
+}

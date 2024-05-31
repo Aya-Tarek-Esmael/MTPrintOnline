@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+
 import style from './InvoiceBook.module.css'
 import InvoiceBooksImg from '../../assets/catalogue.png'
 import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
+import axios from 'axios'
 function InvoiceBook() {
  
  // State variables to hold selected choices
-
-
+ const dispatch = useDispatch();
+ const [proDetails, setProDetails] = useState(null);
  const [size, setSize] = useState('');
- const [type, setType] = useState('');
+ const [paperType, setPaperType] = useState('');
  const [quantity, setQuantity] = useState(20);
  const [paperNum, setPaperNum] = useState('');
  const [paperStart, setPaperStart] = useState('');
@@ -16,21 +21,98 @@ function InvoiceBook() {
  const [file, setFile] = useState('');
  const [fileLink, setFileLink] = useState('');
  const [deliveryDate, setDeliveryDate] = useState('');
-
+ const [sizesAndSquares, setSizesAndSquares] = useState({});
+ const [solfanPrice, setSolfanPrice] = useState({});
+ const [internalPaperPrice, setInternalPaperPrice] = useState({});
+ const [coverTypePrice, setCoverTypePrice] = useState({});
+ const [price, setPrice] = useState(0.00);
+   // Constants for pricing
+   const WIRE_BINDING_COST_PER_CM = 0.25; // Wire binding cost per cm
+   async function getProDetails() {
+       let { data } = await axios.get(`http://localhost:8000/api/products/28/details`);
+       console.log(data);
+       setProDetails(data);
+          setSizesAndSquares({
+              [data.sizes[0].name]: data.sizes[0].price,
+              [data.sizes[1].name]: data.sizes[1].price,
+              [data.sizes[2].name]: data.sizes[2].price,
+              [data.sizes[3].name]: data.sizes[3].price,
+              [data.sizes[4].name]: data.sizes[4].price,
+              [data.sizes[5].name]: data.sizes[5].price
+     
+           });
+       // setSolfanPrice({
+       //     [data.type[0].name]: data.type[0].price,
+       //     [data.type[1].name]: data.type[1].price,
+       //     [data.type[2].name]: data.type[2].price
+       //  });
+        setInternalPaperPrice({
+           [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+           [data.type_in_paper[1].name]: data.type_in_paper[1].price,
+           [data.type_in_paper[2].name]: data.type_in_paper[2].price   
+         });
+       //   setCoverTypePrice({
+       //     [data.cover[0].name]: data.cover[0].price,
+       //     [data.cover[1].name]: data.cover[1].price,
+       //     [data.cover[2].name]: data.cover[2].price,
+       //     [data.cover[3].name]: data.cover[3].price
+         
+       //   });
+   }
+   useEffect(() => {
+     
+       getProDetails()
+   
+   }, [])
    // Function to handle form submission
    const handleSubmit = (e) => {
        e.preventDefault();
-       //selected choices 
-      
-       console.log('Selected PaperNum Type:', paperNum);
-       console.log('Selected  Type:', type);
-       console.log('Selected Size:', size);
-       console.log('Selected Quantity:', quantity);
-       console.log('Notes:', notes);
-       console.log('Uploaded File:', file);
-       console.log('File Link:', fileLink);
-       console.log('Delivery Date:', deliveryDate);
-     };
+      //selected choices 
+      console.log('Selected PaperNum Type:', paperNum);
+      console.log('Selected  Type:', paperType);
+      console.log('Selected Size:', size);
+      console.log('Selected Quantity:', quantity);
+      console.log('Notes:', notes);
+      console.log('Uploaded File:', file);
+      console.log('File Link:', fileLink);
+      console.log('Delivery Date:', deliveryDate);
+       const itemData = {
+        id:proDetails.id,
+        name:proDetails.name,
+        paperStart,
+        paperType,
+           size,
+           paperNum,
+           quantity,
+           notes,
+           file,
+           fileLink,
+           deliveryDate,
+           price
+         };
+  
+       console.log(itemData);
+       dispatch(addToCart(itemData));
+   };
+
+
+     // Function to calculate the total price
+ const calculateTotalPrice = () => {
+  const sizeFactor = parseInt(sizesAndSquares[size]);
+  const totalquantity=parseFloat(quantity * internalPaperPrice[paperType])
+  const numOfsquares = parseFloat(totalquantity / sizeFactor); // عدد الأغلفة الأمامية والخلفية
+     console.log(numOfsquares)
+     const printcost=numOfsquares * 0.50;
+     const carboncost=numOfsquares * 1;
+     const totalCost=printcost + carboncost;
+     setPrice(totalCost);
+     console.log(price);
+ }
+   // Update total price whenever relevant state variables change
+   useEffect(() => {
+       // calculateTotalPrice();
+       setPrice();
+     }, [paperNum,paperStart, size, quantity,paperType]);
 
          // Function to handle incrementing quantity
     const incrementQuantity = () => {
@@ -39,8 +121,8 @@ function InvoiceBook() {
 
  return (
 <>
-   <div className='container-fluid my-5' style={{'overflow':'hidden'}}>
-    <h1 className='mx-4 mb-5'>  دفتر فواتير - Invoice Book</h1>
+{proDetails?<div className='container-fluid my-5' style={{'overflow':'hidden'}}>
+<h1 className='mx-4 mb-5'>{proDetails.name}</h1>
     <form onSubmit={handleSubmit}>
     <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -51,32 +133,44 @@ function InvoiceBook() {
                   <label className='fw-bold'>المقاس</label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                     <div className='col-12 d-flex'>
-                      <div
-                        className={`border hovercolor col-4 py-1 ${size === 'A4 (30 X 21)' ? style.selected : ''}`}
-                        onClick={() => setSize('A4 (30 X 21)')}
-                      >A4 (30 X 21)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A5 (21 X 15)' ? style.selected : ''}`}
-                        onClick={() => setSize('A5 (21 X 15)')}
-                      >A5 (21 X 15)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A6 (15 X 10)' ? style.selected : ''}`}
-                        onClick={() => setSize('A6 (15 X 10)')}
-                      >A6 (15 X 10)</div>
+                    <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[0].name)}
+            >
+              {proDetails.sizes[0].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[1].name)}
+            >
+              {proDetails.sizes[1].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[2].name)}
+            >
+              {proDetails.sizes[2].name}
+            </div>
                     </div>
                     <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border me-0 hovercolor col-4 py-1 ${size === 'B4 (34 X 24)' ? style.selected : ''}`}
-                        onClick={() => setSize('B4 (34 X 24)')}
-                      >B4 (34 X 24)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B5 (24 X 17)' ? style.selected : ''}`}
-                        onClick={() => setSize('B5 (24 X 17)')}
-                      >B5 (24 X 17)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B6 (17 X 12)' ? style.selected : ''}`}
-                        onClick={() => setSize('B6 (17 X 12)')}
-                      >B6 (17 X 12)</div>
+                    <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[3].name)}
+            >
+              {proDetails.sizes[3].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[4].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[4].name)}
+            >
+              {proDetails.sizes[4].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[5].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[5].name)}
+            >
+              {proDetails.sizes[5].name}
+            </div>
                     </div>
                   </div>
                 </div>
@@ -85,49 +179,30 @@ function InvoiceBook() {
         <div className=''>
                     <label className='mb-2 fw-bold'>النوع</label>
                     <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                      <div
-                     className={`border col-4 py-1 hovercolor ${
-                       type === 'اصل وصورة'  ? style.selected : ''
-                     }`}
-                     onClick={() => setType('اصل وصورة')}>
-                    اصل وصورة
-                   </div>
-                   <div
-                     className={`border me-1 col-4 py-1 hovercolor ${
-                       type === 'اصل وصورتين '? style.selected : ''
-                     }`}
-                     onClick={() => setType('اصل وصورتين')}>
-                اصل وصورتين
-                   </div>
-                   <div
-                     className={`border me-1 col-4 py-1 hovercolor ${
-                       type === 'اصل و 3 صور '? style.selected : ''
-                     }`}
-                     onClick={() => setType('اصل و 3 صور ')}>
-               اصل و 3 صور 
-                   </div>
+                    {proDetails.type_in_paper.map((papertype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-4 py-1 hovercolor ${paperType === papertype.name ? style.selected : ''}`}
+              onClick={() =>setPaperType(papertype.name)}
+            >
+              {papertype.name}
+            </div>
+          ))}
       </div>
       </div>
  {/* item */}
  <div className='mt-4'>
                                     <label className='mb-2 fw-bold'> الترقيم </label>
                                     <div className='d-flex text-center ms-1'>
-                                        <div
-                                            className={`border col-6 p-1 hovercolor ${
-                                              paperNum === 'مرقم' ? style.selected : ''
-                                            }`}
-                                            onClick={() => setPaperNum('مرقم')}
-                                        >
-                                            مرقم
-                                        </div>
-                                        <div
-                                            className={`border me-1 col-6 p-1 hovercolor ${
-                                              paperNum === 'غير مرقم ' ? style.selected : ''
-                                            }`}
-                                            onClick={() => setPaperNum('غير مرقم ')}
-                                        >
-                                            غير مرقم
-                                        </div>
+                                    {proDetails.numeric.map((papernum, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-6 py-1 hovercolor ${paperNum === papernum.name ? style.selected : ''}`}
+              onClick={() =>setPaperNum(papernum.name)}
+            >
+              {papernum.name}
+            </div>
+          ))}
                                     </div>
                                 </div>
                                 
@@ -136,8 +211,9 @@ function InvoiceBook() {
                                     <div className='d-flex border justify-content-between p-2 mt-4'>
                                         <label className=''> بداية التسلسل</label>
                                         <input
-                                            type='text'
+                                            type='number'
                                             placeholder='0'
+                                            min='0'
                                             value={paperStart}
                                             onChange={(e) => setPaperStart(e.target.value)}
                                             className='bg-light p-1 text-center border-0'
@@ -170,9 +246,9 @@ function InvoiceBook() {
      <div className='mb-4'></div>
 
        <div className=" d-flex  border">
-           <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+           <div  className=" justify-content-between align-items-center bg-danger text-light p-4"  onClick={calculateTotalPrice} style={{'cursor':'pointer'}} >
                <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-           </Link>
+           </div>
 
            <div className="w-100">
                <div className=" p-1 d-flex justify-content-between align-items-center ">
@@ -180,7 +256,7 @@ function InvoiceBook() {
                        الإجمالي
                    </div>
                    <div className="price-number fw-bold">
-                       00.00&nbsp;ج.م
+                   {price?parseFloat(price.toFixed(2)): '0.00'}ج.م
                    </div>
                </div>
                {/* <hr className={style.whr}/> */}
@@ -189,9 +265,9 @@ function InvoiceBook() {
                        *
                        السعر غير شامل الشحن
                    </div>
-                   <div className={`px-2 mt-3  me-2`}>
+                   <div className={`px-0 mt-3  me-2`}>
                        سعر النسخة
-                       00.00
+                       {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                        
                    </div>
                </div>
@@ -321,6 +397,7 @@ function InvoiceBook() {
    </div>
    </form>
    </div>
+   :<LoadingScrean/>}
   </>
   )
 }

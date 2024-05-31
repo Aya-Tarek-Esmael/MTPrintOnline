@@ -27,7 +27,7 @@ function BannerProDetailsSeeThrough() {
       setProDetails(data);
     }
   
-    const onSubmit = (data) => {
+    const onSubmit = (event) => {
       event.preventDefault(); // Prevent default form submission   
       const itemData = {
         id: proDetails.id,

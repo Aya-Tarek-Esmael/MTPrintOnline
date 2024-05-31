@@ -44,6 +44,9 @@ color:var(--font-color);
 .divwidth{
   width:98%;
   }
+  .measurewidth{
+    width: 99%;
+  }
   .uploadbtn{
     cursor: pointer;
     }

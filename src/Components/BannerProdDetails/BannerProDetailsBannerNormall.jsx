@@ -47,19 +47,19 @@ function BannerProDetailsBannerNormall() {
       setProDetails(data);
 
       // Initialize sizesAndPrices after fetching data
-    //   setTypesAndPrices({
-    //     [data.sizes[0].name]: data.sizes[0].price,
-    //     [data.sizes[1].name]: data.sizes[1].price,
-    //     [data.sizes[2].name]: data.sizes[2].price,
+      setTypesAndPrices({
+        [data.sizes[0].name]: data.sizes[0].price,
+        [data.sizes[1].name]: data.sizes[1].price,
+        [data.sizes[2].name]: data.sizes[2].price,
   
-    //     [data.type[0].name]: data.type[0].price,
-    //     [data.type[1].name]: data.type[1].price,
-    //     [data.type[2].name]: data.type[2].price
+        [data.type[0].name]: data.type[0].price,
+        [data.type[1].name]: data.type[1].price,
+        [data.type[2].name]: data.type[2].price
   
-    // });
+    });
     }
 
-    const onSubmit = (formData) => {
+    const onSubmit = (event) => {
       event.preventDefault(); // Prevent default form submission
       const totalAmount = price * quantity;
       const itemData = {
@@ -181,7 +181,7 @@ const recalculatePrice = (newWidth, newHeight) => {
     const selectedTypeSalfenPrice = parseFloat(typesAndPrices[selectedTypeSalfen]);
     const newPrice = area * (selectedTypeBannerPrice + selectedTypeSalfenPrice);
     console.log(selectedTypeBannerPrice + selectedTypeSalfenPrice)
-    setPrice(newPrice.toFixed(2));
+    setPrice((parseFloat(newPrice)).toFixed(2));
     console.log('price',price)
   }  else {
     setArea('');
@@ -231,12 +231,12 @@ useEffect(() => {
                      onChange={handleTypeBannerChange}
                      value={selectedTypeBanner} >
                         <option value="">   اختر خامة البانر</option>
-                        {/* {proDetails.sizes.map((size, index) => (
+                        {proDetails.sizes.map((size, index) => (
                                             <option key={index} value={size.name}>{size.name} فينيل </option>
-                                        ))} */}
-                        <option value="خفيف">خفيف</option>
+                                        ))}
+                        {/* <option value="خفيف">خفيف</option>
                         <option value="وسط">وسط</option>
-                        <option value="ثقيل">ثقيل</option>
+                        <option value="ثقيل">ثقيل</option> */}
                      </select>
                      </div>
                      <div>

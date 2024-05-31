@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import style from './Prescription.module.css'
 import prescriptionImg from '../../assets/prescription.png'
 import { Link } from 'react-router-dom';
-
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
+import axios from 'axios'
 function Prescription() {
      // State variables to hold selected choices
+ const dispatch = useDispatch();
+ const [proDetails, setProDetails] = useState(null);
  const [paperType, setPaperType] = useState('');
  const [printType, setPrintType] = useState('');
  const [size, setSize] = useState('');
@@ -17,27 +22,154 @@ function Prescription() {
  const [file, setFile] = useState('');
  const [fileLink, setFileLink] = useState('');
  const [deliveryDate, setDeliveryDate] = useState('');
-       // Function to handle form submission
-   const handleSubmit = (e) => {
-    e.preventDefault();
-    //selected choices 
-    console.log('Selected Paper Type:', paperType);
-    console.log('Selected Print Type:', printType);
-    console.log('Selected PaperNum Type:', paperNum);
-    console.log('Selected Cut Type:', cutType);
-    console.log('Selected Size:', size);
-    console.log('Selected close:', close);
-    console.log('Selected close side:', closeSide);
-    console.log('Selected Quantity:', quantity);
-    console.log('Notes:', notes);
-    console.log('Uploaded File:', file);
-    console.log('File Link:', fileLink);
-    console.log('Delivery Date:', deliveryDate);
-  };
-  return (
-    <>
+  const [sizesAndSquares, setSizesAndSquares] = useState({});
+  const [solfanPrice, setSolfanPrice] = useState({});
+  const [internalPaperPrice, setInternalPaperPrice] = useState({});
+  const [coverTypePrice, setCoverTypePrice] = useState({});
+  const [printingType, setPrintingType] = useState({});
+  const [sharsharTypePrice, setSharsharTypePrice] = useState({});
+  const [price, setPrice] = useState(0.00);
+    // Constants for pricing
+    const WIRE_BINDING_COST_PER_CM = 0.25; // Wire binding cost per cm
+    async function getProDetails() {
+        let { data } = await axios.get(`http://localhost:8000/api/products/30/details`);
+        console.log(data);
+        setProDetails(data);
+        setSizesAndSquares({
+            [data.sizes[0].name]: data.sizes[0].price,
+            [data.sizes[1].name]: data.sizes[1].price,
+            [data.sizes[2].name]: data.sizes[2].price,
+            [data.sizes[3].name]: data.sizes[3].price,
+            [data.sizes[4].name]: data.sizes[4].price,
+            [data.sizes[5].name]: data.sizes[5].price,
+      
+          });
+        // setSolfanPrice({
+        //     [data.type[0].name]: data.type[0].price,
+        //     [data.type[1].name]: data.type[1].price,
+        //     [data.type[2].name]: data.type[2].price
+        //  });
+         setInternalPaperPrice({
+            [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+            [data.type_in_paper[1].name]: data.type_in_paper[1].price,
+            [data.type_in_paper[2].name]: data.type_in_paper[2].price,
+            [data.type_in_paper[3].name]: data.type_in_paper[3].price,
+            [data.type_in_paper[4].name]: data.type_in_paper[4].price,
+            [data.type_in_paper[5].name]: data.type_in_paper[5].price,
+            [data.type_in_paper[6].name]: data.type_in_paper[6].price,
+            [data.type_in_paper[7].name]: data.type_in_paper[7].price
+            });
+
+          setSharsharTypePrice({
+              [data.sharshar[0].name]: data.sharshar[0].price,
+              [data.sharshar[1].name]: data.sharshar[1].price
+            
+            });
+            setPrintingType({
+            [data.printer_form[0].name]: data.printer_form[0].price,
+            [data.printer_form[1].name]: data.printer_form[1].price
+          });
+    }
+    useEffect(() => {
+      
+        getProDetails()
     
-    <div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
+    }, [])
+    // Function to handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+      
+ //selected choices 
+ console.log('Selected Paper Type:', paperType);
+ console.log('Selected Print Type:', printType);
+ console.log('Selected PaperNum Type:', paperNum);
+ console.log('Selected Cut Type:', cutType);
+ console.log('Selected Size:', size);
+ console.log('Selected close:', close);
+ console.log('Selected close side:', closeSide);
+ console.log('Selected Quantity:', quantity);
+ console.log('Notes:', notes);
+ console.log('Uploaded File:', file);
+ console.log('File Link:', fileLink);
+ console.log('Delivery Date:', deliveryDate);
+        const itemData = {
+            paperType,
+            cutType,
+            size,
+            quantity,
+            notes,
+            file,
+            fileLink,
+            deliveryDate,
+            price
+          };
+   
+        console.log(itemData);
+        dispatch(addToCart(itemData));
+    };
+
+
+   // Function to calculate the total price
+   const calculateTotalPrice = () => {
+    
+// papers cost
+const sizeFactor = parseInt(sizesAndSquares[size]);
+ const internalPaperSheets = quantity * parseInt(paperNum);
+ //  console.log(internalPaperSheets)
+  const internalPaperCost = parseFloat(internalPaperSheets / sizeFactor) * parseFloat(internalPaperPrice[paperType]);
+  console.log(internalPaperCost)
+    //  cover cost
+
+const numOfsquares = parseFloat((quantity / sizeFactor)); 
+   console.log(numOfsquares)
+// const paperCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
+//  console.log(paprertypeCost)
+
+
+
+let bindingLength;
+if (size === 'A4 (30 X 21)') {
+  bindingLength = closeSide === 'فوق' ? 21 : 30;
+} else if (size === 'A5 (21 X 15)') {
+  bindingLength = closeSide === 'فوق' ? 15 : 21;
+} else if (size === 'A6 (15 X 10)') {
+  bindingLength = closeSide === 'فوق' ? 10 : 15;
+} else if (size === 'B4 (34 X 24)') {
+  bindingLength = closeSide === 'فوق' ? 24 : 34;
+} else if (size === 'B5 (24 X 17)') {
+  bindingLength = closeSide === 'فوق' ? 17 : 24;
+} else if (size === 'B6 (17 X 12)') {
+  bindingLength = closeSide === 'فوق' ? 12 : 17;
+}
+
+// binding Cost 
+const bindingCost = parseFloat(quantity * bindingLength * WIRE_BINDING_COST_PER_CM);
+console.log(bindingCost)
+// binding Cost  end
+     
+// saharshrCost Cost 
+const saharshrCost = parseFloat(quantity) * parseFloat (sharsharTypePrice[cutType]);
+console.log(saharshrCost)
+// saharshrCost   end
+ 
+const printingCost = numOfsquares * printingType[printType] ;
+console.log(printingCost)
+// papers cost end
+const totalCost = parseFloat(internalPaperCost  + printingCost + saharshrCost + bindingCost);
+  console.log(totalCost);
+setPrice(totalCost);
+  console.log(price);
+   
+ }
+    // Update total price whenever relevant state variables change
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [paperType,cutType, size, quantity]);
+
+return (
+<>
+{proDetails?<div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
      <h1 className='mx-4 mb-5'> روشتات- Prescription </h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
@@ -49,40 +181,56 @@ function Prescription() {
        <label className='mb-2 fw-bold'>نوع الورق </label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                     <div className='col-12 d-flex'>
-                      <div
-                        className={`border   col-3 py-1 hovercolor ${paperType === '60جرام عادي' ? style.selected : ''}`}
-                        onClick={() => setPaperType('60جرام عادي')}
-                      >60جرام عادي</div>
-                      <div
-                        className={`border  me-1 col-3 py-1 hovercolor ${paperType === '70جرام عادي' ? style.selected : ''}`}
-                        onClick={() => setPaperType('70جرام عادي')}
-                      >70جرام عادي</div>
-                      <div
-                        className={`border  me-1 col-3 py-1 hovercolor ${paperType === '80جرام عادي' ? style.selected : ''}`}
-                        onClick={() => setPaperType('80جرام عادي')}
-                      >80جرام عادي</div>
-                      <div
-                        className={`border  me-1 col-3 py-1 hovercolor${paperType === '100جرام عادي' ? style.selected : ''}`}
-                        onClick={() => setPaperType('100جرام عادي')}
-                      >100جرام عادي</div>
-                    </div>
+                    <div
+              className={`border hovercolor me-0  col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[0].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[0].name)}
+            >
+              {proDetails.type_in_paper[0].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[1].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[1].name)}
+            >
+              {proDetails.type_in_paper[1].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[2].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[2].name)}
+            >
+              {proDetails.type_in_paper[2].name}
+            </div>
+            <div
+              className={`border hovercolor me-1  col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[3].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[3].name)}
+            >
+              {proDetails.type_in_paper[3].name}
+            </div>
+            </div>
                     <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border  col-3 py-1 hovercolor ${paperType === '115كوشية' ? style.selected : ''}`}
-                        onClick={() => setPaperType('115كوشية')}
-                      >115كوشية</div>
-                      <div
-                        className={`border  me-1 col-3 py-1 hovercolor ${paperType === '130كوشية' ? style.selected : ''}`}
-                        onClick={() => setPaperType('130كوشية')}
-                      >130كوشية</div>
-                      <div
-                        className={`border  me-1 col-3 py-1 hovercolor${paperType === '150كوشبة' ? style.selected : ''}`}
-                        onClick={() => setPaperType('150كوشبة')}
-                      >150كوشبة</div>
-                      <div
-                        className={`border  me-1 col-3 py-1 hovercolor ${paperType === '200كوشية' ? style.selected : ''}`}
-                        onClick={() => setPaperType('200كوشية')}
-                      >200كوشية</div>
+                    <div
+              className={`border me-0 hovercolor col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[4].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[4].name)}
+            >
+              {proDetails.type_in_paper[4].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[5].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[5].name)}
+            >
+              {proDetails.type_in_paper[5].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[6].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[6].name)}
+            >
+              {proDetails.type_in_paper[6].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${paperType === proDetails.type_in_paper[7].name ? style.selected : ''}`}
+              onClick={() => setPaperType(proDetails.type_in_paper[7].name)}
+            >
+              {proDetails.type_in_paper[7].name}
+            </div>
                     </div>
                   </div>
                 </div>
@@ -91,14 +239,15 @@ function Prescription() {
            <div className='mt-2'>
                   <label className='mb-2 fw-bold'> شكل الطباعة  </label>
                   <div className='d-flex text-center ms-1'>
-                    <div
-                      className={`border col-6 p-1 hovercolor ${printType === 'وجه فقط' ? style.selected : ''}`}
-                      onClick={() => setPrintType('وجه فقط')}
-                    >وجه فقط</div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${printType === 'وجه وظهر' ? style.selected : ''}`}
-                      onClick={() => setPrintType('وجه وظهر')}
-                    >وجه وظهر </div>
+                  {proDetails.printer_form.map((printtype, index) => (
+            <div
+              key={index}
+              className={`border  hovercolor me-1 col-6 py-1 ${printType === printtype.name ? style.selected : ''}`}
+              onClick={() =>setPrintType(printtype.name)}
+            >
+              {printtype.name}
+            </div>
+          ))}
                   </div>
                 </div>
 
@@ -106,14 +255,15 @@ function Prescription() {
     <div className='mt-2'>
                   <label className='mb-2 fw-bold'> الشرشرة </label>
                   <div className='d-flex text-center ms-1'>
-                    <div
-                      className={`border col-6 p-1 hovercolor ${cutType === 'مع' ? style.selected : ''}`}
-                      onClick={() => setCutType('مع')}
-                    >مع</div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${cutType === 'بدون' ? style.selected : ''}`}
-                      onClick={() => setCutType('بدون')}
-                    >بدون </div>
+                  {proDetails.sharshar.map((selectedcut, index) => (
+            <div
+              key={index}
+              className={`border  hovercolor me-1 col-6 py-1 ${cutType === selectedcut.name ? style.selected : ''}`}
+              onClick={() =>setCutType(selectedcut.name)}
+            >
+              {selectedcut.name}
+            </div>
+          ))}
                   </div>
                 </div>
 
@@ -121,33 +271,30 @@ function Prescription() {
           <div className='mt-2'>
                   <label className='mb-2 fw-bold'> عدد الورق الداخلى  </label>
                   <div className='d-flex text-center ms-2'>
-                  <div
-                      className={`border col-4 py-1 hovercolor ${paperNum === '50 ورقة' ? style.selected : ''}`}
-                      onClick={() => setPaperNum('50 ورقة')}
-                    >  50 ورقة </div>
-                    <div
-                      className={`border  me-1  col-4 py-1 hovercolor ${paperNum === '80 ورقة' ? style.selected : ''}`}
-                      onClick={() => setPaperNum('80 ورقة')}
-                    >  80 ورقة </div>
-                   
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperNum === '100 ورقة' ? style.selected : ''}`}
-                      onClick={() => setPaperNum('100 ورقة')}
-                    >   100 ورقة  </div>
+                  {proDetails.num_in_paper.map((papernum, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-4 py-1 hovercolor ${paperNum === papernum.name ? style.selected : ''}`}
+              onClick={() =>setPaperNum(papernum.name)}
+            >
+              {papernum.name}
+            </div>
+          ))}
                   </div>
                 </div>
         {/* item */}
          <div className='mt-2'>
                   <label className='mb-2 fw-bold'> التقفيل  </label>
                   <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-6 p-1 hovercolor ${close === 'غراء = لزق' ? style.selected : ''}`}
-                      onClick={() => setClose('غراء = لزق')}
-                    > غراء = لزق </div>
-                    <div
-                      className={`border col-6 p-1 me-2 hovercolor  ${close === 'دبوس = دفتر' ? style.selected : ''}`}
-                      onClick={() => setClose('دبوس = دفتر')}
-                    > دبوس = دفتر </div>
+                  {proDetails.locl.map((loc, index) => (
+            <div
+              key={index}
+              className={`border  hovercolor me-1 col-6 py-1 ${close === loc.name ? style.selected : ''}`}
+              onClick={() =>setClose(loc.name)}
+            >
+              {loc.name}
+            </div>
+          ))}
                   
                   </div>
                 </div>
@@ -156,22 +303,15 @@ function Prescription() {
                 <div className='mt-2'>
                   <label className='mb-2 fw-bold'> جة التقفيل  </label>
                   <div className='d-flex text-center ms-2'>
-                    <div
-                      className={`border col-3 py-1 hovercolor ${closeSide === 'فوق' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('فوق')}
-                    > فوق</div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'تحت' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('تحت')}
-                    > تحت</div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'شمال' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('شمال')}
-                    >  شمال  </div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${closeSide === 'يمين' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('يمين')}
-                    >  يمين </div>
+                  {proDetails.locl_side.map((closesid, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-3 py-1 hovercolor ${closeSide === closesid.name ? style.selected : ''}`}
+              onClick={() =>setCloseSide(closesid.name)}
+            >
+              {closesid.name}
+            </div>
+          ))}
                   </div>
                 </div>
      
@@ -182,32 +322,45 @@ function Prescription() {
                   <label className='fw-bold'>المقاس</label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                     <div className='col-12 d-flex'>
-                      <div
-                        className={`border hovercolor col-4 py-1 ${size === 'A4  (30 X 21)' ? style.selected : ''}`}
-                        onClick={() => setSize('A4  (30 X 21)')}
-                      >A4  (30 X 21)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A5  (21 X 15)' ? style.selected : ''}`}
-                        onClick={() => setSize('A5  (21 X 15)')}
-                      >A5  (21 X 15)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A6 (15 X 10)' ? style.selected : ''}`}
-                        onClick={() => setSize('A6 (15 X 10)')}
-                      >A6 (15 X 10)</div>
-                    </div>
+                    <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[0].name)}
+            >
+              {proDetails.sizes[0].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[1].name)}
+            >
+              {proDetails.sizes[1].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[2].name)}
+            >
+              {proDetails.sizes[2].name}
+            </div>
+           
+            </div>
                     <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border me-0 hovercolor col-4 py-1 ${size === 'B4 (34 X 24)' ? style.selected : ''}`}
-                        onClick={() => setSize('B4 (34 X 24)')}
-                      >B4 (34 X 24)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B5 (24 X 17)' ? style.selected : ''}`}
-                        onClick={() => setSize('B5 (24 X 17)')}
-                      >B5 (24 X 17)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B6 (17 X 12)' ? style.selected : ''}`}
-                        onClick={() => setSize('B6 (17 X 12)')}
-                      >B6 (17 X 12)</div>
+                    <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[3].name)}
+            >
+              {proDetails.sizes[3].name}
+            </div>
+                    <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[4].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[4].name)}
+            >
+              {proDetails.sizes[4].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[5].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[5].name)}
+            >
+              {proDetails.sizes[5].name}
+            </div>
                     </div>
                   </div>
                 </div>
@@ -233,9 +386,9 @@ function Prescription() {
      <div className='mb-4'></div>
 
        <div className=" d-flex  border">
-           <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+            <div  className=" justify-content-between align-items-center bg-danger text-light p-4"  onClick={calculateTotalPrice} style={{'cursor':'pointer'}}  >
                <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-           </Link>
+           </div>
 
            <div className="w-100">
                <div className=" p-1 d-flex justify-content-between align-items-center ">
@@ -243,7 +396,7 @@ function Prescription() {
                        الإجمالي
                    </div>
                    <div className="price-number fw-bold">
-                       00.00&nbsp;ج.م
+                   {price?parseFloat(price.toFixed(2)): '0.00'}ج.م
                    </div>
                </div>
                {/* <hr className={style.whr}/> */}
@@ -252,9 +405,9 @@ function Prescription() {
                        *
                        السعر غير شامل الشحن
                    </div>
-                   <div className={`px-2 mt-3  me-2`}>
+                   <div className={`px-0 mt-3  me-2`}>
                        سعر النسخة
-                       00.00
+                       {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                        
                    </div>
                </div>
@@ -382,6 +535,7 @@ function Prescription() {
     </div>
     </form>
     </div>
+    :<LoadingScrean/>}
    </>
   )
 }

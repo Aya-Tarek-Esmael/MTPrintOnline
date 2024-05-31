@@ -1,14 +1,24 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logo from '../../assets/MTBLOGO.png';
 import { NavLink, Link } from 'react-router-dom';
 import style from './Nav.module.css';
-
+import axios from 'axios';
 function Nav() {
-    
+    const [proDetails, setProDetails] = useState(null);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isNavOpen, setIsNavOpen] = useState(false);
-
+    async function getProDetails() {
+        let { data } = await axios.get(`http://localhost:8000/api/categories/`);
+        console.log(data);
+        setProDetails(data);
+    }
+    
+    useEffect(() => {
+      
+        getProDetails()
+    
+    }, [])
     const toggleDropdown = (dropdown) => {
         if (activeDropdown === dropdown) {
             setIsDropdownOpen(false);
@@ -31,10 +41,10 @@ function Nav() {
 
     return (
         <div className={`container-fluid mb-30 ${style.navcontainer}`}>
-            <div className="row px-xl-2">
-                <div className="col-lg-3">
-                    <a href="" className="text-decoration-none d-block d-lg-none">
-                        <img src={logo} alt='logo' className='w-50' />
+            <div className="row px-xl-2 ">
+                <div className="col-lg-3 bg-light d-lg-none ">
+                    <a href="" className="text-decoration-none d-block d-lg-none text-center">
+                        <img src={logo} alt='logo' className='w-50 ' />
                     </a>
                 </div>
                 <div className="col-lg-9">
@@ -42,7 +52,7 @@ function Nav() {
                         <button className={`navbar-toggler ${style.btnnavcolor}`} type="button" onClick={toggleMobileNav}>
                             <span className="navbar-toggler-icon"></span>
                         </button>
-                        <div className={`collapse navbar-collapse justify-content-start ml-auto ${isNavOpen ? 'show' : ''}`}>
+                        <div className={`collapse navbar-collapse justify-content-start ml-auto  me-3 ${isNavOpen ? 'show' : ''}`}>
                             <ul className="navbar-nav ml-auto text-right">
                                 <li className="nav-item">
                                     <NavLink to='/الرئيسية' className="nav-link" onClick={closeMenus}>الرئيسية</NavLink>
@@ -87,18 +97,17 @@ function Nav() {
                                     <NavLink className="nav-link" to="/papers/" id="navbarDropdown3" role="button" onClick={() => toggleDropdown(3)} aria-haspopup="true" aria-expanded={activeDropdown === 3}>ورقيات<i className="fa fa-angle-down mt-1"></i></NavLink>
                                     <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 3 ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown3">
                                         <Link to='/personalcards/' className="dropdown-item" onClick={closeMenus}>كروت شخصية</Link>
-                                        <Link to='receipts' className="dropdown-item" onClick={closeMenus}>ايصالات</Link>
-                                        <Link to='magazine' className="dropdown-item" onClick={closeMenus}>مجلات</Link>
-                                        <Link to='blocknote' className="dropdown-item" onClick={closeMenus}>بلوك نوت</Link>
-                                        <Link to='prescription' className="dropdown-item" onClick={closeMenus}>روشتات</Link>
-                                        <Link to='sticker' className="dropdown-item" onClick={closeMenus}>ستيكر</Link>
-                                        <Link to='catalogue' className="dropdown-item" onClick={closeMenus}>كتالوج</Link>
-                                        <Link to='letterhead' className="dropdown-item" onClick={closeMenus}>ليترهيد</Link>
-                                        <Link to='envelopes' className="dropdown-item" onClick={closeMenus}>اظرف</Link>
-                                        <Link to='folder' className="dropdown-item" onClick={closeMenus}>فولدر</Link>
-                                        <Link to='brochure' className="dropdown-item" onClick={closeMenus}>بروشور</Link>
-                                        <Link to='books' className="dropdown-item" onClick={closeMenus}>كتب</Link>
-                                        <Link to='invoicebook' className="dropdown-item" onClick={closeMenus}>دفتر فواتير</Link>
+                                        <Link to='/papers/34/' className="dropdown-item" onClick={closeMenus}>مجلات</Link>
+                                        <Link to='/papers/24/' className="dropdown-item" onClick={closeMenus}>بلوك نوت</Link>
+                                        <Link to='/papers/30/' className="dropdown-item" onClick={closeMenus}>روشتات</Link>
+                                        <Link to='/papers/31/' className="dropdown-item" onClick={closeMenus}>ستيكر</Link>
+                                        <Link to='/papers/33/' className="dropdown-item" onClick={closeMenus}>كتالوج</Link>
+                                        <Link to='/papers/29/' className="dropdown-item" onClick={closeMenus}>ليترهيد</Link>
+                                        <Link to='/papers/27/' className="dropdown-item" onClick={closeMenus}>اظرف</Link>
+                                        <Link to='/papers/32/' className="dropdown-item" onClick={closeMenus}>فولدر</Link>
+                                        <Link to='/papers/26/' className="dropdown-item" onClick={closeMenus}>بروشور</Link>
+                                        <Link to='/papers/25/' className="dropdown-item" onClick={closeMenus}>كتب</Link>
+                                        <Link to='/papers/28/' className="dropdown-item" onClick={closeMenus}>دفتر فواتير</Link>
                                     </div>
                                 </li>
                             </ul>
@@ -115,7 +124,37 @@ function Nav() {
                                             </button>
                                             <div className={`dropdown-menu justify-content-end ${activeDropdown === 'categories' ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="dropdownMenuButton">
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>كروت شخصية</a>
-                                                <a className="dropdown-item text-right" href="/" onClick={closeMenus}>كتب كتيبات</a>
+                                                {/* كروت شخصية */}
+                                        <Link to='/personalcards/' className="dropdown-item text-right" onClick={closeMenus}>كروت شخصية</Link>
+                                        <Link to='/papers/34/' className="dropdown-item text-right" onClick={closeMenus}>مجلات</Link>
+                                        <Link to='/papers/24/' className="dropdown-item text-right" onClick={closeMenus}>بلوك نوت</Link>
+                                        <Link to='/papers/30/' className="dropdown-item text-right" onClick={closeMenus}>روشتات</Link>
+                                        <Link to='/papers/31/' className="dropdown-item text-right" onClick={closeMenus}>ستيكر</Link>
+                                        <Link to='/papers/33/' className="dropdown-item text-right" onClick={closeMenus}>كتالوج</Link>
+                                        <Link to='/papers/29/' className="dropdown-item text-right" onClick={closeMenus}>ليترهيد</Link>
+                                        <Link to='/papers/27/' className="dropdown-item text-right" onClick={closeMenus}>اظرف</Link>
+                                        <Link to='/papers/32/' className="dropdown-item text-right" onClick={closeMenus}>فولدر</Link>
+                                        <Link to='/papers/26/' className="dropdown-item text-right" onClick={closeMenus}>بروشور</Link>
+                                        <Link to='/papers/25/' className="dropdown-item text-right" onClick={closeMenus}>كتب</Link>
+                                        <Link to='/papers/28/' className="dropdown-item text-right" onClick={closeMenus}>دفتر فواتير</Link>
+                                          {/* منتحات البانر */}
+                                          <Link to={`/bannerproducts/5/`} className="dropdown-item" onClick={closeMenus}>ادجستل استاند</Link>
+                                        <Link to={`/bannerproducts/10/`} className="dropdown-item" onClick={closeMenus}>بانر عاكس</Link>
+                                        <Link to={`/bannerproducts/23/`} className="dropdown-item" onClick={closeMenus}>ورق حائط</Link>
+                                        <Link to={`/bannerproducts/8/`} className="dropdown-item" onClick={closeMenus}>اكس بانر</Link>
+                                        <Link to={`/bannerproducts/15/`} className="dropdown-item" onClick={closeMenus}>ستان</Link>
+                                        <Link to={`/bannerproducts/14/`} className="dropdown-item" onClick={closeMenus}>سي ثرو</Link>
+                                        <Link to={`/bannerproducts/9/`} className="dropdown-item" onClick={closeMenus}>بانر عادي</Link>
+                                        <Link to={`/bannerproducts/17/`} className="dropdown-item" onClick={closeMenus}>كانفاس</Link>
+                                        <Link to={`/bannerproducts/16/`} className="dropdown-item" onClick={closeMenus}>الفينيل</Link>
+                                        <Link to={`/bannerproducts/22/`} className="dropdown-item" onClick={closeMenus}>ملصق سيارات</Link>
+                                        <Link to={`/bannerproducts/7/`} className="dropdown-item" onClick={closeMenus}>رول اب</Link>
+                                        <Link to={`/bannerproducts/6/`} className="dropdown-item" onClick={closeMenus}>بوب اب كامل</Link>
+                                        <Link to={'/bannerproducts/13/'} className="dropdown-item" onClick={closeMenus}>فليكس</Link>
+                                        <Link to={`/bannerproducts/12/`} className="dropdown-item" onClick={closeMenus}>جلوسي</Link>
+                                        <Link to={`/bannerproducts/11/`} className="dropdown-item" onClick={closeMenus}>بانر كوتيد</Link>
+                                        <Link to={`/bannerproducts/18/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
+                                                {/* <a className="dropdown-item text-right" href="/" onClick={closeMenus}>كتب كتيبات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ملصقات واستيكرات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ورق لعب بلوت</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>بنرات</a>
@@ -125,7 +164,7 @@ function Nav() {
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>التغليف</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ستاندات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>لوحات ومجسمات</a>
-                                                <a className="dropdown-item text-right" href="/" onClick={closeMenus}>بوكسات</a>
+                                                <a className="dropdown-item text-right" href="/" onClick={closeMenus}>بوكسات</a> */}
                                             </div>
                                         </div>
                                     </div>

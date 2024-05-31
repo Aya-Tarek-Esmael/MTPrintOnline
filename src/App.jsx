@@ -9,7 +9,6 @@ import Footer from './Components/Footer/Footer';
 import Contact from './Components/Contact/Contact';
 import Brochure from './Components/Brochure/Brochure';
 import PersonalCards from './Components/PersonalCards/PersonalCards';
-import Receipts from './Components/Receipts/Receipts';
 import Magazine from './Components/Magazine/Magazine';
 import BlockNote from './Components/BlockNote/BlockNote';
 import Prescription from './Components/Prescription/Prescription';
@@ -102,18 +101,17 @@ function App() {
 
     {/*  */}
     <Route path='/papers/' element={<Papers />} />
-    <Route path='brochure'  element={<Brochure/>} />
-    <Route path='receipts' element={<Receipts />} />
-    <Route path='magazine' element={< Magazine />} />
-    <Route path='blocknote' element={<BlockNote/>} />
-    <Route path='prescription' element={<Prescription />} />
-    <Route path='sticker' element={<Sticker />} />
-    <Route path='catalogue' element={<Catalogue />} />
-    <Route path='letterhead' element={<LetterHead />} />
-    <Route path='envelopes' element={<Envelopes />} />
-    <Route path='folder' element={<Folders />} />
-    <Route path='books' element={<Books />} />
-    <Route path='invoicebook' element={<InvoiceBook />} />
+    <Route path='/papers/26/'  element={<Brochure/>} />
+    <Route path='/papers/34/' element={< Magazine />} />
+    <Route path='/papers/24/' element={<BlockNote/>} />
+    <Route path='/papers/30/' element={<Prescription />} />
+    <Route path='/papers/31/' element={<Sticker />} />
+    <Route path='/papers/33/' element={<Catalogue />} />
+    <Route path='/papers/29/' element={<LetterHead />} />
+    <Route path='/papers/27/'element={<Envelopes />} />
+    <Route path='/papers/32/' element={<Folders />} />
+    <Route path='/papers/25/' element={<Books />} />
+    <Route path='/papers/28/' element={<InvoiceBook />} />
 
 {/*  */}
     <Route path='/bannerproducts/' element={<BannerProducts />} />

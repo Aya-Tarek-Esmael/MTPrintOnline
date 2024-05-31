@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+
 import style from './LetterHead.module.css'
 import letterheadImg from '../../assets/letterhead.png'
 import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
+import axios from 'axios'
 function LetterHead() {
 
-      // State variables to hold selected choices
+  // State variables to hold selected choices
+  const dispatch = useDispatch();
+  const [proDetails, setProDetails] = useState(null);
   const [paperType, setPaperType] = useState('');
   const [cutType, setCutType] = useState('');
   const [size, setSize] = useState('');
@@ -13,11 +20,40 @@ function LetterHead() {
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
-
-  // Function to handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    //selected choices 
+  const [sizesAndSquares, setSizesAndSquares] = useState({});
+  const [solfanPrice, setSolfanPrice] = useState({});
+  const [internalPaperPrice, setInternalPaperPrice] = useState({});
+  const [coverTypePrice, setCoverTypePrice] = useState({});
+  const [price, setPrice] = useState(0.00);
+    // Constants for pricing
+    const WIRE_BINDING_COST_PER_CM = 0.25; // Wire binding cost per cm
+    async function getProDetails() {
+        let { data } = await axios.get(`http://localhost:8000/api/products/29/details`);
+        console.log(data);
+        setProDetails(data);
+        setSizesAndSquares({
+            [data.sizes[0].name]: data.sizes[0].price
+      
+         });
+     
+         setInternalPaperPrice({
+            [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+            [data.type_in_paper[1].name]: data.type_in_paper[1].price,
+            [data.type_in_paper[2].name]: data.type_in_paper[2].price,
+            [data.type_in_paper[3].name]: data.type_in_paper[3].price 
+          });
+      
+    }
+    useEffect(() => {
+      
+        getProDetails()
+    
+    }, [])
+    // Function to handle form submission
+    const handleSubmit = (e) => {
+        e.preventDefault();
+       //selected choices 
+        //selected choices 
     console.log('Selected Paper Type:', paperType);
     console.log('Selected Cut Type:', cutType);
     console.log('Selected Size:', size);
@@ -26,13 +62,50 @@ function LetterHead() {
     console.log('Uploaded File:', file);
     console.log('File Link:', fileLink);
     console.log('Delivery Date:', deliveryDate);
-  };
+        const itemData = {
+          id:proDetails.id,
+          name:proDetails.name,
+            paperType,
+            cutType,
+            size,
+            quantity,
+            notes,
+            file,
+            fileLink,
+            deliveryDate,
+            price
+          };
+   
+        console.log(itemData);
+        dispatch(addToCart(itemData));
+    };
 
-  return (
-    <>
-    
-    <div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
-     <h1 className='mx-4 mb-5'> ليترهيد- LetterHead </h1>
+    const printcolorCost= 1;
+      // Function to calculate the total price
+  const calculateTotalPrice = () => {
+   
+    //   cost
+    const sizeFactor = parseInt(sizesAndSquares[size]);
+    // console.log(sizeFactor)
+    const numOfsquares = parseFloat((quantity / sizeFactor)); 
+    // console.log(numOfsquares)
+    const paperCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
+    const printingCost = parseFloat(numOfsquares) * parseFloat(printcolorCost) ;
+    // console.log(printingCost)
+    const totalCost = parseFloat(paperCost  + printingCost );
+    // console.log(totalCost);
+    setPrice(totalCost);
+  }
+    // Update total price whenever relevant state variables change
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [paperType,cutType, size, quantity]);
+
+return (
+<>
+{proDetails?<div className='container-fluid my-5'  style={{'overflow':'hidden'}}>
+<h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -41,34 +114,15 @@ function LetterHead() {
               <div className=''>
        <label className='mb-2 fw-bold'>نوع الورق </label>
        <div className='d-flex text-center ms-2'>
-       <div
-                      className={`border col-3 py-1 hovercolor ${
-                        paperType === '70 جرام' ? style.selected : ''
-                      }`}
-                      onClick={() => setPaperType('70 جرام')}>
-                      70 جرام
-                    </div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${
-                        paperType === '80 جرام' ? style.selected : ''
-                      }`}
-                      onClick={() => setPaperType('80 جرام')}>
-                      80 جرام
-                    </div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${
-                        paperType === '100 جرام' ? style.selected : ''
-                      }`}
-                      onClick={() => setPaperType('100 جرام')}>
-                      100 جرام
-                    </div>
-                    <div
-                      className={`border me-1 col-3 py-1 hovercolor ${
-                        paperType === '120 جرام' ? style.selected : ''
-                      }`}
-                      onClick={() => setPaperType('120 جرام')}>
-                      120 جرام
-                    </div>
+       {proDetails.type_in_paper.map((papertype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-3 py-1 hovercolor ${paperType === papertype.name ? style.selected : ''}`}
+              onClick={() =>setPaperType(papertype.name)}
+            >
+              {papertype.name}
+            </div>
+          ))}
        </div>
        </div>
 
@@ -76,20 +130,15 @@ function LetterHead() {
   <div className='mt-4'>
        <label className='mb-2 fw-bold'> القص </label>
        <div className='d-flex text-center ms-1'>
-       <div
-                      className={`border col-6 p-1 hovercolor ${
-                        cutType === 'عادى' ? style.selected : ''
-                      }`}
-                      onClick={() => setCutType('عادى')}>
-                      عادى
-                    </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${
-                        cutType === 'كيرف' ? style.selected : ''
-                      }`}
-                      onClick={() => setCutType('كيرف')}>
-                      كيرف
-                    </div>
+       {proDetails.cut.map((selectedcut, index) => (
+            <div
+              key={index}
+              className={`border  hovercolor me-1 col-6 py-1 ${cutType === selectedcut.name ? style.selected : ''}`}
+              onClick={() =>setCutType(selectedcut.name)}
+            >
+              {selectedcut.name}
+            </div>
+          ))}
        </div>
        </div>
        {/* item */}
@@ -97,12 +146,11 @@ function LetterHead() {
        <label className='fw-bold'>المقاس</label>
        <div className='d-flex mt-1 me-0 col-12 text-center '>
        <div
-      className={`border hovercolor col-12 p-1 ${
-        size === 'A4 (20 x 30)' ? style.selected : ''
-      }`}
-      onClick={() => setSize('A4 (20 x 30)')}>
-      A4 (20 x 30)
-    </div>
+              className={`border hovercolor me-0  col-12 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[0].name)}
+            >
+              {proDetails.sizes[0].name}
+            </div>
        </div>
        </div>
        
@@ -127,9 +175,9 @@ function LetterHead() {
      <div className='mb-4'></div>
 
        <div className=" d-flex  border">
-           <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+         <div  className=" justify-content-between align-items-center bg-danger text-light p-4"  onClick={calculateTotalPrice} style={{'cursor':'pointer'}}  >
                <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-           </Link>
+           </div>
 
            <div className="w-100">
                <div className=" p-1 d-flex justify-content-between align-items-center ">
@@ -137,7 +185,7 @@ function LetterHead() {
                        الإجمالي
                    </div>
                    <div className="price-number fw-bold">
-                       00.00&nbsp;ج.م
+                   {price?parseFloat(price.toFixed(2)): '0.00'}ج.م
                    </div>
                </div>
                {/* <hr className={style.whr}/> */}
@@ -146,9 +194,9 @@ function LetterHead() {
                        *
                        السعر غير شامل الشحن
                    </div>
-                   <div className={`px-2 mt-3  me-2`}>
+                   <div className={`px-0 mt-3  me-2`}>
                        سعر النسخة
-                       00.00
+                       {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                        
                    </div>
                </div>
@@ -275,6 +323,7 @@ function LetterHead() {
     </div>
     </form>
     </div>
+    :<LoadingScrean/>}
    </>
 )
 }

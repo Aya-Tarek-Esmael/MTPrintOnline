@@ -32,7 +32,7 @@ function BannerProduct({data}) {
 					<Link to="" className='text-dark '>منتجات الطباعة</Link>
 					</div>			
 						<div className="mb-3">
-					<Link to={`/bannerproducts/${data.id}/`} aria-label="flex" className="text-dark fw-bold " style={{'fontSize':'17px'}} >{data.name}</Link>
+					<Link to={`/bannerproducts/${data.id}/`} aria-label="flex" className="text-dark fw-bold " style={{'fontSize':'16px'}} >{data.name}</Link>
 
 						</div>
 <Link to={`/bannerproducts/${data.id}/`}className={` text-light border-0 ${style.cardbtn} rounded border border-danger mt-2 mb-3 w-100  btn main-btn width-fluid text-center align-items-center `}  aria-label="تحديد الخيارات لـ &quot;بانل عادي&quot;" aria-describedby="هناك العديد من الأشكال المختلفة لهذا المنتج. يمكن اختيار الخيارات على صفحة المنتج">حدد ابعاد المنتج

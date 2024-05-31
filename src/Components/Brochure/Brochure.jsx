@@ -1,43 +1,155 @@
-import React, { useState } from 'react';
+import axios from 'axios'
 import brochureImg from '../../assets/brochure.png';
 import style from './Brochure.module.css';
 import { Link } from 'react-router-dom';
-
+import React, { useEffect, useState } from 'react'
+import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../Redux/slices/CartSlice';
 function Brochure() {
   
  // State variables to hold selected choices
+ const dispatch = useDispatch();
+ const [proDetails, setProDetails] = useState(null);
  const [printType, setPrintType] = useState('');
  const [size, setSize] = useState('');
- const [Flexion, setFlexion] = useState('');
- const [solfanType, setSolfanType] = useState('');
+ const [flexion, setFlexion] = useState('');
+ const [solfan, setSolfan] = useState('');
  const [quantity, setQuantity] = useState(0);
  const [paperType, setPaperType] = useState('');
  const [notes, setNotes] = useState('');
  const [file, setFile] = useState('');
  const [fileLink, setFileLink] = useState('');
  const [deliveryDate, setDeliveryDate] = useState('');
+const [sizesAndSquares, setSizesAndSquares] = useState({});
+const [printingType, setPrintingType] = useState({});
+const [solfanPrice, setSolfanPrice] = useState({});
+const [internalPaperPrice, setInternalPaperPrice] = useState({});
+const [flexTypePrice, setFlexTypePrice] = useState({});
+const [price, setPrice] = useState(0.00);
+       // Constants for pricing
+       const WIRE_BINDING_COST_PER_CM = 0.25; // Wire binding cost per cm
+       async function getProDetails() {
+           let { data } = await axios.get(`http://localhost:8000/api/products/26/details`);
+           console.log(data);
+           setProDetails(data);
+           setSizesAndSquares({
+        [data.sizes[0].name]: data.sizes[0].price,
+        [data.sizes[1].name]: data.sizes[1].price,
+        [data.sizes[2].name]: data.sizes[2].price,
+        [data.sizes[3].name]: data.sizes[3].price,
+        [data.sizes[4].name]: data.sizes[4].price,
+        [data.sizes[5].name]: data.sizes[5].price,
+        [data.sizes[6].name]: data.sizes[6].price,
+        [data.sizes[7].name]: data.sizes[7].price
+         
+            });
 
-   // Function to handle form submission
-   const handleSubmit = (e) => {
-       e.preventDefault();
-       //selected choices 
-       console.log('Selected Print Type:', printType);
+           setSolfanPrice({
+               [data.type[0].name]: data.type[0].price,
+               [data.type[1].name]: data.type[1].price,
+               [data.type[2].name]: data.type[2].price
+            });
+            setInternalPaperPrice({
+               [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+               [data.type_in_paper[1].name]: data.type_in_paper[1].price,
+               [data.type_in_paper[2].name]: data.type_in_paper[2].price,
+               [data.type_in_paper[3].name]: data.type_in_paper[3].price,
+               [data.type_in_paper[4].name]: data.type_in_paper[4].price,
+               [data.type_in_paper[5].name]: data.type_in_paper[4].price
+   
+             
+             });
+             setFlexTypePrice({
+               [data.flexing[0].name]: data.flexing[0].price,
+               [data.flexing[1].name]: data.flexing[1].price,
+               [data.flexing[2].name]: data.flexing[2].price
+             
+             });
+             setPrintingType({
+              [data.printer_form[0].name]: data.printer_form[0].price,
+              [data.printer_form[1].name]: data.printer_form[1].price
+           });
+       }
+       useEffect(() => {
+         
+           getProDetails()
+       
+       }, [])
+       // Function to handle form submission
+       const handleSubmit = (e) => {
+           e.preventDefault();
+       
+           //selected choices 
        console.log('Selected Paper Type:', paperType);
-       console.log('Selected Flexion:', Flexion);
-       console.log('Selected Paper Type:', solfanType);
+       console.log('Selected solfan Type:', solfan);
+       console.log('Selected print Type:', printType);
+       console.log('Selected flexion Type:', flexion);
        console.log('Selected Size:', size);
        console.log('Selected Quantity:', quantity);
        console.log('Notes:', notes);
        console.log('Uploaded File:', file);
        console.log('File Link:', fileLink);
        console.log('Delivery Date:', deliveryDate);
-     };
- 
+           const itemData = {
+            id:proDetails.id,
+            name:proDetails.name,
+               paperType,
+               flexion,
+               printType,
+               solfan,
+               size,
+               quantity,
+               notes,
+               file,
+               fileLink,
+               deliveryDate,
+               price
+             };
+      
+           console.log(itemData);
+           dispatch(addToCart(itemData));
+       };
+   
+   
+         // Function to calculate the total price
+     const calculateTotalPrice = () => {
+        //  cover cost
+    const sizeFactor = parseInt(sizesAndSquares[size]);
+    const numOfsquares = parseFloat((quantity / sizeFactor)); 
+      // console.log(numOfsquares)
+    const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
+     console.log(covertypeCost)
+    const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
+   console.log(solfanCost)
 
-    return (
-        <>
-            <div className='container-fluid my-5'>
-                <h1 className='mx-4 mb-5'>بروشور - Brochure</h1>
+    const coverCost = parseFloat(covertypeCost + solfanCost);
+// console.log(coverCost)
+// cover cost end
+// binding Cost 
+const flexCost = parseFloat(quantity * flexTypePrice[flexion] );
+console.log(flexCost)
+// binding Cost  end
+     
+ const printingCost = numOfsquares * printingType[printType] ;
+ console.log(printingCost)
+// papers cost end
+ const totalCost = parseFloat(coverCost  + printingCost + flexCost);
+      console.log(totalCost);
+    setPrice(totalCost);
+      console.log(price);
+       
+     }
+       // Update total price whenever relevant state variables change
+       useEffect(() => {
+           // calculateTotalPrice();
+           setPrice();
+         }, [paperType,solfan,printType,flexion,size, quantity]);
+   
+   return (
+   <>
+   {proDetails?<div className='container-fluid my-5'>
+      <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
                 <form onSubmit={handleSubmit}>
                 <div className='d-lg-flex mx-0'>
                     <div className='col-lg-8 d-lg-flex px-4'>
@@ -49,40 +161,56 @@ function Brochure() {
                   <label className='fw-bold'>المقاس</label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.divwidth}`}>
                   <div className='col-12 d-flex '>
-                      <div
-                        className={`border hovercolor  col-3 py-1 ${size === 'دايرة 1.5 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 1.5 سم ')}
-                      >دايرة 1.5 سم </div>
-                      <div
-                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 3 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 3 سم ')}
-                      >دايرة 3 سم </div>
-                      <div
-                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 4 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 4 سم ')}
-                      >دايرة 4 سم </div>
-                       <div
-                        className={`border me-1 hovercolor col-3 py-1 ${size === '11x5' ? style.selected : ''}`}
-                        onClick={() => setSize('11x5')}
-                      >11x5</div>
-                    </div>
-                    <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border hovercolor  col-3 py-1 ${size === 'دايرة 5 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 5 سم' )}
-                      >دايرة 5 سم</div>
-                      <div
-                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 7 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 7 سم')}
-                      >دايرة 7 سم </div>
-                      <div
-                        className={`border me-1 hovercolor col-3 py-1 ${size === 'دايرة 9 سم' ? style.selected : ''}`}
-                        onClick={() => setSize('دايرة 9 سم')}
-                        >دايرة 9 سم </div>
-                         <div
-                        className={`border me-1 hovercolor col-3 py-1 ${size === '11x5' ? style.selected : ''}`}
-                        onClick={() => setSize('11x5')}
-                      >11x5</div>
+                  <div
+              className={`border hovercolor me-0  col-3 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[0].name)}
+            >
+              {proDetails.sizes[0].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[1].name)}
+            >
+              {proDetails.sizes[1].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[2].name)}
+            >
+              {proDetails.sizes[2].name}
+            </div>
+            <div
+              className={`border hovercolor me-1  col-3 py-1 ${style.marg} ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[3].name)}
+            >
+              {proDetails.sizes[3].name}
+            </div>
+            </div>
+            <div className='col-12 d-flex mt-2'>
+          
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${size === proDetails.sizes[4].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[4].name)}
+            >
+              {proDetails.sizes[4].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${size === proDetails.sizes[5].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[5].name)}
+            >
+              {proDetails.sizes[5].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${size === proDetails.sizes[6].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[6].name)}
+            >
+              {proDetails.sizes[6].name}
+            </div>  <div
+              className={`border me-1 hovercolor col-3 py-1 ${style.marg} ${size === proDetails.sizes[7].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[7].name)}
+            >
+              {proDetails.sizes[7].name}
+            </div>
                     </div>
 
                   </div>
@@ -94,15 +222,45 @@ function Brochure() {
                                 <label className='fw-bold'>نوع الورق</label>
                                  <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                                     <div className='col-12 d-flex'>
-                                        <div className={`border hovercolor col-4 py-1 ${paperType === 'كوشيه 115جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 115جرام')}>كوشيه 115جرام</div>
-                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === 'كوشيه 200جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 200جرام')}>كوشيه 200جرام</div>
-                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === 'كوشيه 250جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 250جرام')}>كوشيه 250جرام</div>
-                                    </div>
-                                    <div className='col-12 d-flex mt-2'>
-                                        <div className={`border me-0 hovercolor col-4 py-1 ${paperType === 'كوشيه 300جرام' ? style.selected : ''}`} onClick={() => setPaperType('كوشيه 300جرام')}>كوشيه 300جرام</div>
-                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === '80جرام عادي' ? style.selected : ''}`} onClick={() => setPaperType('80جرام عادي')}>80جرام عادي</div>
-                                        <div className={`border me-1 hovercolor col-4 py-1 ${paperType === '100جرام عادي' ? style.selected : ''}`} onClick={() => setPaperType('100جرام عادي')}>100جرام عادي</div>
-                                    </div>
+                                    <div
+            className={`border  col-4 p-1 hovercolor ${paperType === proDetails.type_in_paper[0].name ? style.selected : ''}`}
+            onClick={() => setPaperType(proDetails.type_in_paper[0].name)}
+          >
+            {proDetails.type_in_paper[0].name}
+          </div>
+          <div
+            className={`border me-1 col-4 p-1 hovercolor ${paperType === proDetails.type_in_paper[1].name ? style.selected : ''}`}
+            onClick={() => setPaperType(proDetails.type_in_paper[1].name)}
+          >
+            {proDetails.type_in_paper[1].name}
+          </div>
+          <div
+            className={`border me-1 col-4 p-1 hovercolor ${paperType === proDetails.type_in_paper[2].name ? style.selected : ''}`}
+            onClick={() => setPaperType(proDetails.type_in_paper[2].name)}
+          >
+            {proDetails.type_in_paper[2].name}
+          </div>
+          </div>
+          <div className='col-12 d-flex mt-1'>
+          <div
+            className={`border  col-4 p-1 hovercolor ${paperType === proDetails.type_in_paper[3].name ? style.selected : ''}`}
+            onClick={() => setPaperType(proDetails.type_in_paper[3].name)}
+          >
+            {proDetails.type_in_paper[3].name}
+          </div>
+          <div
+            className={`border me-1 col-4 p-1 hovercolor ${paperType === proDetails.type_in_paper[4].name ? style.selected : ''}`}
+            onClick={() => setPaperType(proDetails.type_in_paper[4].name)}
+          >
+            {proDetails.type_in_paper[4].name}
+          </div>
+          <div
+            className={`border me-1 col-4 p-1 hovercolor ${paperType === proDetails.type_in_paper[5].name ? style.selected : ''}`}
+            onClick={() => setPaperType(proDetails.type_in_paper[5].name)}
+          >
+            {proDetails.type_in_paper[5].name}
+          </div>
+          </div>
                                 </div>
                             </div>
       
@@ -110,69 +268,32 @@ function Brochure() {
 <div className='mt-3'>
        <label className='mb-2 fw-bold'> شكل الطباعة </label>
        <div className='d-flex text-center '>
-       <div
-                      className={`border col-6 p-1 hovercolor ${
-                        printType === 'وجه واحد ' ? style.selected : ''
-                      }`}
-                      onClick={() => setPrintType('وجه واحد ')}>
-                     وجه واحد 
-                    </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${
-                        printType === 'وجهين' ? style.selected : ''
-                      }`}
-                      onClick={() => setPrintType('وجهين')}>
-                     وجهين
-                    </div>
+       {proDetails.printer_form.map((numpap, index) => (
+            <div
+              key={index}
+              className={`border  hovercolor me-1 col-6 py-1 ${printType === numpap.name ? style.selected : ''}`}
+              onClick={() =>setPrintType(numpap.name)}
+            >
+              {numpap.name}
+            </div>
+          ))}
        </div>
        </div>
  
-                {/* item */}
-        <div className='mt-3'>
-       <label className='mb-2 fw-bold'> المقاس </label>
-       <div className='d-flex text-center ms-1'>
-       <div
-                      className={`border col-6 p-1 hovercolor ${
-                        size === 'A3 (30 X 42)' ? style.selected : ''
-                      }`}
-                      onClick={() => setSize('A3 (30 X 42)')}>
-                    A3 (30 X 42)
-                    </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${
-                        size === 'A4 (21 X 30)' ? style.selected : ''
-                      }`}
-                      onClick={() => setSize('A4 (21 X 30)')}>
-                     A4 (21 X 30)
-                    </div>
-       </div>
-       </div>
                           
                             {/* item */}
   <div className='mt-3'>
        <label className='mb-2 fw-bold'> الإنثناء </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-       <div
-                      className={`border col-4 p-1 hovercolor ${
-                        Flexion === 'بدون إنثناء' ? style.selected : ''
-                      }`}
-                      onClick={() => setFlexion('بدون إنثناء')}>
-                      بدون إنثناء 
-                    </div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${
-                        Flexion === 'ثنائى' ? style.selected : ''
-                      }`}
-                      onClick={() => setFlexion('ثنائى')}>
-                      ثنائى
-                    </div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${
-                        Flexion === 'ثلاثى' ? style.selected : ''
-                      }`}
-                      onClick={() => setFlexion('ثلاثى')}>
-                      ثلاثى
-                    </div>
+       {proDetails.flexing.map((flexiontype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-4 py-1 hovercolor ${flexion === flexiontype.name ? style.selected : ''}`}
+              onClick={() =>setFlexion(flexiontype.name)}
+            >
+              {flexiontype.name}
+            </div>
+          ))}
        </div>
        </div>
 
@@ -180,27 +301,15 @@ function Brochure() {
   <div className='mt-3'>
        <label className='mb-2 fw-bold'> السلوفان </label>
        <div className={`d-flex text-center ms-2 ${style.divwidth}`}>
-       <div
-                      className={`border col-4 p-1 hovercolor ${
-                        solfanType === 'بدون' ? style.selected : ''
-                      }`}
-                      onClick={() => setSolfanType('بدون')}>
-                      بدون
-                    </div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${
-                        solfanType === 'مط' ? style.selected : ''
-                      }`}
-                      onClick={() => setSolfanType('مط')}>
-                      مط
-                    </div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${
-                        solfanType === 'لامع' ? style.selected : ''
-                      }`}
-                      onClick={() => setSolfanType('لامع')}>
-                      لامع
-                    </div>
+       {proDetails.type.map((solfantype, index) => (
+            <div
+              key={index}
+              className={`border me-1 col-4 py-1 hovercolor ${solfan === solfantype.name ? style.selected : ''}`}
+              onClick={() =>setSolfan(solfantype.name)}
+            >
+              {solfantype.name}
+            </div>
+          ))}
        </div>
        </div>
                          
@@ -211,6 +320,7 @@ function Brochure() {
                                 <input
                                     type='number'
                                     placeholder='0'
+                                    min='0'
                                     value={quantity}
                                     onChange={(e) => setQuantity(e.target.value)}
                                     className='bg-light p-1 text-center border-0 '
@@ -224,9 +334,9 @@ function Brochure() {
                  <div className='mb-4'></div>
   
                    <div className=" d-flex  border">
-                       <Link  className=" justify-content-between align-items-center bg-danger text-light p-4" to="/">
+                        <div  className=" justify-content-between align-items-center bg-danger text-light p-4"  onClick={calculateTotalPrice} style={{'cursor':'pointer'}}  >
                            <div className="mx-auto"><i className="fa-solid fa-calculator text-light me-3"></i></div><div className=""> إحسب<br /> السعر</div>
-                       </Link>
+                       </div>
 
                        <div className="w-100">
                            <div className=" p-1 d-flex justify-content-between align-items-center ">
@@ -234,7 +344,7 @@ function Brochure() {
                                    الإجمالي
                                </div>
                                <div className="price-number fw-bold">
-                                   00.00&nbsp;ج.م
+                               {price?parseFloat(price.toFixed(2)): '0.00'}ج.م
                                </div>
                            </div>
                            
@@ -245,7 +355,7 @@ function Brochure() {
                                </div>
                                <div className={`px-2 mt-3  me-2`}>
                                    سعر النسخة
-                                   00.00
+                                   {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                                    
                                </div>
                            </div>
@@ -372,6 +482,7 @@ function Brochure() {
            </div>
            </form>
            </div>
+           :<LoadingScrean/>}
           </>
     
 );
