@@ -1,0 +1,49 @@
+:root {
+    --primary-background:#e30918;
+    --secondary-background: #000000;
+    --font-color:white;
+    --container-bg:#cccccc;
+  }
+
+
+  .circlebg{
+    /* background-image: url('../../assets/circle.jpg'); */
+    background-size: cover;
+    height: 93%;
+    width: 100%;
+    padding: 40px;
+   }
+.cartbtn:hover{
+    background-color:var(--primary-background);
+    color: var(--font-color);
+    border-color:var(--primary-background);
+   
+   }
+   .cartbtn{
+    color: var(--primary-background);
+    /* padding: 10px 111px; */
+    border-radius: 0%;
+   }
+  
+   .brochImg{
+    height:100%;
+   width:100%;
+   }
+.textfont{
+    font-size: 11px;
+
+}
+
+.uploadbtn{
+  cursor: pointer;
+}
+.divwidth{
+width:99%;
+}
+.measurewidth{
+  width:100%;
+}
+.selected{
+  background-color:var(--primary-background);
+  color:var(--font-color);
+ }

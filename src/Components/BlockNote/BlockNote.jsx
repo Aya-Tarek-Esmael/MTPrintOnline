@@ -235,6 +235,7 @@ console.log(bindingCost)
           <label className=''>الكمية</label>
           <input
                     type='number'
+                    min={0}
                     placeholder='0'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}

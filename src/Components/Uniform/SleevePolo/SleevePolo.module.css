@@ -1,0 +1,130 @@
+
+.addProject{
+    width: 60px ;
+    height: 60px;
+    background-color:#ff0808 !important;
+    color: aliceblue !important;
+    -o-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+    border: unset;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.addProject:hover{
+    width: 60px ;
+    height: 60px;
+    background-color:aliceblue !important;
+    color: rgb(0, 0, 0) !important;
+    -o-border-radius: 100%;
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    -ms-border-radius: 100%;
+    border-radius: 100%;
+    border: unset;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.415);
+}
+.add_Project{
+    background-color: rgb(222, 222, 222) !important;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+}
+.postion_modal{
+    margin-right: -210px;
+}
+.textArea{
+    height: 200px;
+    border:unset !important;
+}
+.cardbtn{
+    background-color: var(--primary-background);
+   
+}
+
+.selected{
+    background-color:var(--primary-background);
+    color:var(--font-color);
+    }
+    
+@media (min-width: 1000px) {
+    .modal{
+        width:950px !important;
+      
+    }
+}
+/* color input */
+.main {
+    display: block;
+    position: relative;
+    padding-left: 5%;
+    margin-bottom: 15px;
+    cursor: pointer;
+    font-size: 20px;
+  }
+input[type=checkbox] {
+    visibility: hidden;
+  }
+  /* Creating a custom checkbox based on demand */
+  .w3docs {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    border: 1px rgb(145, 138, 138) solid;
+  }
+  /* Specify the background color to be shown when hovering over checkbox */
+  .main:hover input ~ .w3docs {
+    background-color: gray;
+  }
+  /* Specify the background color to be shown when checkbox is active */
+  .main input:active ~ .w3docs {
+    background-color: white;
+  }
+  
+  /* Specify the background color to be shown when checkbox is checked */
+  .main input:checked ~ .w3docs {
+    background-color: rgb(238, 237, 234);
+  }
+  
+  /* Checkmark to be shown in checkbox */
+  /* It is not be shown when not checked */
+  .w3docs:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  /* Display checkmark when checked */
+  .main input:checked ~ .w3docs:after {
+    display: block;
+  }
+  /* Styling the checkmark using webkit */
+  /* Rotated the rectangle by 45 degree and 
+  showing only two border to make it look
+  like a tickmark */
+  .main .w3docs:after {
+    left: 10px;
+    bottom: 7px;
+    width: 6px;
+    height: 15px;
+    border: solid rgb(156, 10, 10);
+    border-width: 0 4px 4px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+
+.selecthover:hover{
+    background-color: #ff0808 !important;
+}
+.uploadbtn{
+    cursor: pointer;
+    }

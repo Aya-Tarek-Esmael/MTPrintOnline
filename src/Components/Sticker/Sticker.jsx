@@ -61,7 +61,7 @@ function Sticker() {
         
         }, [])
         
-    const printcolorCost= 1;
+   
     const pricePerCm2 = 0.25;
     // Function to calculate the total price
 const calculateTotalPrice = () => {
@@ -90,6 +90,8 @@ const calculateTotalPrice = () => {
            console.log('File Link:', fileLink);
            console.log('Delivery Date:', deliveryDate);
             const itemData = {
+              id:proDetails.id,
+              name:proDetails.name,
                 paperType,
                 solfan,
                 size,

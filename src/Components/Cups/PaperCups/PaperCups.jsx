@@ -1,36 +1,32 @@
 import React, { useEffect, useState } from 'react'
-import style from './Folder.module.css'
-import letterheadImg from '../../assets/letterhead.png'
+import style from './PaperCups.module.css'
+import papercupsImg from '../../../assets/cups.png'
 import { Link } from 'react-router-dom';
-import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
+import LoadingScrean from '../../../Components/LoodingScreen/LoodingScreen'
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../Redux/slices/CartSlice';
+import { addToCart } from '../../../Redux/slices/CartSlice';
 import axios from 'axios'
-function Folder() {
+function PaperCups() {
     
       // State variables to hold selected choices
   const dispatch = useDispatch();
   const [proDetails, setProDetails] = useState(null);
-  const [paperType, setPaperType] = useState('');
-  const [cutType, setCutType] = useState('');
-  const [solfan, setSolfan] = useState('');
+  const [printType, setPrintType] = useState('');
+  const [color, setColor] = useState('');
+  const [coverType, setCoverType] = useState('');
   const [size, setSize] = useState('');
-  const [innerPocket, setInnerPocket] = useState('');
-  const [heel, setHeel] = useState('');
   const [quantity, setQuantity] = useState('');
   const [notes, setNotes] = useState('');
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
   const [sizesAndSquares, setSizesAndSquares] = useState({});
-  const [solfanPrice, setSolfanPrice] = useState({});
-  const [internalPaperPrice, setInternalPaperPrice] = useState({});
   const [coverTypePrice, setCoverTypePrice] = useState({});
-  const [flexTypePrice, setFlexTypePrice] = useState({});
-  const [innerPocketPrice, setInnerPocketPrice] = useState({});
+  const [printPrice, setPrintPrice] = useState({});
+  const [colorPrice, setColorPrice] = useState({});
+  const [quantityPrice, setQuantityPrice] = useState({});
   const [price, setPrice] = useState(0.00);
-    // Constants for pricing
-    const WIRE_BINDING_COST_PER_CM = 0.25; // Wire binding cost per cm
+
     async function getProDetails() {
         let { data } = await axios.get(`http://localhost:8000/api/products/32/details`);
         console.log(data);
@@ -40,32 +36,36 @@ function Folder() {
             [data.sizes[1].name]: data.sizes[1].price,
             [data.sizes[2].name]: data.sizes[2].price,
             [data.sizes[3].name]: data.sizes[3].price
+            // [data.sizes[4].name]: data.sizes[4].price,
+            // [data.sizes[5].name]: data.sizes[5].price,
+            // [data.sizes[6].name]: data.sizes[6].price
          });
-        setSolfanPrice({
+        setPrintPrice({
             [data.type[0].name]: data.type[0].price,
             [data.type[1].name]: data.type[1].price,
-            [data.type[2].name]: data.type[2].price
+            [data.type[2].name]: data.type[2].price,
+            [data.type[3].name]: data.type[3].price
          });
-         setInternalPaperPrice({
+         setColorPrice({
+            [data.type[0].name]: data.type[0].price,
+            [data.type[1].name]: data.type[1].price,
+            [data.type[2].name]: data.type[2].price,
+            [data.type[3].name]: data.type[3].price
+         });
+         setCoverTypePrice({
             [data.type_in_paper[0].name]: data.type_in_paper[0].price,
             [data.type_in_paper[1].name]: data.type_in_paper[1].price,
-            [data.type_in_paper[2].name]: data.type_in_paper[2].price,
-            [data.type_in_paper[3].name]: data.type_in_paper[3].price
+            [data.type_in_paper[2].name]: data.type_in_paper[2].price
 
           
           });
-          setFlexTypePrice({
+          setQuantityPrice({
             [data.flexing[0].name]: data.flexing[0].price,
             [data.flexing[1].name]: data.flexing[1].price,
             [data.flexing[2].name]: data.flexing[2].price
           
           });
-          setInnerPocketPrice({
-            [data.inner_pocket[0].name]: data.inner_pocket[0].price,
-            [data.inner_pocket[1].name]: data.inner_pocket[1].price,
-            [data.inner_pocket[2].name]: data.inner_pocket[2].price
-          
-          });
+         
     }
     useEffect(() => {
       
@@ -76,11 +76,9 @@ function Folder() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Log selected choices
-        console.log('Selected Paper Type:', paperType);
-        console.log('Selected Paper Type:', solfan);
-        console.log('Selected Inner pocket:', innerPocket);
-        console.log('Selected Heel:', heel);
-        console.log('Selected Cut Type:', cutType);
+        console.log('Selected Paper Type:', printType);
+        console.log('Selected Cut Type:', coverType);
+        console.log('Selected Cut Type:', color);
         console.log('Selected Size:', size);
         console.log('Selected Quantity:', quantity);
         console.log('Notes:', notes);
@@ -90,11 +88,8 @@ function Folder() {
         const itemData = {
           id:proDetails.id,
           name:proDetails.name,
-            paperType,
-            cutType,
-            solfan,
-            heel,
-            innerPocket,
+            printType,
+            coverType,
             size,
             quantity,
             notes,
@@ -110,180 +105,170 @@ function Folder() {
       // Function to calculate the total price
   const calculateTotalPrice = () => {
         //  cover cost
-        const sizeFactor = parseInt(sizesAndSquares[size]);
-        const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-           console.log(numOfsquares)
-        const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-         console.log(covertypeCost)
-         console.log(internalPaperPrice[paperType])
-        const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-       console.log(solfanCost)
+    //     const sizeFactor = parseInt(sizesAndSquares[size]);
+    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
+    //        console.log(numOfsquares)
+    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
+    //      console.log(covertypeCost)
+    //      console.log(internalPaperPrice[paperType])
+    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
+    //    console.log(solfanCost)
     
-        const coverCost = parseFloat(covertypeCost + solfanCost);
-    // console.log(coverCost)
+    //     const coverCost = parseFloat(covertypeCost + solfanCost);
+    // // console.log(coverCost)
   
-    const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    console.log(flexCost)
+    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
+    // console.log(flexCost)
     
-    const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    console.log(pocketCost)
+    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
+    // console.log(pocketCost)
   
-     const printingCost = numOfsquares * 1 ;
-     console.log(printingCost)
-    // papers cost end
-     const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-          console.log(totalCost);
-        setPrice(totalCost);
-          console.log(price);
+    //  const printingCost = numOfsquares * 1 ;
+    //  console.log(printingCost)
+    // // papers cost end
+    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
+    //       console.log(totalCost);
+    //     setPrice(totalCost);
+    //       console.log(price);
            
     
   }
     // Update total price whenever relevant state variables change
-    useEffect(() => {
-        // calculateTotalPrice();
-        setPrice();
-      }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
+    // useEffect(() => {
+    //     // calculateTotalPrice();
+    //     setPrice();
+    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
   // Function to handle form submission
 
   return (
     <>
     
     {proDetails?<div className='container-fluid my-5 '  style={{'overflow':'hidden'}}>
-    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
+    {/* <h1 className='mx-4 mb-5'>{proDetails.name}</h1> */}
+    <h1 className='mx-4 mb-5'>اكواب ورقية </h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
      <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
-              {/* item */}
-              <div className=''>
-       <label className='mb-2 fw-bold'>نوع الورق </label>
-       <div className={`d-flex text-center ms-2  ${style.measurewidth}`}>
-       <div
-            className={`border  col-3  p-1 hovercolor ${paperType === proDetails.type_in_paper[0].name ? style.selected : ''}`}
-            onClick={() => setPaperType(proDetails.type_in_paper[0].name)}
+     <div className='mt-0'>
+                  <label className='mb-2 fw-bold'> المقاس</label>
+                  <div className={`col-12 text-center `}>
+                  <div className={`col-12 d-flex ${style.divwidth}`}>
+                  <div
+            className={`border  col-3 p-1 hovercolor ${size === proDetails.sizes[0].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[0].name)}
           >
-            {proDetails.type_in_paper[0].name}
+            {proDetails.sizes[0].name}
           </div>
           <div
-            className={`border me-1 col-3 p-1 hovercolor ${paperType === proDetails.type_in_paper[1].name ? style.selected : ''}`}
-            onClick={() => setPaperType(proDetails.type_in_paper[1].name)}
+            className={`border me-1 col-3 p-1 hovercolor ${size === proDetails.sizes[1].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[1].name)}
           >
-            {proDetails.type_in_paper[1].name}
+            {proDetails.sizes[1].name}
           </div>
           <div
-            className={`border me-1 col-3 p-1 hovercolor ${paperType === proDetails.type_in_paper[2].name ? style.selected : ''}`}
-            onClick={() => setPaperType(proDetails.type_in_paper[2].name)}
+            className={`border me-1 col-3 p-1 hovercolor ${size === proDetails.sizes[2].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[2].name)}
           >
-            {proDetails.type_in_paper[2].name}
+            {proDetails.sizes[2].name}
           </div>
-          
           <div
-            className={`border me-1 col-3 p-1 hovercolor ${paperType === proDetails.type_in_paper[3].name ? style.selected : ''}`}
-            onClick={() => setPaperType(proDetails.type_in_paper[3].name)}
+            className={`border me-1 col-3 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[3].name)}
           >
-            {proDetails.type_in_paper[3].name}
+            {proDetails.sizes[3].name}
           </div>
           </div>
-       </div>
+          <div className={`col-12 d-flex mt-1 ${style.measurewidth}`}>
+          <div
+            className={`border  col-4 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[3].name)}
+          >
+            {proDetails.sizes[3].name}
+          </div>
 
-  {/* item */}
-  <div className='mt-4'>
-       <label className='mb-2 fw-bold'> القص </label>
-       <div className='d-flex text-center ms-1'>
-       {proDetails.cut.map((selectedcut, index) => (
-            <div
-              key={index}
-              className={`border  hovercolor me-1 col-6 py-1 ${cutType === selectedcut.name ? style.selected : ''}`}
-              onClick={() =>setCutType(selectedcut.name)}
-            >
-              {selectedcut.name}
-            </div>
-          ))}
-       </div>
-       </div>
-
-
-               {/* item */}
-  <div className='mt-4'>
-       <label className='mb-2 fw-bold'> الجيب الداخلي </label>
-       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                    {proDetails.inner_pocket.map((inpocket, index) => (
-            <div
-              key={index}
-              className={`border me-1 col-4 py-1 hovercolor ${innerPocket === inpocket.name ? style.selected : ''}`}
-              onClick={() =>setInnerPocket(inpocket.name)}
-            >
-              {inpocket.name}
-            </div>
-          ))}
-       </div>
-       </div>
-        {/* item */}
-  <div className='mt-4'>
-       <label className='mb-2 fw-bold'> السلوفان </label>
-       <div className={`d-flex text-center ms-1  ${style.divwidth}`}>
-       {proDetails.type.map((solfantype, index) => (
-            <div
-              key={index}
-              className={`border me-1 col-4 py-1 hovercolor ${solfan === solfantype.name ? style.selected : ''}`}
-              onClick={() =>setSolfan(solfantype.name)}
-            >
-              {solfantype.name}
-            </div>
-          ))}
-       </div>
-       </div>
+          <div
+            className={`border me-1 col-4 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[3].name)}
+          >
+            {proDetails.sizes[3].name}
+          </div>
+          <div
+            className={`border me-1 col-4 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[3].name)}
+          >
+            {proDetails.sizes[3].name}
+          </div>
+          </div>
+        </div>
+        </div>
        {/* item */}
        <div className='mt-4'>
-       <label className='fw-bold'>مقاس الفولدر مقفول </label>
+       <label className='fw-bold'> اللون  </label>
        <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
-                                    {proDetails.sizes.map((mysize, index) => (
-
- 
+                                    {proDetails.sizes.map((selectedcolor, index) => (
 <div
 key={index}
-className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${size === mysize.name ? style.selected  : ''}`}
-onClick={() => setSize(mysize.name)}
+className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${color === selectedcolor.name ? style.selected  : ''}`}
+onClick={() => setColor(selectedcolor.name)}
 >
-{mysize.name}
+{selectedcolor.name}
 </div>
 ))} 
   
        </div>
        </div>
-       {/* item */}
+               {/* item */}
   <div className='mt-4'>
-       <label className='mb-2 fw-bold'> فى حالة طلب كعب بدل الاثناء  </label>
+       <label className='mb-2 fw-bold'>الطباعة  </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-       {proDetails.flexing.map((heeltype, index) => (
+                    {proDetails.sizes.map((selectedprint, index) => (
             <div
               key={index}
-              className={`border me-1 col-4 py-1 hovercolor ${heel === heeltype.name ? style.selected : ''}`}
-              onClick={() =>setHeel(heeltype.name)}
+              className={`border me-1 col-3 py-1 hovercolor ${printType === selectedprint.name ? style.selected : ''}`}
+              onClick={() =>setPrintType(selectedprint.name)}
             >
-              {heeltype.name}
+              {selectedprint.name}
             </div>
           ))}
        </div>
        </div>
           {/* item */}
-          <div className='d-flex border justify-content-between p-2  mt-4'>
+  <div className='mt-4'>
+       <label className='mb-2 fw-bold'> الغطاء </label>
+       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
+       {size !== '1 بولة' && size !== '2 بولة' && size !== '3 بولة' && proDetails.flexing.map((selectedCover, index) => (
+                        <div
+                          key={index}
+                          className={`border hovercolor me-1 col-4 py-1 ${coverType === selectedCover.name ? style.selected : ''}`}
+                          onClick={() => setCoverType(selectedCover.name)}
+                        >
+                          {selectedCover.name}
+                        </div>
+                      ))}
+                    </div>
+       </div>
+
+                   {/* item */}
+                   <div className='d-flex border justify-content-between p-2  mt-4 me-1 w-100'>
           <label className=''>الكمية</label>
           <input
                     type='number'
-                    min='0'
-                    placeholder='0'
+                    id="quantity"
+                    name="quantity"
+                    max={1000000000000}
+                    min={1000}
+                    placeholder='1000'
+                    step="500"
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
                     className='bg-light p-1 text-center border-0'
                   />
          </div>
-              
-     {/* item */}
-     </div>
+       </div>
 
      {/* ..... */}
-     <div className='left col-md-12 col-sm-12 col-lg-5 col-xs-12 me-lg-4 '>
+     <div className='left col-md-12 col-sm-12 col-lg-6 col-xs-12 me-lg-4 '>
      
      <div className='mb-4'></div>
 
@@ -372,7 +357,7 @@ onClick={() => setSize(mysize.name)}
                  </div>
             {/* item */}
             
-            <div className="border mt-3 py-1 px-1 ">
+            {/* <div className="border mt-3 py-1 px-1 ">
                      <div className="d-flex align-items-center justify-content-between mb-2">
                          <div className="clock ml-1 d-flex align-items-center">
                          <i className="fa-regular fa-clock"></i>
@@ -383,16 +368,16 @@ onClick={() => setSize(mysize.name)}
                          <div className="ne_font date-columns">
                              <span>07/05/2024</span>
                              <span className="break-line"> | </span>
-                             <span>11:53PM</span>
+                             <span>11:53PM</span> */}
 
                     {/* <input
                       type='date'
                       value={deliveryDate}
                       onChange={(e) => setDeliveryDate(e.target.value)}
                     /> */}
-                         </div>
+                         {/* </div>
                      </div>
-                 </div>
+                 </div> */}
        {/*  */}
        {/* <div className={`border border-danger mt-3 ${style.cartdiv}`}> */}
                      {/* <div className={`d-flex justify-content-between text-center align-items-center `}> */}
@@ -409,10 +394,11 @@ onClick={() => setSize(mysize.name)}
 
 {/* rightside */}
 
+
 {/* leftside */}
-<div  className={`col-md-12 col-lg-4 col-sm-12  mt-4 `}>
-     <div className={`${style.circlebg} px-5 `} >
-     <img src={letterheadImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
+<div  className={`col-md-12 col-lg-4 col-sm-12  mt-0 `}>
+     <div className={`${style.circlebg} px-4 `} >
+     <img src={papercupsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
      <div className="d-flex justify-content-center mt-5 ">
@@ -441,4 +427,4 @@ onClick={() => setSize(mysize.name)}
   )
 }
 
-export default Folder
+export default PaperCups

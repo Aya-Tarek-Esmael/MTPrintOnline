@@ -58,22 +58,22 @@ function Nav() {
                                     <NavLink to='/الرئيسية' className="nav-link" onClick={closeMenus}>الرئيسية</NavLink>
                                 </li>
                                 <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="#" id="navbarDropdown4" role="button" onClick={() => toggleDropdown(4)} aria-haspopup="true" aria-expanded={activeDropdown === 4}>الشركات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 4 ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown4">
+                                    <NavLink className="nav-link" to="#" id="navbarDropdown5" role="button" onClick={() => toggleDropdown(5)} aria-haspopup="true" aria-expanded={activeDropdown === 4}>الشركات<i className="fa fa-angle-down mt-1"></i></NavLink>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 5 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown5">
                                         <span className="dropdown-item" onClick={closeMenus}>m 1</span>
                                         <span className="dropdown-item" onClick={closeMenus}>m 2</span>
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link" to="#" id="navbarDropdown1" role="button" onClick={() => toggleDropdown(1)} aria-haspopup="true" aria-expanded={activeDropdown === 1}>اليفط والواجهات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1">
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1">
                                         <span className="dropdown-item" onClick={closeMenus}>H 1</span>
                                         <span className="dropdown-item" onClick={closeMenus}>H 2</span>
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link" to="/bannerproducts/" id="navbarDropdown2" role="button" onClick={() => toggleDropdown(2)} aria-haspopup="true" aria-expanded={activeDropdown === 2}>منتجات بانر<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 2 ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown2">
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 2 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown2">
                                         <Link to={`/bannerproducts/5/`} className="dropdown-item" onClick={closeMenus}>ادجستل استاند</Link>
                                         <Link to={`/bannerproducts/10/`} className="dropdown-item" onClick={closeMenus}>بانر عاكس</Link>
                                         <Link to={`/bannerproducts/23/`} className="dropdown-item" onClick={closeMenus}>ورق حائط</Link>
@@ -95,7 +95,7 @@ function Nav() {
                                 </li>
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link" to="/papers/" id="navbarDropdown3" role="button" onClick={() => toggleDropdown(3)} aria-haspopup="true" aria-expanded={activeDropdown === 3}>ورقيات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 3 ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown3">
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 3 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown3">
                                         <Link to='/personalcards/' className="dropdown-item" onClick={closeMenus}>كروت شخصية</Link>
                                         <Link to='/papers/34/' className="dropdown-item" onClick={closeMenus}>مجلات</Link>
                                         <Link to='/papers/24/' className="dropdown-item" onClick={closeMenus}>بلوك نوت</Link>
@@ -110,6 +110,14 @@ function Nav() {
                                         <Link to='/papers/28/' className="dropdown-item" onClick={closeMenus}>دفتر فواتير</Link>
                                     </div>
                                 </li>
+                                <li className="nav-item dropdown me-2">
+                                    <NavLink className="nav-link" to="/cups/" id="navbarDropdown4" role="button" onClick={() => toggleDropdown(4)} aria-haspopup="true" aria-expanded={activeDropdown === 4}> اكواب <i className="fa fa-angle-down mt-1"></i></NavLink>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 4 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown4">
+                                        <Link to={`/cups/Plasticcups/`} className="dropdown-item" onClick={closeMenus} > اكواب بلاستيك</Link>
+                                        <Link to={`/cups/papercups/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
+                                    </div>
+                                </li>
+        
                             </ul>
                         </div>
 
@@ -154,6 +162,16 @@ function Nav() {
                                         <Link to={`/bannerproducts/12/`} className="dropdown-item" onClick={closeMenus}>جلوسي</Link>
                                         <Link to={`/bannerproducts/11/`} className="dropdown-item" onClick={closeMenus}>بانر كوتيد</Link>
                                         <Link to={`/bannerproducts/18/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
+                                       
+                                        {/* اكواب */}
+                                        <Link to={`/cups/Plasticcups/`} className="dropdown-item" onClick={closeMenus}> اكواب بلاستيك</Link>
+                                        <Link to={`/cups/papercups/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
+
+                                        {/* اكياس */}
+                                        <Link to={`/bags/Plasticbags/`} className="dropdown-item" onClick={closeMenus}> أكياس بلاستيك</Link>
+                                        <Link to={`/bags/binandnutsbags/`} className="dropdown-item" onClick={closeMenus}>أكياس بن ومكسرات</Link>
+                                        <Link to={`/bags/kraftbags/`} className="dropdown-item" onClick={closeMenus}> شنط كرافت</Link>
+                                        <Link to={`/bags/clothbags/`} className="dropdown-item" onClick={closeMenus}> شنط قماش</Link>
                                                 {/* <a className="dropdown-item text-right" href="/" onClick={closeMenus}>كتب كتيبات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ملصقات واستيكرات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ورق لعب بلوت</a>

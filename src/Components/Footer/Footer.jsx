@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import logo from '../../assets/MTBLOGO.png'
+import { Link } from 'react-router-dom';
 function Footer() {
 
     const [isShown, setIsShown] = useState(false);
@@ -41,10 +42,13 @@ function Footer() {
               <h2>Useful Links</h2>
               <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" />
               <div className="use-links">
-                <li><a href="index.html"><i className="fa-solid fa-angles-right"></i> Home</a></li>
-                <li><a href="about.html"><i className="fa-solid fa-angles-right"></i> About Us</a></li>
-                <li><a href="gallery.html"><i className="fa-solid fa-angles-right"></i>Home</a></li>
-                <li><a href="contact.html"><i className="fa-solid fa-angles-right"></i> Contact</a></li>
+                <li><Link to="/الرئيسية"><i className="fa-solid fa-angles-right"></i> الرئيسية</Link></li>
+                <li><Link to='/bags/'><i className="fa-solid fa-angles-right"></i>أكياس </Link></li>
+                <li><Link to='/bags/palasticbags/'><i className="fa-solid fa-angles-right"></i>أكياس بلاستيك</Link></li>
+                <li><Link to='/bags/binandnutsbags/'><i className="fa-solid fa-angles-right"></i>أكياس بن ومكسرات</Link></li>
+                <li><Link to='/bags/clothbags/'><i className="fa-solid fa-angles-right"></i>شنط قماش </Link></li>
+                <li><Link to='/bags/kraftbags/'><i className="fa-solid fa-angles-right"></i>شنط كرافت </Link></li>
+
               </div>
             </div>
           </div>
@@ -53,7 +57,7 @@ function Footer() {
               <h2>Useful Links</h2>
               <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" />
               <div className="use-links">
-                <li><a href="index.html"><i className="fa-solid fa-angles-right"></i> Home</a></li>
+              <li><Link to='/uniform/'><i className="fa-solid fa-angles-right"></i>يونيفورم </Link></li>
                 <li><a href="about.html"><i className="fa-solid fa-angles-right"></i> About Us</a></li>
                 <li><a href="gallery.html"><i className="fa-solid fa-angles-right"></i>Home</a></li>
                 <li><a href="contact.html"><i className="fa-solid fa-angles-right"></i> Contact</a></li>

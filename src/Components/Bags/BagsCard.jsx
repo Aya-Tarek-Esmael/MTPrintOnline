@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { addToFav } from '../../Redux/slices/PapersSlice';
+import { addToFav } from '../../Redux/slices/CupsSlice';
 import magazineImg from '../../assets/magazine.png';
-import style from './Papers.module.css'
+import style from './Bags.module.css'
 
-function PaperCard({data}) {
+function CupsCard({data}) {
 console.log(data);
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -23,11 +23,11 @@ console.log(data);
 		</Link>
 			<div className="cardheader text-center">				
 				<div className="">
-					<Link to="/papers/" className='text-dark' >ورقيات</Link>, 
+					<Link to="/cups/" className='text-dark'  >ورقيات</Link>, 
 					<Link to=""  className='text-dark '>منتجات الطباعة</Link>
 					</div>			
 						<div className="mb-2">
-					<Link to={`/papers/${data.id}/`}  className="fw-bold"  style={{'fontSize':'17px','color':'#e30918'}}> {data.name}</Link>
+					<Link to={`/cups/${data.id}/`}  className="fw-bold " style={{'fontSize':'17px','color':'#e30918'}}>{data.name}</Link>
 
 						</div>
 {/* <Link to={`/papers/${data.id}/`}  className={` text-light border-0 ${style.cardbtn} rounded border border-danger mt-3 w-100  btn main-btn width-fluid text-center align-items-center `}   aria-describedby="هناك العديد من الأشكال المختلفة لهذا المنتج. يمكن اختيار الخيارات على صفحة المنتج">حدد ابعاد المنتج
@@ -40,4 +40,4 @@ console.log(data);
   )
 }
 
-export default PaperCard
+export default CupsCard

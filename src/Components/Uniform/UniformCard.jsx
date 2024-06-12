@@ -1,11 +1,11 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { addToFav } from '../../Redux/slices/PapersSlice';
-import magazineImg from '../../assets/magazine.png';
-import style from './Papers.module.css'
+import { addToFav } from '../../Redux/slices/CupsSlice';
+import uniformImg from '../../assets/uniform.jpg';
+import style from './Uniform.module.css'
 
-function PaperCard({data}) {
+function UniformCard({data}) {
 console.log(data);
     const nav = useNavigate();
     const dispatch = useDispatch();
@@ -18,16 +18,16 @@ console.log(data);
       
  {/* cards container*/}
  <li className={`card ${style.product}   pb-2 mt-3 mb-2 `}>
-        <Link to={`/papers/${data.id}/`} title={data.name} className={style.cardimg}>
-		<img  src={magazineImg} className={`${style.cardimg} px-1 w-100 `} alt=""   />
+        <Link to={`/uniform/${data.id}/`} title={data.name} className={style.cardimg}>
+		<img  src={uniformImg} className={`${style.cardimg} px-1 w-100 `} alt=""   />
 		</Link>
 			<div className="cardheader text-center">				
 				<div className="">
-					<Link to="/papers/" className='text-dark' >ورقيات</Link>, 
+					<Link to="/uniform/" className='text-dark'  >يونيفورم</Link>, 
 					<Link to=""  className='text-dark '>منتجات الطباعة</Link>
 					</div>			
 						<div className="mb-2">
-					<Link to={`/papers/${data.id}/`}  className="fw-bold"  style={{'fontSize':'17px','color':'#e30918'}}> {data.name}</Link>
+					<Link to={`/uniform/${data.id}/`}  className="fw-bold " style={{'fontSize':'17px','color':'#e30918'}}> data.name </Link>
 
 						</div>
 {/* <Link to={`/papers/${data.id}/`}  className={` text-light border-0 ${style.cardbtn} rounded border border-danger mt-3 w-100  btn main-btn width-fluid text-center align-items-center `}   aria-describedby="هناك العديد من الأشكال المختلفة لهذا المنتج. يمكن اختيار الخيارات على صفحة المنتج">حدد ابعاد المنتج
@@ -40,4 +40,4 @@ console.log(data);
   )
 }
 
-export default PaperCard
+export default UniformCard

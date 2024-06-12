@@ -60,6 +60,18 @@ import SpotCurveCard from './Components/PersonalCards/SpotCurveCard';
 import MattLargeCard from './Components/PersonalCards/MattLargeCard';
 import Papers from './Components/Papers/Papers';
 import BannerProDetailsPrintAndCut from './Components/BannerProdDetails/BannerProDetailsPrintAndCut';
+import Uniform from './Components/Uniform/Uniform';
+import PlasticCups from './Components/Cups/PlasticCups/PlasticCups';
+import PaperCups from './Components/Cups/PaperCups/PaperCups';
+import BinAndNutsBags from './Components/Bags/BinAndNutsBags/BinAndNutsBags';
+import Bags from './Components/Bags/Bags';
+import ClothBags from './Components/Bags/ClothBags/ClothBags';
+import PalasticBags from './Components/Bags/PalasticBags/PalasticBags';
+import KraftBags from './Components/Bags/KraftBags/KraftBags';
+import Cups from './Components/Cups/Cups';
+import UniformForm from './Components/Uniform/UniformForm';
+import HalfSleevePolo from './Components/Uniform/HalfSleevePolo/HalfSleevePolo';
+import SleevePolo from './Components/Uniform/SleevePolo/SleevePolo';
 
 
 
@@ -88,18 +100,7 @@ function App() {
     <Route path='/personalcards/كارت مط كبير بدون كيرف' element={<MattLargeCard />} />
 
 
-
-
-
-
-
-    
-
-
-
-
-
-    {/*  */}
+    {/* ورقيات */}
     <Route path='/papers/' element={<Papers />} />
     <Route path='/papers/26/'  element={<Brochure/>} />
     <Route path='/papers/34/' element={< Magazine />} />
@@ -131,9 +132,6 @@ function App() {
     <Route path='/bannerproducts/gloosy' element={<Gloosy />} />
     <Route path='/bannerproducts/wallpaper' element={<Wallpaper />} />
 
-
-    
-
     {/* product Details */}
     <Route path='/bannerproducts/5/' element={<BannerProDetailsStand />} />
     <Route path='/bannerproducts/8' element={<BannerProDetailsXBanner />} />
@@ -152,8 +150,25 @@ function App() {
     <Route path='/bannerproducts/10/' element={<BannerProDetailsReflectiveBanner/>} />
     <Route path='/bannerproducts/18/' element={<BannerProDetailsPrintAndCut/>} />
 
-   
-    
+   {/* cups */}
+   <Route path='/cups/' element={<Cups/>} />
+   <Route path='/cups/Plasticcups/' element={< PlasticCups/>} />
+   <Route path='/cups/Papercups/' element={< PaperCups/>} />
+
+   {/* bags */}
+   <Route path='/bags/' element={< Bags/>} />
+   <Route path='/bags/binandnutsbags/' element={< BinAndNutsBags/>} />
+   <Route path='/bags/clothbags/' element={< ClothBags/>} />
+   <Route path='/bags/palasticbags/' element={< PalasticBags/>} />
+   <Route path='/bags/kraftbags/' element={< KraftBags/>} />
+
+   {/* uniform */}
+   <Route path='/uniform/' element={<Uniform/>} />
+   <Route path='/uniform/uniformform/' element={<UniformForm/>} />
+   <Route path='/uniform/halfsleevepolo/' element={<HalfSleevePolo/>} />
+   <Route path='/uniform/sleevepolo/' element={<SleevePolo/>} />
+
+
     </Routes>
     <Footer />
     </div>

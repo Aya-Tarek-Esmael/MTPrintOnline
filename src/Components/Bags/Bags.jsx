@@ -1,18 +1,17 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPapers } from '../../Redux/slices/PapersSlice';
-import PaperCard from './PaperCard';
+import { getBags } from '../../Redux/slices/BagsSlice';
+import BagsCard from './BagsCard';
 import { Link } from 'react-router-dom';
-// import style from './Papers.module.css';
 import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
-import { addToCart } from '../../Redux/slices/CartSlice';
-function Papers() {
+// import { addToCart } from '../../Redux/slices/CartSlice';
+function Bags() {
     const dispatch = useDispatch();
-    const papers = useSelector(state => state.PapersReducer.papers);
-    const flag = useSelector(state => state.PapersReducer.loading);
+    const bags = useSelector(state => state.BagsReducer.bags);
+    const flag = useSelector(state => state.BagsReducer.loading);
 
     useEffect(() => {
-        dispatch(getPapers());
+        dispatch(getBags());
     }, [dispatch]);
 
     return (
@@ -24,7 +23,7 @@ function Papers() {
                             <Link className="home" to="/home" title="Return to Home">
                                 <i className="fa-solid fa-house text-danger"></i>
                             </Link>
-                            <span className="navigation-pipe">&gt;</span> ورقيات
+                            <span className="navigation-pipe">&gt;</span> أكياس
                         </div>
                     </div>
                 </div>
@@ -34,9 +33,9 @@ function Papers() {
                      <LoadingScrean/>
                     ) : (
                         <div className='row'>
-                            {papers.map((item) => (
+                            {bags.map((item) => (
                                 <div key={item.id} className='col-xs-12 col-sm-6 col-md-3 col-lg-3'>
-                                    <PaperCard data={item} />
+                                    <BagsCard data={item} />
                                 </div>
                             ))}
                         </div>
@@ -47,4 +46,4 @@ function Papers() {
     );
 }
 
-export default Papers;
+export default Bags;

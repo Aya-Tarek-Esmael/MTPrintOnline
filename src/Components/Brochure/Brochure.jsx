@@ -127,7 +127,7 @@ const [price, setPrice] = useState(0.00);
 // console.log(coverCost)
 // cover cost end
 // binding Cost 
-const flexCost = parseFloat(quantity * flexTypePrice[flexion] );
+const flexCost = parseFloat(numOfsquares * flexTypePrice[flexion] );
 console.log(flexCost)
 // binding Cost  end
      
