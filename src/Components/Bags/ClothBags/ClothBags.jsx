@@ -25,7 +25,7 @@ function ClothBags() {
   const [quantity, setQuantity] = useState(0);
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/32/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/40/details`);
         console.log(data);
         setProDetails(data);
         setSizesPrice({
@@ -48,12 +48,12 @@ function ClothBags() {
             [data.sizes[16].name]: data.sizes[16].price
          });
          setTypePrice({
-            [data.type[0].name]: data.type[0].price,
-            [data.type[1].name]: data.type[1].price
+            [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+            [data.type_in_paper[1].name]: data.type_in_paper[1].price
          });
          setPrintPrice({
-          [data.type[0].name]: data.type[0].price,
-          [data.type[1].name]: data.type[1].price
+          [data.printer_form[0].name]: data.printer_form[0].price,
+          [data.printer_form[1].name]: data.printer_form[1].price
        });
          
     }
@@ -93,48 +93,34 @@ function ClothBags() {
     };
       // Function to calculate the total price
   const calculateTotalPrice = () => {
-        //  cover cost
-    //     const sizeFactor = parseInt(sizesAndSquares[size]);
-    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-    //        console.log(numOfsquares)
-    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-    //      console.log(covertypeCost)
-    //      console.log(internalPaperPrice[paperType])
-    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-    //    console.log(solfanCost)
-    
-    //     const coverCost = parseFloat(covertypeCost + solfanCost);
-    // // console.log(coverCost)
-  
-    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    // console.log(flexCost)
-    
-    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    // console.log(pocketCost)
-  
-    //  const printingCost = numOfsquares * 1 ;
-    //  console.log(printingCost)
-    // // papers cost end
-    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-    //       console.log(totalCost);
-    //     setPrice(totalCost);
-    //       console.log(price);
+
+    const typeCost = parseFloat(typePrice[type] || 0);   
+    const sizeCost = parseFloat(sizesPrice[size] || 0);
+    const printCost = parseFloat(printPrice[printType] || 0);
+    const totalCost = (typeCost + printCost + sizeCost) * parseInt(quantity);
+    setPrice(totalCost);
+     console.log(typeCost)
+     console.log(sizeCost)
+     console.log(printCost)
+     console.log(quantity)
+     console.log(totalCost);
+     console.log(price);
+       
            
     
   }
     // Update total price whenever relevant state variables change
-    // useEffect(() => {
-    //     // calculateTotalPrice();
-    //     setPrice();
-    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
-  // Function to handle form submission
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [sizesPrice,printType,printPrice, type, size,typePrice, quantity]);
+
 
   return (
     <>
     
     {proDetails?<div className='container-fluid my-4 '  style={{'overflow':'hidden'}}>
-    {/* <h1 className='mx-4 mb-5'>{proDetails.name}</h1> */}
-    <h1 className='mx-4 mb-5'>شنطة قماش</h1>
+    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -143,7 +129,7 @@ function ClothBags() {
        <div className=''>
        <label className='fw-bold'> نوع الشنطة   </label>
        <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
-                                    {proDetails.cut.map((selectedtype, index) => (
+                                    {proDetails.type_in_paper.map((selectedtype, index) => (
 <div
 key={index}
 className={`border  hovercolor me-1 col-6 py-1 ${style.marg} ${type === selectedtype.name ? style.selected  : ''}`}
@@ -159,7 +145,7 @@ onClick={() => setType(selectedtype.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>نوع الطباعة   </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                    {proDetails.cut.map((selectedprint, index) => (
+                    {proDetails.printer_form.map((selectedprint, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${printType === selectedprint.name ? style.selected : ''}`}
@@ -196,107 +182,108 @@ onClick={() => setType(selectedtype.name)}
             </div>  
         
                     </div>
+                    
+                    <div className='col-12 d-flex mt-2'>
+                  <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[3].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[3].name)}
+            >
+              {proDetails.sizes[3].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[4].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[4].name)}
+            >
+              {proDetails.sizes[4].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[5].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[5].name)}
+            >
+              {proDetails.sizes[5].name}
+            </div>  
+                    </div>
+                  <div className='col-12 d-flex mt-2'>
+                  <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[6].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[6].name)}
+            >
+              {proDetails.sizes[6].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[7].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[7].name)}
+            >
+              {proDetails.sizes[7].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[8].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[8].name)}
+            >
+              {proDetails.sizes[8].name}
+            </div>  
+                    </div>
+                    <div className='col-12 d-flex mt-2'>
+                  <div
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[9].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[9].name)}
+            >
+              {proDetails.sizes[9].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[10].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[10].name)}
+            >
+              {proDetails.sizes[10].name}
+            </div>
+            <div
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[11].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[11].name)}
+            >
+              {proDetails.sizes[11].name}
+            </div>  
+                    </div>
                     <div className='col-12 d-flex mt-2'>
                
                     <div
-              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[0].name)}
+              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[12].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[12].name)}
             >
-              {proDetails.sizes[0].name}
+              {proDetails.sizes[12].name}
             </div>
             <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[1].name)}
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[13].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[13].name)}
             >
-              {proDetails.sizes[1].name}
+              {proDetails.sizes[13].name}
             </div>
             <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[2].name)}
+              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[14].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[14].name)}
             >
-              {proDetails.sizes[2].name}
+              {proDetails.sizes[14].name}
             </div>  
               
                     </div>
-                    <div className='col-12 d-flex mt-2'>
-                  <div
-              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[0].name)}
-            >
-              {proDetails.sizes[0].name}
-            </div>
-            <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[1].name)}
-            >
-              {proDetails.sizes[1].name}
-            </div>
-            <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[2].name)}
-            >
-              {proDetails.sizes[2].name}
-            </div>  
-                    </div>
                   <div className='col-12 d-flex mt-2'>
                   <div
-              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[0].name)}
+              className={`border hovercolor me-0  col-6 py-1 ${style.marg} ${size === proDetails.sizes[15].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[15].name)}
             >
-              {proDetails.sizes[0].name}
+              {proDetails.sizes[15].name}
             </div>
             <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[1].name)}
+              className={`border me-2 hovercolor col-6 py-1 ${style.marg} ${size === proDetails.sizes[16].name ? style.selected : ''}`}
+              onClick={() => setSize(proDetails.sizes[16].name)}
             >
-              {proDetails.sizes[1].name}
-            </div>
-            <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[2].name)}
-            >
-              {proDetails.sizes[2].name}
-            </div>  
-                    </div>
-                    <div className='col-12 d-flex mt-2'>
-                  <div
-              className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[0].name)}
-            >
-              {proDetails.sizes[0].name}
-            </div>
-            <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[1].name)}
-            >
-              {proDetails.sizes[1].name}
-            </div>
-            <div
-              className={`border me-1 hovercolor col-4 py-1 ${style.marg} ${size === proDetails.sizes[2].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[2].name)}
-            >
-              {proDetails.sizes[2].name}
-            </div>  
-                    </div>
-                  <div className='col-12 d-flex mt-2'>
-                  <div
-              className={`border hovercolor me-0  col-6 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[0].name)}
-            >
-              {proDetails.sizes[0].name}
-            </div>
-            <div
-              className={`border me-2 hovercolor col-6 py-1 ${style.marg} ${size === proDetails.sizes[1].name ? style.selected : ''}`}
-              onClick={() => setSize(proDetails.sizes[1].name)}
-            >
-              {proDetails.sizes[1].name}
+              {proDetails.sizes[16].name}
             </div> 
              
                     </div>
                   </div>
                   </div>
        {/* item */}
-       <div className='d-flex border justify-content-between p-2  mt-4'>
+       <div className='d-flex border justify-content-between p-2  mt-5'>
           <label className='fw-bold'>الكمية</label>
           <input
                     type='number'

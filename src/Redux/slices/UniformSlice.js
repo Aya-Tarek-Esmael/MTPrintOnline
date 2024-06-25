@@ -2,13 +2,12 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getUniform = createAsyncThunk("papers/getAllpapers", async () => {
-    let data = await axios.get('http://localhost:8000/api/categories/13');
+export const getUniform = createAsyncThunk("uniforms/getAlluniforms", async () => {
+    let data = await axios.get('http://localhost:8000/api/categories/16');
     return data.data.products;
-    
 })
 const UniformSlice = createSlice({
-    name: "papercard",
+    name: "uniformcard",
     initialState: {
         fav: [],
         uniform: [],

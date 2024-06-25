@@ -287,33 +287,6 @@ console.log(bindingCost)
               {proDetails.sizes[5].name}
             </div>
             </div>
-       
-                      {/* <div
-                        className={`border hovercolor col-4 py-1 ${size === 'A4 (30 X 21)' ? style.selected : ''}`}
-                        onClick={() => setSize('A4 (30 X 21)')}
-                      >A4 (30 X 21)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A5 (21 X 15)' ? style.selected : ''}`}
-                        onClick={() => setSize('A5 (21 X 15)')}
-                      >A5 (21 X 15)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'A6 (15 X 10)' ? style.selected : ''}`}
-                        onClick={() => setSize('A6 (15 X 10)')}
-                      >A6 (15 X 10)</div>
-                    </div>
-                    <div className='col-12 d-flex mt-2'>
-                      <div
-                        className={`border me-0 hovercolor col-4 py-1 ${size === 'B4 (34 X 24)' ? style.selected : ''}`}
-                        onClick={() => setSize('B4 (34 X 24)')}
-                      >B4 (34 X 24)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B5 (24 X 17)' ? style.selected : ''}`}
-                        onClick={() => setSize('B5 (24 X 17)')}
-                      >B5 (24 X 17)</div>
-                      <div
-                        className={`border me-1 hovercolor col-4 py-1 ${size === 'B6 (17 X 12)' ? style.selected : ''}`}
-                        onClick={() => setSize('B6 (17 X 12)')}
-                      >B6 (17 X 12)</div> */}
                     
                   </div>
                 </div>
@@ -331,14 +304,7 @@ console.log(bindingCost)
               {cover.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border col-6 p-1 hovercolor ${coverType === 'غلاف وش وضهر' ? style.selected : ''}`}
-                      onClick={() => setCoverType('غلاف وش وضهر')}
-                    >غلاف وش وضهر</div>
-                    <div
-                      className={`border me-2 col-6 p-1 hovercolor ${cutType === 'غلاف وش وضهر ابيض' ? style.selected : ''}`}
-                      onClick={() => setCoverType('غلاف وش وضهر ابيض')}
-                    >غلاف وش وضهر ابيض </div>*/}
+                   
                   </div> 
                 </div>
                 {/* Cover */}
@@ -355,28 +321,7 @@ console.log(bindingCost)
               {covertype.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border col-4 p-1 hovercolor ${cover === '200' ? style.selected : ''}`}
-                      onClick={() => setCover('200')}
-                    > 200 كوشيه</div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${cover === '250' ? style.selected : ''}`}
-                      onClick={() => setCover('250')}
-                    > 250 كوشيه</div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${cover === '300' ? style.selected : ''}`}
-                      onClick={() => setCover('300')}
-                    >300 كوشيه</div>
-                    </div>
-                     <div className='col-12 d-flex mt-2'>
-                    <div
-                      className={`border  col-6 p-1 hovercolor ${cover === '350' ? style.selected : ''}`}
-                      onClick={() => setCover('350')}
-                    >350 كوشيه</div>
-                     <div
-                      className={`border me-2 col-6 p-1 hovercolor ${cover === 'هارد كافر' ? style.selected : ''}`}
-                      onClick={() => setCover('هارد كافر')}
-                    >هارد كافر</div> */}
+                  
                     </div>
                   </div>
                 </div>
@@ -393,10 +338,7 @@ console.log(bindingCost)
               {solfantype.name}
             </div>
           ))}
-                                    {/* <div className={`border col-4 py-1 hovercolor ${solfan === 'بدون' ? style.selected : ''}`} onClick={() => setSolfan('بدون')}>بدون</div>
-                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'مط' ? style.selected : ''}`} onClick={() => setSolfan('مط')}>مط</div>
-                                    <div className={`border me-1 col-4 py-1 hovercolor ${solfan === 'لامع' ? style.selected : ''}`} onClick={() => setSolfan('لامع')}>لامع</div>*/}
-                                </div> 
+                                     </div> 
                             </div>
 
                  {/* Cut Type */}
@@ -412,14 +354,7 @@ console.log(bindingCost)
               {selectedcut.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border col-6 p-1 hovercolor ${cutType === 'عادى' ? style.selected : ''}`}
-                      onClick={() => setCutType('عادى')}
-                    >عادى</div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${cutType === 'كيرف' ? style.selected : ''}`}
-                      onClick={() => setCutType('كيرف')}
-                    >كيرف </div> */}
+                  
                   </div>
                 </div>
              
@@ -436,14 +371,7 @@ console.log(bindingCost)
               {numpap.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border me-1 col-6 py-1 hovercolor ${paperNum === 50 ? style.selected : 0}`}
-                      onClick={() => setPaperNum(50)}
-                    >  50 ورقة </div>
-                    <div
-                      className={`border me-1 col-6 py-1 hovercolor ${paperNum === 100 ? style.selected : 0}`}
-                      onClick={() => setPaperNum(100)}
-                    >   100 ورقة  </div> */}
+                  
                   </div>
                 </div>
        {/* Cover */}
@@ -485,28 +413,6 @@ console.log(bindingCost)
           </div>
           </div>
 
-                    {/* <div
-                      className={`border col-4 p-1 hovercolor ${intPaperType === '60' ? style.selected : ''}`}
-                      onClick={() => setIntPaperType('60')}
-                    > 60 جرام</div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${intPaperType === '70' ? style.selected : ''}`}
-                      onClick={() => setIntPaperType('70')}
-                    > 70 جرام</div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${intPaperType === '80' ? style.selected : ''}`}
-                      onClick={() => setIntPaperType('80')}
-                    >80 جرام</div>
-                    </div>
-                     <div className='col-12 d-flex mt-2'>
-                    <div
-                      className={`border  col-6 p-1 hovercolor ${intPaperType === '100' ? style.selected : ''}`}
-                      onClick={() => setIntPaperType('100')}
-                    >100 جرام</div>
-                     <div
-                      className={`border me-2 col-6 p-1 hovercolor ${intPaperType === '120' ? style.selected : ''}`}
-                      onClick={() => setIntPaperType('120')}
-                    >120 جرام</div> */}
                   </div>
                 </div>
                 
@@ -523,18 +429,7 @@ console.log(bindingCost)
               {papershap.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border col-4 py-1 hovercolor ${paperType === 'سادة غير مطبوع' ? style.selected : ''}`}
-                      onClick={() => setPaperType('سادة غير مطبوع' )}
-                    >سادة غير مطبوع</div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperType === 'مطبوع لون واحد'? style.selected : ''}`}
-                      onClick={() => setPaperType('مطبوع لون واحد')}
-                    >مطبوع لون واحد</div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${paperType === 'مطبوع الوان' ? style.selected : ''}`}
-                      onClick={() => setPaperType('مطبوع الوان')}
-                    >مطبوع الوان</div> */}
+                  
                   </div>
                 </div>
                 {/* Close Type */}
@@ -550,18 +445,7 @@ console.log(bindingCost)
               {closetype.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border col-4 py-1 hovercolor ${close === 'غراء = لزق' ? style.selected : ''}`}
-                      onClick={() => setClose('غراء = لزق')}
-                    > غراء = لزق </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${close === 'دبوس = دفتر' ? style.selected : ''}`}
-                      onClick={() => setClose('دبوس = دفتر')}
-                    > دبوس = دفتر </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${close === 'سلك' ? style.selected : ''}`}
-                      onClick={() => setClose('سلك')}
-                    >  سلك  </div> */}
+                    
                   </div>
                 </div>
 
@@ -572,24 +456,13 @@ console.log(bindingCost)
                   {proDetails.locl_side.map((closesid, index) => (
             <div
               key={index}
-              className={`border me-1 col-4 py-1 hovercolor ${closeSide === closesid.name ? style.selected : ''}`}
+              className={`border me-1 col-3 py-1 hovercolor ${closeSide === closesid.name ? style.selected : ''}`}
               onClick={() =>setCloseSide(closesid.name)}
             >
               {closesid.name}
             </div>
           ))}
-                    {/* <div
-                      className={`border col-4 py-1 hovercolor ${closeSide === 'فوق' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('فوق')}
-                    > فوق</div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${closeSide === 'شمال' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('شمال')}
-                    >  شمال  </div>
-                    <div
-                      className={`border me-1 col-4 py-1 hovercolor ${closeSide === 'يمين' ? style.selected : ''}`}
-                      onClick={() => setCloseSide('يمين')}
-                    >  يمين </div> */}
+                 
                   </div>
                 </div>
         

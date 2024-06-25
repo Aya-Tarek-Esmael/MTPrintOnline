@@ -24,7 +24,7 @@ function BinAndNutsBags() {
   const [quantity, setQuantity] = useState(0);
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/32/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/38/details`);
         console.log(data);
         setProDetails(data);
         setSizesPrice({
@@ -34,8 +34,8 @@ function BinAndNutsBags() {
             [data.sizes[3].name]: data.sizes[3].price
          });
         setPrintPrice({
-            [data.type[0].name]: data.type[0].price,
-            [data.type[1].name]: data.type[1].price
+            [data.printer_form[0].name]: data.printer_form[0].price,
+            [data.printer_form[1].name]: data.printer_form[1].price
          });
          
     }
@@ -73,48 +73,31 @@ function BinAndNutsBags() {
     };
       // Function to calculate the total price
   const calculateTotalPrice = () => {
-        //  cover cost
-    //     const sizeFactor = parseInt(sizesAndSquares[size]);
-    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-    //        console.log(numOfsquares)
-    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-    //      console.log(covertypeCost)
-    //      console.log(internalPaperPrice[paperType])
-    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-    //    console.log(solfanCost)
-    
-    //     const coverCost = parseFloat(covertypeCost + solfanCost);
-    // // console.log(coverCost)
-  
-    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    // console.log(flexCost)
-    
-    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    // console.log(pocketCost)
-  
-    //  const printingCost = numOfsquares * 1 ;
-    //  console.log(printingCost)
-    // // papers cost end
-    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-    //       console.log(totalCost);
-    //     setPrice(totalCost);
-    //       console.log(price);
+        
+        const sizeCost = parseFloat(sizesPrice[size] || 0);
+        const printCost = parseFloat(printPrice[printType] || 0);
+        const totalCost = (sizeCost + printCost) * parseInt(quantity);
+        setPrice(totalCost);
+         console.log(sizeCost)
+         console.log(printCost)
+         console.log(quantity)
+         console.log(totalCost);
+         console.log(price);
            
     
   }
     // Update total price whenever relevant state variables change
-    // useEffect(() => {
-    //     // calculateTotalPrice();
-    //     setPrice();
-    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
-  // Function to handle form submission
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [printPrice,sizesPrice,size, printType, size, quantity]);
+ 
 
   return (
     <>
     
     {proDetails?<div className='container-fluid my-4 '  style={{'overflow':'hidden'}}>
-    {/* <h1 className='mx-4 mb-5'>{proDetails.name}</h1> */}
-    <h1 className='mx-4 mb-5'>أكياس بن ومكسرات</h1>
+    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -139,7 +122,7 @@ onClick={() => setSize(mysize.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>الطباعة  </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                    {proDetails.cut.map((selectedprint, index) => (
+                    {proDetails.printer_form.map((selectedprint, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${printType === selectedprint.name ? style.selected : ''}`}

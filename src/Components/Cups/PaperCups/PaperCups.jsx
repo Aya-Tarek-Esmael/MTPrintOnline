@@ -28,41 +28,35 @@ function PaperCups() {
   const [price, setPrice] = useState(0.00);
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/32/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/36/details`);
         console.log(data);
         setProDetails(data);
         setSizesAndSquares({
             [data.sizes[0].name]: data.sizes[0].price,
             [data.sizes[1].name]: data.sizes[1].price,
             [data.sizes[2].name]: data.sizes[2].price,
-            [data.sizes[3].name]: data.sizes[3].price
-            // [data.sizes[4].name]: data.sizes[4].price,
-            // [data.sizes[5].name]: data.sizes[5].price,
-            // [data.sizes[6].name]: data.sizes[6].price
+            [data.sizes[3].name]: data.sizes[3].price,
+            [data.sizes[4].name]: data.sizes[4].price,
+            [data.sizes[5].name]: data.sizes[5].price,
+            [data.sizes[6].name]: data.sizes[6].price
          });
         setPrintPrice({
-            [data.type[0].name]: data.type[0].price,
-            [data.type[1].name]: data.type[1].price,
-            [data.type[2].name]: data.type[2].price,
-            [data.type[3].name]: data.type[3].price
+            [data.printer_form[0].name]: data.printer_form[0].price,
+            [data.printer_form[1].name]: data.printer_form[1].price,
+            [data.printer_form[2].name]: data.printer_form[2].price,
+            [data.printer_form[3].name]: data.printer_form[3].price
          });
          setColorPrice({
-            [data.type[0].name]: data.type[0].price,
-            [data.type[1].name]: data.type[1].price,
-            [data.type[2].name]: data.type[2].price,
-            [data.type[3].name]: data.type[3].price
+            [data.color[0].name]: data.color[0].price,
+            [data.color[1].name]: data.color[1].price,
+            [data.color[2].name]: data.color[2].price,
+            [data.color[3].name]: data.color[3].price
          });
          setCoverTypePrice({
-            [data.type_in_paper[0].name]: data.type_in_paper[0].price,
-            [data.type_in_paper[1].name]: data.type_in_paper[1].price,
-            [data.type_in_paper[2].name]: data.type_in_paper[2].price
+            [data.cover[0].name]: data.cover[0].price,
+            [data.cover[1].name]: data.cover[1].price,
+            [data.cover[2].name]: data.cover[2].price
 
-          
-          });
-          setQuantityPrice({
-            [data.flexing[0].name]: data.flexing[0].price,
-            [data.flexing[1].name]: data.flexing[1].price,
-            [data.flexing[2].name]: data.flexing[2].price
           
           });
          
@@ -144,8 +138,7 @@ function PaperCups() {
     <>
     
     {proDetails?<div className='container-fluid my-5 '  style={{'overflow':'hidden'}}>
-    {/* <h1 className='mx-4 mb-5'>{proDetails.name}</h1> */}
-    <h1 className='mx-4 mb-5'>اكواب ورقية </h1>
+    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -181,23 +174,23 @@ function PaperCups() {
           </div>
           <div className={`col-12 d-flex mt-1 ${style.measurewidth}`}>
           <div
-            className={`border  col-4 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
-            onClick={() => setSize(proDetails.sizes[3].name)}
+            className={`border  col-4 p-1 hovercolor ${size === proDetails.sizes[4].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[4].name)}
           >
-            {proDetails.sizes[3].name}
+            {proDetails.sizes[4].name}
           </div>
 
           <div
-            className={`border me-1 col-4 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
-            onClick={() => setSize(proDetails.sizes[3].name)}
+            className={`border me-1 col-4 p-1 hovercolor ${size === proDetails.sizes[5].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[5].name)}
           >
-            {proDetails.sizes[3].name}
+            {proDetails.sizes[5].name}
           </div>
           <div
-            className={`border me-1 col-4 p-1 hovercolor ${size === proDetails.sizes[3].name ? style.selected : ''}`}
-            onClick={() => setSize(proDetails.sizes[3].name)}
+            className={`border me-1 col-4 p-1 hovercolor ${size === proDetails.sizes[6].name ? style.selected : ''}`}
+            onClick={() => setSize(proDetails.sizes[6].name)}
           >
-            {proDetails.sizes[3].name}
+            {proDetails.sizes[6].name}
           </div>
           </div>
         </div>
@@ -206,7 +199,7 @@ function PaperCups() {
        <div className='mt-4'>
        <label className='fw-bold'> اللون  </label>
        <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
-                                    {proDetails.sizes.map((selectedcolor, index) => (
+                                    {proDetails.color.map((selectedcolor, index) => (
 <div
 key={index}
 className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${color === selectedcolor.name ? style.selected  : ''}`}
@@ -222,7 +215,7 @@ onClick={() => setColor(selectedcolor.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>الطباعة  </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                    {proDetails.sizes.map((selectedprint, index) => (
+                    {proDetails.printer_form.map((selectedprint, index) => (
             <div
               key={index}
               className={`border me-1 col-3 py-1 hovercolor ${printType === selectedprint.name ? style.selected : ''}`}
@@ -237,7 +230,7 @@ onClick={() => setColor(selectedcolor.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'> الغطاء </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-       {size !== '1 بولة' && size !== '2 بولة' && size !== '3 بولة' && proDetails.flexing.map((selectedCover, index) => (
+       {size !== '1 بولة' && size !== '2 بولة' && size !== '3 بولة' && proDetails.cover.map((selectedCover, index) => (
                         <div
                           key={index}
                           className={`border hovercolor me-1 col-4 py-1 ${coverType === selectedCover.name ? style.selected : ''}`}

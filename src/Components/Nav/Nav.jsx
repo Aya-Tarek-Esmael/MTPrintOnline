@@ -65,10 +65,11 @@ function Nav() {
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="#" id="navbarDropdown1" role="button" onClick={() => toggleDropdown(1)} aria-haspopup="true" aria-expanded={activeDropdown === 1}>اليفط والواجهات<i className="fa fa-angle-down mt-1"></i></NavLink>
+                                    <NavLink className="nav-link" to="/panelsandfacades/" id="navbarDropdown1" role="button" onClick={() => toggleDropdown(1)} aria-haspopup="true" aria-expanded={activeDropdown === 1}>اليفط والواجهات<i className="fa fa-angle-down mt-1"></i></NavLink>
                                     <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1">
-                                        <span className="dropdown-item" onClick={closeMenus}>H 1</span>
-                                        <span className="dropdown-item" onClick={closeMenus}>H 2</span>
+                                        {/* <Link to={`/charcters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
+                                        <span className="dropdown-item" onClick={closeMenus}>H 2</span> */}
+                                        <Link to={`/panelsandfacades/53/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown me-2">
@@ -113,8 +114,8 @@ function Nav() {
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link" to="/cups/" id="navbarDropdown4" role="button" onClick={() => toggleDropdown(4)} aria-haspopup="true" aria-expanded={activeDropdown === 4}> اكواب <i className="fa fa-angle-down mt-1"></i></NavLink>
                                     <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 4 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown4">
-                                        <Link to={`/cups/Plasticcups/`} className="dropdown-item" onClick={closeMenus} > اكواب بلاستيك</Link>
-                                        <Link to={`/cups/papercups/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
+                                        <Link to={`/cups/35/`} className="dropdown-item" onClick={closeMenus} > اكواب بلاستيك</Link>
+                                        <Link to={`/cups/36/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
                                     </div>
                                 </li>
         
@@ -127,10 +128,10 @@ function Nav() {
                                     <input type="text" className="form-control border-0 rounded-end-5" placeholder="ادخل كلمة البحث ..." />
                                     <div className="input-group-prepend ms-1">
                                         <div className="dropdown">
-                                            <button className="btn btn-transparent" type="button" onClick={() => toggleDropdown('categories')} data-toggle="dropdown" aria-haspopup="true" aria-expanded={activeDropdown === 'categories'}>
+                                            <button className="btn btn-transparent text-dark  " type="button" onClick={() => toggleDropdown('categories')} data-toggle="dropdown" aria-haspopup="true" aria-expanded={activeDropdown === 'categories'}>
                                                 Categories<i className="fa fa-angle-down mt-1 text-secondary"></i>
                                             </button>
-                                            <div className={`dropdown-menu justify-content-end ${activeDropdown === 'categories' ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="dropdownMenuButton">
+                                            <div className={`dropdown-menu justify-content-end  w-100 ${style.dropdown_scroll}  ${activeDropdown === 'categories' ? 'show' : ''}`} style={{ 'textAlign': 'right' }} aria-labelledby="dropdownMenuButton">
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>كروت شخصية</a>
                                                 {/* كروت شخصية */}
                                         <Link to='/personalcards/' className="dropdown-item text-right" onClick={closeMenus}>كروت شخصية</Link>
@@ -164,14 +165,37 @@ function Nav() {
                                         <Link to={`/bannerproducts/18/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
                                        
                                         {/* اكواب */}
-                                        <Link to={`/cups/Plasticcups/`} className="dropdown-item" onClick={closeMenus}> اكواب بلاستيك</Link>
-                                        <Link to={`/cups/papercups/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
+                                        <Link to={`/cups/35/`} className="dropdown-item" onClick={closeMenus}> اكواب بلاستيك</Link>
+                                        <Link to={`/cups/36/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
 
                                         {/* اكياس */}
-                                        <Link to={`/bags/Plasticbags/`} className="dropdown-item" onClick={closeMenus}> أكياس بلاستيك</Link>
-                                        <Link to={`/bags/binandnutsbags/`} className="dropdown-item" onClick={closeMenus}>أكياس بن ومكسرات</Link>
-                                        <Link to={`/bags/kraftbags/`} className="dropdown-item" onClick={closeMenus}> شنط كرافت</Link>
-                                        <Link to={`/bags/clothbags/`} className="dropdown-item" onClick={closeMenus}> شنط قماش</Link>
+                                        <Link to={`/bags/37/`} className="dropdown-item" onClick={closeMenus}> أكياس بلاستيك</Link>
+                                        <Link to={`/bags/38/`} className="dropdown-item" onClick={closeMenus}>أكياس بن ومكسرات</Link>
+                                        <Link to={`/bags/39/`} className="dropdown-item" onClick={closeMenus}> شنط كرافت</Link>
+                                        <Link to={`/bags/40/`} className="dropdown-item" onClick={closeMenus}> شنط قماش</Link>
+
+                                        {/* يونيفورم */}
+                                        <Link to={`/uniform/`}   className="dropdown-item" onClick={closeMenus}>يونيفورم</Link>                
+                                        {/* <Link to={`/uniform/42/`}   className="dropdown-item" onClick={closeMenus}>بولو نص كم</Link>
+                                        <Link to={`/uniform/43/`}   className="dropdown-item" onClick={closeMenus}>بولو كم</Link> 
+                                        <Link to={`/uniform/44/`}   className="dropdown-item" onClick={closeMenus}>بوكليت </Link>
+                                        <Link to={`/uniform/45/`}   className="dropdown-item" onClick={closeMenus}>هودي </Link>
+                                        <Link to={`/uniform/46/`}   className="dropdown-item" onClick={closeMenus}> سويت شيرت سوستة</Link>
+                                        <Link to={`/uniform/47/`}   className="dropdown-item" onClick={closeMenus}>بوليفار اوفر سايز </Link>
+                                        <Link to={`/uniform/48/`}   className="dropdown-item" onClick={closeMenus}>بامب </Link>
+                                        <Link to={`/uniform/49/`}   className="dropdown-item" onClick={closeMenus}>راوند </Link>
+                                        <Link to={`/uniform/50/`}   className="dropdown-item" onClick={closeMenus}>كاب </Link>
+                                        <Link to={`/uniform/51/`}   className="dropdown-item" onClick={closeMenus}>مطاعم </Link>
+                                        <Link to={`/uniform/52/`}   className="dropdown-item" onClick={closeMenus}>تصميمك </Link>
+                                         */}
+
+                                        {/* يفط وواجهات -حروف بارزة*/}
+                                        <Link to={`/panelsandfacades/`}   className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
+                                        {/* <Link to={`/charcters/acrylic/`}                           className="dropdown-item" onClick={closeMenus}>اكليرك xاكليرك </Link>
+                                        <Link to={`/charcters/face2colorsxacrylic/`}               className="dropdown-item" onClick={closeMenus}>اكليرك "الوش 2 لون"×اكليرك  </Link>
+                                        <Link to={`/charcters/acrylicxacrylicandstainlesssteel/`}  className="dropdown-item" onClick={closeMenus}>اكليرك×اكليرك وعلية استانلس </Link>
+                                        <Link to={`/charcters/solidstainless/`}                    className="dropdown-item" onClick={closeMenus}>استانلس مصمت</Link>
+                                        <Link to={`/charcters/stainlessxacrylic/`}                 className="dropdown-item" onClick={closeMenus}>استانلس×اكليرك</Link> */}
                                                 {/* <a className="dropdown-item text-right" href="/" onClick={closeMenus}>كتب كتيبات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ملصقات واستيكرات</a>
                                                 <a className="dropdown-item text-right" href="/" onClick={closeMenus}>ورق لعب بلوت</a>

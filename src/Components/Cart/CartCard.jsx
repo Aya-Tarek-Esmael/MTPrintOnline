@@ -31,7 +31,8 @@ function CartCard({ data }) {
                 {/* <p className="card-title">  <span className='font'>Notes: </span>{data.notes}</p> */}
                 {/* <p className="card-title">  <span className='font'>File: </span>{data.file}</p> */}
                 <p className="card-title"><span className='font fw-bold'>السعر: </span> {data.price}</p>
-                <p  className="card-title"><span className='font fw-bold' id='qua'>الكمية: </span>{data.quantity}</p>
+                {/* <p  className="card-title"><span className='font fw-bold' id='qua'>الكمية: </span>{data.quantity}</p> */}
+                 {/* <p  className="card-title"><span className='font fw-bold' id='qua'>النوع: </span>{data.type}</p> */}
                 {/* <button className="btn btn-primary" onClick={''}  style={{'cursor':'pointer'}}>Details</button> */}
                 <i  onClick={add}   className="fa-solid fa-cart-plus m-4 text-dark fa-2x " style={{'cursor':'pointer'}}></i>
                 {/* <button className="btn btn-primary" onClick={add}>Add</button> */}

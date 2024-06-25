@@ -19,6 +19,16 @@ const CartSlice = createSlice({
         err: false,
     },
     reducers: {
+        // addToCart: (state, action) => {
+        //     const cartItemIndex = state.cart.findIndex(item => item.id === action.payload.id);
+            
+        //         state.cart.push({ ...action.payload});
+        //         console.log("Item already exists in the cart");
+        //         state.cart[cartItemIndex].cartquantity++;
+           
+            
+        //     saveCartToLocalStorage(state.cart);
+        // },
         addToCart: (state, action) => {
             const cartItemIndex = state.cart.findIndex(item => item.id === action.payload.id);
             if (cartItemIndex === -1) {
@@ -27,6 +37,7 @@ const CartSlice = createSlice({
                 console.log("Item already exists in the cart");
                 state.cart[cartItemIndex].quantity++;
             }
+            
             saveCartToLocalStorage(state.cart);
         },
         removeFromCart: (state, action) => {
@@ -40,6 +51,15 @@ const CartSlice = createSlice({
                 saveCartToLocalStorage(state.cart);
             }
         }
+        // removeFromCart: (state, action) => {
+        //     const cartItemIndex = state.cart.findIndex(item => item.id === action.payload.id);
+
+        //             state.cart[cartItemIndex].cartquantity--;
+        //             state.cart.splice(cartItemIndex, 1);
+                
+        //         saveCartToLocalStorage(state.cart);
+        //     }
+        
     }
 });
 

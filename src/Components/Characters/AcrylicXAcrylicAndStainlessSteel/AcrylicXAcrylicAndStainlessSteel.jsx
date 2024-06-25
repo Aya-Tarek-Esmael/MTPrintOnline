@@ -1,55 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import style from './PlasticCups.module.css'
-import plasticcupsImg from '../../../assets/cups.png'
+import style from './AcrylicXAcrylicAndStainlessSteel.module.css'
+import acrylicImg from '../../../assets/مضئ.webp'
 import { Link } from 'react-router-dom';
 import LoadingScrean from '../../../Components/LoodingScreen/LoodingScreen'
 import { useDispatch } from 'react-redux';
 import { addToCart } from '../../../Redux/slices/CartSlice';
 import axios from 'axios'
-function PlasticCups() {
+function AcrylicXAcrylicAndStainlessSteel() {
     
       // State variables to hold selected choices
   const dispatch = useDispatch();
   const [proDetails, setProDetails] = useState(null);
-  const [printType, setPrintType] = useState('');
-  const [coverType, setCoverType] = useState('');
-  const [size, setSize] = useState('');
+  const [sideColor, setSideColor] = useState('');
+  const [stainlessType, setStainlessType] = useState('');
+  const [type, setType] = useState('');
+  const [oneFaceColor, setOneFaceColor] = useState('');
+  const [lightColor, setLightColor] = useState('');
   const [notes, setNotes] = useState('');
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
+  const [quantity, setQuantity]= useState(0);
   const [deliveryDate, setDeliveryDate] = useState('');
-  const [sizesAndSquares, setSizesAndSquares] = useState({});
-  const [coverTypePrice, setCoverTypePrice] = useState({});
-  const [printPrice, setPrintPrice] = useState({});
+  const [stainlessPrice, setStainlessPrice] = useState({});
+  const [sidePrice, setSidePrice] = useState({});
   const [price, setPrice] = useState(0.00);
-  const [quantity, setQuantity] = useState({
-      "1000": 1000,
-      "1500": 1500,
-     });
+
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/35/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/38/details`);
         console.log(data);
         setProDetails(data);
-        setSizesAndSquares({
-            [data.sizes[0].name]: data.sizes[0].price,
-            [data.sizes[1].name]: data.sizes[1].price,
-            [data.sizes[2].name]: data.sizes[2].price,
-            [data.sizes[3].name]: data.sizes[3].price
+        setStainlessPrice({
+            [data.sizes[0].name]: data.sizes[0].price
          });
-        setPrintPrice({
+        setSidePrice({
             [data.printer_form[0].name]: data.printer_form[0].price,
-            [data.printer_form[1].name]: data.printer_form[1].price,
-            [data.printer_form[2].name]: data.printer_form[2].price,
-            [data.printer_form[3].name]: data.printer_form[3].price
+            [data.printer_form[1].name]: data.printer_form[1].price
          });
-         setCoverTypePrice({
-            [data.cover[0].name]: data.cover[0].price,
-            [data.cover[1].name]: data.cover[1].price,
-            [data.cover[2].name]: data.cover[2].price
-
-          
-          });
          
     }
     useEffect(() => {
@@ -61,10 +48,11 @@ function PlasticCups() {
     const handleSubmit = (e) => {
         e.preventDefault();
         // Log selected choices
-        console.log('Selected Paper Type:', printType);
-        console.log('Selected Cut Type:', coverType);
-        console.log('Selected Size:', size);
-        console.log('Selected Quantity:', quantity);
+        console.log('Selected Press Type:', type);
+        console.log('Selected sideColor:', sideColor);
+        console.log('Selected onefaceColor:', oneFaceColor);
+        console.log('Selected lightColor:', lightColor);
+        console.log('Selected side type:', stainlessType);
         console.log('Notes:', notes);
         console.log('Uploaded File:', file);
         console.log('File Link:', fileLink);
@@ -72,10 +60,9 @@ function PlasticCups() {
         const itemData = {
           id:proDetails.id,
           name:proDetails.name,
-            printType,
-            coverType,
-            size,
-            quantity,
+            sideColor,
+            lightColor,
+            stainlessType,
             notes,
             file,
             fileLink,
@@ -88,113 +75,95 @@ function PlasticCups() {
     };
       // Function to calculate the total price
   const calculateTotalPrice = () => {
-        //  cover cost
-    //     const sizeFactor = parseInt(sizesAndSquares[size]);
-    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-    //        console.log(numOfsquares)
-    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-    //      console.log(covertypeCost)
-    //      console.log(internalPaperPrice[paperType])
-    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-    //    console.log(solfanCost)
-    
-    //     const coverCost = parseFloat(covertypeCost + solfanCost);
-    // // console.log(coverCost)
-  
-    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    // console.log(flexCost)
-    
-    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    // console.log(pocketCost)
-  
-    //  const printingCost = numOfsquares * 1 ;
-    //  console.log(printingCost)
-    // // papers cost end
-    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-    //       console.log(totalCost);
-    //     setPrice(totalCost);
-    //       console.log(price);
+        
+        const typeCost = parseFloat(stainlessPrice[type] || 0);
+        const totalCost = (3000 ) ;
+        setPrice(totalCost);
+         console.log(typeCost)
+         console.log(totalCost);
+         console.log(price);
            
     
   }
     // Update total price whenever relevant state variables change
-    // useEffect(() => {
-    //     // calculateTotalPrice();
-    //     setPrice();
-    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
-  // Function to handle form submission
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [stainlessPrice, type, stainlessType, lightColor]);
+ 
 
   return (
     <>
     
     {proDetails?<div className='container-fluid my-4 '  style={{'overflow':'hidden'}}>
-    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
+    {/* <h1 className='mx-4 mb-5'>{proDetails.name}</h1> */}
+    <h1 className='mx-4 mb-5'> اكليرك×اكليرك وعلية استانلس  </h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
      <div className='col-md-12 col-xs-12 ms-1 col-sm-12 col-lg-6 px-sm-1'>
-       {/* item */}
-       <div className=''>
-       <label className='fw-bold'> المقاس  </label>
-       <div className={`d-flex mt-1 me-0 col-12 text-center ${style.divwidth}`}>
-                                    {proDetails.sizes.map((mysize, index) => (
-<div
-key={index}
-className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${size === mysize.name ? style.selected  : ''}`}
-onClick={() => setSize(mysize.name)}
->
-{mysize.name}
-</div>
-))} 
-  
-       </div>
-       </div>
+       
+         {/* side color */}
+         <div className=''>
+              <label className=" fw-bold"> لون الجنب &nbsp;</label>
+              <div className={`border pb-4 pt-2 rounded-1 col-12 mt-2 px-2`}>
+              <div className='d-flex  justify-content-center px-lg-5'>
+                {['black', 'red', 'white', 'green', 'yellow', 'blue', 'gray', 'purple', 'beige', '#824821', 'pink', 'orange'].map(color => (
+                  <label key={color} className={` me-3 ${style.main}`} title={color} style={{ cursor: 'pointer' }}>
+                    <input
+                      type="radio"
+                      name="sideColor"
+                      className='col-1'
+                      value={color}
+                      checked={sideColor === color}
+                      onChange={() => setSideColor(color)}
+                      style={{ display: 'none' }}
+                    />
+                    <span className={`${style.w3docs} `} style={{ backgroundColor: color }}></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+        </div>
+ {/* light color */}
+ <div className='mt-4'>
+              <label className=" fw-bold"> لون الاضاءة &nbsp;</label>
+              <div className={`border pb-4 pt-2 rounded-1 col-12 mt-2 px-2 `}>
+              <div className='d-flex  justify-content-center px-lg-5'>
+                {['black', 'red', 'white', 'green', 'yellow', 'blue', 'gray', 'purple', 'beige', '#824821', 'pink', 'orange'].map(color => (
+                  <label key={color} className={` me-3 ${style.main}`} title={color} style={{ cursor: 'pointer' }}>
+                    <input
+                      type="radio"
+                      name="lightColor"
+                      className='col-1'
+                      value={color}
+                      checked={lightColor === color}
+                      onChange={() => setLightColor(color)}
+                      style={{ display: 'none' }}
+                    />
+                    <span className={`${style.w3docs} `} style={{ backgroundColor: color }}></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+        </div>
+       
                {/* item */}
   <div className='mt-4'>
-       <label className='mb-2 fw-bold'>الطباعة  </label>
-       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                    {proDetails.printer_form.map((selectedprint, index) => (
+       <label className='mb-2 fw-bold'> الاستانلس  </label>
+       <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
+                    {proDetails.printer_form.map((selectedstainlesstype, index) => (
             <div
               key={index}
-              className={`border me-1 col-3 py-1 hovercolor ${printType === selectedprint.name ? style.selected : ''}`}
-              onClick={() =>setPrintType(selectedprint.name)}
+              className={`border me-1 col-6 py-1 hovercolor ${stainlessType === selectedstainlesstype.name ? style.selected : ''}`}
+              onClick={() =>setStainlessType(selectedstainlesstype.name)}
             >
-              {selectedprint.name}
+              {selectedstainlesstype.name}
             </div>
           ))}
        </div>
        </div>
-          {/* item */}
-  <div className='mt-4'>
-       <label className='mb-2 fw-bold'> الغطاء </label>
-       <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-       {proDetails.cover.map((selectedcover, index) => (
-            <div
-              key={index}
-              className={`border  hovercolor me-1 col-4 py-1 ${coverType === selectedcover.name ? style.selected : ''}`}
-              onClick={() =>setCoverType(selectedcover.name)}
-            >
-              {selectedcover.name}
-            </div>
-          ))}
-       </div>
-       </div>
-
-       {/* item */}
-  <div className='mt-4'>
-       <label className='mb-2 fw-bold'>الكمية </label>
-       <div className={`d-flex text-center ms-1`}>
-  <div
-                      className={`border col-6 p-1 hovercolor ${quantity === '1000' ? style.selected : ''}`}
-                      onClick={() => setQuantity('1000')}
-                    > 1000 </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${quantity === '1500' ? style.selected : ''}`}
-                      onClick={() => setQuantity('1500')}
-                    > 1500 </div>
-       </div>
-       </div>
- 
+          
     </div>
 
      {/* ..... */}
@@ -222,11 +191,11 @@ onClick={() => setSize(mysize.name)}
                        *
                        السعر غير شامل الشحن
                    </div>
-                   <div className={`px-0 mt-3  me-2`}>
+                   {/* <div className={`px-0 mt-3  me-2`}>
                        سعر النسخة
                        {price? ((price/quantity).toFixed(2)):'0.00'}ج.م
                        
-                   </div>
+                   </div> */}
                </div>
            </div>
        </div>
@@ -327,8 +296,8 @@ onClick={() => setSize(mysize.name)}
 
 {/* leftside */}
 <div  className={`col-md-12 col-lg-4 col-sm-12  mt-0 `}>
-     <div className={`${style.circlebg} px-4 `} >
-     <img src={plasticcupsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
+     <div className={`${style.circlebg} px-4 py-4`} >
+     <img src={acrylicImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
      <div className="d-flex justify-content-center mt-5 ">
@@ -357,4 +326,4 @@ onClick={() => setSize(mysize.name)}
   )
 }
 
-export default PlasticCups
+export default AcrylicXAcrylicAndStainlessSteel

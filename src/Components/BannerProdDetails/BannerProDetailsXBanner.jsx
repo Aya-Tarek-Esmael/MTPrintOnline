@@ -42,7 +42,7 @@ function BannerProDetails() {
   }
 
 
-  const onSubmit = (formData) => {
+  const onSubmit = (event) => {
     event.preventDefault(); // Prevent default form submission
     const totalAmount = parseFloat(sizesAndPrices[selectedSize]) * quantity;
     const itemData = {

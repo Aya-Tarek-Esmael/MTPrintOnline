@@ -63,8 +63,8 @@ function BannerProDetailsBannerNormall() {
       event.preventDefault(); // Prevent default form submission
       const totalAmount = price * quantity;
       const itemData = {
-          id: proDetails.id,
-          name: proDetails.name,
+        id: proDetails.id,
+        name: proDetails.name,
           bannertype: selectedTypeBanner,
           solfantype:selectedTypeSalfen,
           quantity,
@@ -193,7 +193,7 @@ useEffect(() => {
   const selectedTypeSalfenPrice = parseFloat(typesAndPrices[selectedTypeSalfen]);
   const newPrice = area * (selectedTypeBannerPrice + selectedTypeSalfenPrice);
   setPrice(newPrice);
-}, [area, selectedTypeBanner, selectedTypeSalfen]);
+}, [area, selectedTypeBanner, selectedTypeSalfen,typesAndPrices]);
 
   return (
     <div>
@@ -223,7 +223,7 @@ useEffect(() => {
                     <i className="fa-solid fa-circle-arrow-right "></i>
                     </div>
                     <p style={{'fontSize':'13px'}}> بانر بجميع المقاسات خفيف وسط او تقيل. السعر يشمل التصميم والطباعة</p>
-                    <form onSubmit={handleSubmit(onSubmit)}>
+                    <form onSubmit={onSubmit}>
                     {/* <div className='col-12 mt-4'> */}
                         <div>
                     <label className='fw-bold'>خامة البانر</label>

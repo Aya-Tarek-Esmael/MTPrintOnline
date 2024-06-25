@@ -22,35 +22,23 @@ import Wallpaper from '../BannerProduct/Wallpaper';
 import Stan from '../BannerProduct/Stan';
 import PrintAndCut from '../BannerProduct/PrintAndCut';
 import axios from 'axios';
-import  {  useState } from 'react'
+import { getBannerProducts } from '../../Redux/slices/BannerProductsSlice';
+
+
 
 function BannerProducts() {
+  const dispatch = useDispatch();
+    const BannerProducts = useSelector(state => state.BannerProductsReducer.BannerProducts);
+    const flag = useSelector(state => state.BannerProductsReducer.loading);
 
-    const [allProducts,setAllProducts]=useState([]);
-    // const [sortBy, setSortBy] = useState('');
-
-    
-    async function getAllProducts(){
-      try{
-        let {data}=await axios.get('http://localhost:8000/api/categories/12')
-        // console.log(data.products)
-         setAllProducts(data.products);
-      }
-      catch(e){
-     console.log('Error: ',e)
-      }
-     
-    }
- 
     useEffect(() => {
-      getAllProducts();
-    }, []);
-
+        dispatch(getBannerProducts());
+    }, [dispatch]);
   
     
   return (
    <>
-{allProducts? <div className='contanier-fluid px-5 my-5 ' style={{overflow:'hidden'}}>
+{BannerProducts ? <div className='contanier-fluid px-5 my-5 ' style={{overflow:'hidden'}}>
 <h1 className="title page-title  my-4 col-xs-12 col-sm-12 col-md-12 col-lg-12 ">البانر</h1>
 <header className={`${style.productsheader} p-4 `}>	
 <div className="term-descriptionn "><p>يحتوي هذا القسم علي مجموعة من الـ بانر المميزة و المختلفة و المصممه خصيصا لك و لشركتك</p>
@@ -107,7 +95,7 @@ function BannerProducts() {
 {
              <div className=' col-lg-12 col-sm-12 col-md-12 d-md-flex flex-wrap '>
                 {
-                    allProducts.map((item) => {return <div key={item.id} className='col-lg-3 col-md-3 col-sm-12  col-xs-12  pb-3 mt-3 mb-5 '> <BannerProduct data={item} /></div>
+                    BannerProducts.map((item) => {return <div key={item.id} className='col-lg-3 col-md-3 col-sm-12  col-xs-12  pb-3 mt-3 mb-5 '> <BannerProduct data={item} /></div>
                     })
                 }
             </div> 

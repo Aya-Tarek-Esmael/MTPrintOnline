@@ -129,26 +129,40 @@ function Topbar() {
                                         <Link to={`/bannerproducts/11/`} className="dropdown-item text-right" onClick={closeDropdown}>بانر كوتيد</Link>
                                         <Link to={`/bannerproducts/18/`} className="dropdown-item text-right" onClick={closeDropdown}>برنت اند كات</Link>
                                          {/* اكواب */}
-                                        <Link to={`/cups/Plasticcups/`} className="dropdown-item text-right" onClick={closeDropdown}> اكواب بلاستيك</Link>
-                                        <Link to={`/cups/papercups/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
+                                        <Link to={`/cups/35/`} className="dropdown-item text-right" onClick={closeDropdown}> اكواب بلاستيك</Link>
+                                        <Link to={`/cups/36/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
                                         {/* أكياس */}
-                                        <Link to='/bags/palasticbags/'   className="dropdown-item text-right" onClick={closeDropdown}>أكياس بلاستيك </Link>
-                                        <Link to='/bags/binandnutsbags/' className="dropdown-item text-right" onClick={closeDropdown}>أكياس بن ومكسرات</Link>
-                                        <Link to='/bags/clothbags/'      className="dropdown-item text-right" onClick={closeDropdown}>شنط قماش </Link>
-                                        <Link to='/bags/kraftbags/'      className="dropdown-item text-right" onClick={closeDropdown}>شنط كرافت </Link>
+                                        <Link to='/bags/37/'   className="dropdown-item text-right" onClick={closeDropdown}>أكياس بلاستيك </Link>
+                                        <Link to='/bags/38/' className="dropdown-item text-right" onClick={closeDropdown}>أكياس بن ومكسرات</Link>
+                                        <Link to='/bags/40/'      className="dropdown-item text-right" onClick={closeDropdown}>شنط قماش </Link>
+                                        <Link to='/bags/39/'      className="dropdown-item text-right" onClick={closeDropdown}>شنط كرافت </Link>
                                         {/* uniform */}
-                                        <Link to={`/uniform/halfsleevepolo/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بولو نص كم</Link>
-                                        <Link to={`/uniform/sleevepolo/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بولو كم</Link>
+                                        <Link to={`/uniform/`}   className="dropdown-item text-right"   onClick={closeDropdown}>يونيفورم</Link>
+                                        {/* <Link to={`/uniform/42/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بولو نص كم</Link>
+                                        <Link to={`/uniform/43/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بولو كم</Link>
+                                        <Link to={`/uniform/44/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بوكليت </Link>
+                                        <Link to={`/uniform/45/`}   className="dropdown-item text-right"   onClick={closeDropdown}>هودي </Link>
+                                        <Link to={`/uniform/46/`}   className="dropdown-item text-right"   onClick={closeDropdown}> سويت شيرت سوستة</Link>
+                                        <Link to={`/uniform/47/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بوليفار اوفر سايز </Link>
+                                        <Link to={`/uniform/48/`}   className="dropdown-item text-right"   onClick={closeDropdown}>بامب </Link>
+                                        <Link to={`/uniform/49/`}   className="dropdown-item text-right"   onClick={closeDropdown}>راوند </Link>
+                                        <Link to={`/uniform/50/`}   className="dropdown-item text-right"   onClick={closeDropdown}>كاب </Link>
+                                        <Link to={`/uniform/51/`}   className="dropdown-item text-right"   onClick={closeDropdown}>مطاعم </Link>
+                                        <Link to={`/uniform/52/`}   className="dropdown-item text-right"   onClick={closeDropdown}>تصميمك </Link>
+                                        */}
+                                       {/* يفط وواجهات -حروف بارزة */}
+                                       <Link to={`/panelsandfacades/53/`}   className="dropdown-item text-right"   onClick={closeDropdown}>حروف بارزة </Link>
+                                        {/* <Link to={`/charcters/acrylic/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك xاكليرك </Link>
+                                        <Link to={`/charcters/face2colorsxacrylic/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك "الوش 2 لون"×اكليرك  </Link>
+                                        <Link to={`/charcters/acrylicxacrylicandstainlesssteel/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك×اكليرك وعلية استانلس </Link>
+                                        <Link to={`/charcters/solidstainless/`}   className="dropdown-item text-right"   onClick={closeDropdown}>استانلس مصمت</Link>
+                                        <Link to={`/charcters/stainlessxacrylic/`}   className="dropdown-item text-right"   onClick={closeDropdown}>استانلس×اكليرك</Link> */}
+
+                                        {/* 
                                         <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
                                         <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
                                         <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
+                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link> */}
                                             {/* <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>كتب كتيبات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ملصقات واستيكرات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ورق لعب بلوت</a>

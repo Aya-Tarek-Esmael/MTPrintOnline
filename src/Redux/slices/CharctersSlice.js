@@ -2,16 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getBags = createAsyncThunk("bags/getAllbags", async () => {
+export const getCharcters = createAsyncThunk("charcters/getAllcharcters", async () => {
     let data = await axios.get('http://localhost:8000/api/categories/15');
     return data.data.products;
     
 })
-const BagsSlice = createSlice({
-    name: "bagscard",
+const CharctersSlice = createSlice({
+    name: "charcterscard",
     initialState: {
         fav: [],
-        bags: [],
+        charcters: [],
         loading: true,
         err: false
     },
@@ -23,15 +23,15 @@ const BagsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase( getBags.pending, (state) => {
+            .addCase( getCharcters.pending, (state) => {
                 console.log("pending")
             })
-            .addCase( getBags.fulfilled, (state, action) => {
+            .addCase( getCharcters.fulfilled, (state, action) => {
                 console.log(action.payload);
                 state.loading = false;
-                state.bags = action.payload;
+                state.charcters = action.payload;
             })
-            .addCase( getBags.rejected, (state, action) => {
+            .addCase( getCharcters.rejected, (state, action) => {
                 console.log("rejected")
                 state.loading = false;
                 state.err = true;
@@ -39,6 +39,6 @@ const BagsSlice = createSlice({
     },
 })
 
-export const { addToFav } = BagsSlice.actions;
+export const { addToFav } = CharctersSlice.actions;
 
-export default BagsSlice.reducer;
+export default CharctersSlice.reducer;

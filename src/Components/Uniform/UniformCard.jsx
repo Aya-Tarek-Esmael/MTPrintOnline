@@ -19,19 +19,17 @@ console.log(data);
  {/* cards container*/}
  <li className={`card ${style.product}   pb-2 mt-3 mb-2 `}>
         <Link to={`/uniform/${data.id}/`} title={data.name} className={style.cardimg}>
-		<img  src={uniformImg} className={`${style.cardimg} px-1 w-100 `} alt=""   />
+		<img  src={`http://localhost:8000/images/${data.image}`} className={`${style.cardimg} px-2 w-100 pt-2  rounded-top-4`} alt=""   />
 		</Link>
-			<div className="cardheader text-center">				
+			<div className="cardheader text-center mt-2">				
 				<div className="">
 					<Link to="/uniform/" className='text-dark'  >يونيفورم</Link>, 
 					<Link to=""  className='text-dark '>منتجات الطباعة</Link>
 					</div>			
 						<div className="mb-2">
-					<Link to={`/uniform/${data.id}/`}  className="fw-bold " style={{'fontSize':'17px','color':'#e30918'}}> data.name </Link>
-
+					<Link to={`/uniform/${data.id}/`}  className="fw-bold " style={{'fontSize':'17px','color':'#e30918'}}> {data.name} </Link>
 						</div>
-{/* <Link to={`/papers/${data.id}/`}  className={` text-light border-0 ${style.cardbtn} rounded border border-danger mt-3 w-100  btn main-btn width-fluid text-center align-items-center `}   aria-describedby="هناك العديد من الأشكال المختلفة لهذا المنتج. يمكن اختيار الخيارات على صفحة المنتج">حدد ابعاد المنتج
-</Link> */}
+
 </div>
 </li>
 

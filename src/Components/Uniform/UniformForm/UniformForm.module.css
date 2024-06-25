@@ -1,49 +1,5 @@
 
-  /* /////////////uniformcard///////// */
-  
-  :root {
-    --primary-background:#e30918;
-    --secondary-background: #000000;
-    --font-color:white;
-    --container-bg:#cccccc;
-  }
-  
-  .productsheader{
-    background-color: #f0efe4;
-    height: 150px;
-  }
-  
-  .product {
-    border:1px solid rgba(0, 0, 0, 0.103);
-    transition: box-shadow 0.3s ease;
-    border-radius: 5%;
-  }
-  
-  .product:hover {
-    
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-  }
-  .cardimg{
-    transition: transform 0.3s ease;
-    height: 270px;
-  }
-  .cardimg:hover{
-    transform: scale(0.9);
-  
-  }
-  /* .cardbtn{
-    width: 90% !important;
-    background-color: var(--primary-background);
-    
-    
-  } */
-  /* .cardbtn:hover{
-    background-color: var(--secondary-background);
-  } */
-
-  /* uniform form */
-
-  .addProject{
+.addProject{
     width: 60px ;
     height: 60px;
     background-color:#ff0808 !important;
@@ -127,7 +83,7 @@ input[type=checkbox] {
   }
   /* Specify the background color to be shown when hovering over checkbox */
   .main:hover input ~ .w3docs {
-    background-color: gray;
+    background-color: #e30918;
   }
   /* Specify the background color to be shown when checkbox is active */
   .main input:active ~ .w3docs {
@@ -171,4 +127,10 @@ input[type=checkbox] {
 }
 .uploadbtn{
     cursor: pointer;
+    }
+    .pricebtn:hover{
+        background-color: #bd3039 ;
+    }
+    .pricebtn{
+        background-color: #e30918 ;
     }

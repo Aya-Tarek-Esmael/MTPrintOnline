@@ -1,65 +1,55 @@
+:root {
+    --primary-background:#e30918;
+    --secondary-background: #000000;
+    --font-color:white;
+    --container-bg:#cccccc;
+  }
 
-.addProject{
-    width: 60px ;
-    height: 60px;
-    background-color:#ff0808 !important;
-    color: aliceblue !important;
-    -o-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    border-radius: 100%;
-    border: unset;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
-.addProject:hover{
-    width: 60px ;
-    height: 60px;
-    background-color:aliceblue !important;
-    color: rgb(0, 0, 0) !important;
-    -o-border-radius: 100%;
-    -webkit-border-radius: 100%;
-    -moz-border-radius: 100%;
-    -ms-border-radius: 100%;
-    border-radius: 100%;
-    border: unset;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.415);
-}
-.add_Project{
-    background-color: rgb(222, 222, 222) !important;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
-}
-.postion_modal{
-    margin-right: -210px;
-}
-.textArea{
-    height: 200px;
-    border:unset !important;
-}
-.cardbtn{
-    background-color: var(--primary-background);
+  .circlebg{
+    /* background-image: url('../../assets/circle.jpg'); */
+    background-size: cover;
+    height: 93%;
+    width: 100%;
+    padding: 40px;
+   }
+.cartbtn:hover{
+    background-color:var(--primary-background);
+    color: var(--font-color);
+    border-color:var(--primary-background);
    
+   }
+   .cartbtn{
+    color: var(--primary-background);
+    /* padding: 10px 111px; */
+    border-radius: 0%;
+   }
+  
+   .brochImg{
+    height:100%;
+   width:100%;
+   }
+.textfont{
+    font-size: 11px;
+
+}
+
+.uploadbtn{
+  cursor: pointer;
+}
+.divwidth{
+width:98%;
+}
+.measurewidth{
+  width:99%;
 }
 
 .selected{
-    background-color:var(--primary-background);
-    color:var(--font-color);
-    }
-    
-@media (min-width: 1000px) {
-    .modal{
-        width:950px !important;
-      
-    }
-}
-/* color input */
+  background-color:var(--primary-background);
+  color:var(--font-color);
+ }
+
+ /* color input */
 .main {
     display: block;
     position: relative;
@@ -76,8 +66,8 @@ input[type=checkbox] {
     position: absolute;
     top: 0;
     left: 0;
-    height: 30px;
-    width: 30px;
+    height: 27px;
+    width: 27px;
     border-radius: 50%;
     border: 1px rgb(145, 138, 138) solid;
   }
@@ -121,10 +111,3 @@ input[type=checkbox] {
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
   }
-
-.selecthover:hover{
-    background-color: #ff0808 !important;
-}
-.uploadbtn{
-    cursor: pointer;
-    }

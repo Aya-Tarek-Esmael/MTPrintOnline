@@ -2,13 +2,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getCups = createAsyncThunk("papers/getAllpapers", async () => {
-    let data = await axios.get('http://localhost:8000/api/categories/13');
+export const getCups = createAsyncThunk("cups/getAllcups", async () => {
+    let data = await axios.get('http://localhost:8000/api/categories/14');
     return data.data.products;
     
 })
 const CupsSlice = createSlice({
-    name: "papercard",
+    name: "cupscard",
     initialState: {
         fav: [],
         cups: [],

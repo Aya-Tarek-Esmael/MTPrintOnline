@@ -16,6 +16,7 @@ function Sticker() {
       const [quantity, setQuantity] = useState(0);
       const [notes, setNotes] = useState('');
       const [file, setFile] = useState('');
+      const [fileName, setFileName] = useState('');
       const [fileLink, setFileLink] = useState('');
       const [deliveryDate, setDeliveryDate] = useState('');
       const [sizesAndSquares, setSizesAndSquares] = useState({});
@@ -106,7 +107,11 @@ const calculateTotalPrice = () => {
             console.log(itemData);
             dispatch(addToCart(itemData));
         };
-
+        const handleFileChange = (e) => {
+          const selectedFile = e.target.files[0];
+          setFile(selectedFile);
+          setFileName(selectedFile.name);
+        };
         // Update total price whenever relevant state variables change
         useEffect(() => {
             // calculateTotalPrice();
@@ -298,6 +303,7 @@ const calculateTotalPrice = () => {
 
                      <div className="border mt-3">
                      <div className="justify-content-center text-center">
+                      {fileName? fileName : 
                      <div id="dZUpload" className={` ${style.uploadbtn} py-5 `}>
                          <label htmlFor='fileUpload' className={` ${style.uploadbtn}text-dark`}>
                              <i className={` ${style.uploadbtn} fa-solid fa-cloud-arrow-up fa-2x `}></i>
@@ -307,9 +313,10 @@ const calculateTotalPrice = () => {
                           type='file'
                           id='fileUpload'
                           style={{ display: 'none'}}
-                          onChange={(e) => setFile(e.target.files[0])}
+                          onChange={handleFileChange}
                              />
                          </div>
+                      }
                          
                          
                          <div className="drag-note text-secondary mb-2">

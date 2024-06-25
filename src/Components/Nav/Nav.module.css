@@ -25,3 +25,55 @@
 .btnnavcolor:hover{
     background-color: rgb(172, 8, 8);
 }
+
+/* scroll */
+.dropdown_scroll {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+ /* width */
+ .dropdown_scroll::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  .dropdown_scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+  
+  /* Handle */
+  .dropdown_scroll::-webkit-scrollbar-thumb {
+    /* background: var(--primary-background); */
+    background: #c9c9c9;
+    border-radius: 10px;
+    
+  }
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #b30000; 
+  }
+
+
+
+  /* width */
+::-webkit-scrollbar {
+    width: 18px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 0px;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #cecdcd;
+    border-radius: 10px;
+    
+  }
+  /* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #b4b4b4; 
+  }

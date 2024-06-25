@@ -2,16 +2,16 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 
-export const getBags = createAsyncThunk("bags/getAllbags", async () => {
-    let data = await axios.get('http://localhost:8000/api/categories/15');
+export const getBannerProducts = createAsyncThunk("banners/getAllbanners", async () => {
+    let data = await axios.get('http://localhost:8000/api/categories/12');
     return data.data.products;
     
 })
-const BagsSlice = createSlice({
-    name: "bagscard",
+const BannerProductsSlice = createSlice({
+    name: "BannerProductcard",
     initialState: {
         fav: [],
-        bags: [],
+        BannerProducts: [],
         loading: true,
         err: false
     },
@@ -23,15 +23,15 @@ const BagsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase( getBags.pending, (state) => {
+            .addCase( getBannerProducts.pending, (state) => {
                 console.log("pending")
             })
-            .addCase( getBags.fulfilled, (state, action) => {
+            .addCase( getBannerProducts.fulfilled, (state, action) => {
                 console.log(action.payload);
                 state.loading = false;
-                state.bags = action.payload;
+                state.BannerProducts = action.payload;
             })
-            .addCase( getBags.rejected, (state, action) => {
+            .addCase( getBannerProducts.rejected, (state, action) => {
                 console.log("rejected")
                 state.loading = false;
                 state.err = true;
@@ -39,6 +39,6 @@ const BagsSlice = createSlice({
     },
 })
 
-export const { addToFav } = BagsSlice.actions;
+export const { addToFav } =BannerProductsSlice.actions;
 
-export default BagsSlice.reducer;
+export default BannerProductsSlice.reducer;

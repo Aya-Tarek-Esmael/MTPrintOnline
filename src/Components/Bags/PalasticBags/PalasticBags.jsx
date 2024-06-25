@@ -22,23 +22,31 @@ function PalasticBags() {
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
-  const [sizesPrice, setSizesPrice] = useState({});
-  const [coverTypePrice, setCoverTypePrice] = useState({});
   const [printPrice, setPrintPrice] = useState({});
+  const [typePrice, setTypePrice] = useState({});
   const [price, setPrice] = useState(0.00);
   const [quantity, setQuantity] = useState(50);
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/32/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/37/details`);
         console.log(data);
         setProDetails(data);
 
         setPrintPrice({
-            [data.type[0].name]: data.type[0].price,
-            [data.type[1].name]: data.type[1].price
+            [data.printer_form[0].name]: data.printer_form[0].price,
+            [data.printer_form[1].name]: data.printer_form[1].price
          });
          
+         setTypePrice({
+          'type1': 10,
+          'type2': 20,
+          'type3': 30,
+          'type4': 40
+        });
+    
     }
+
+ 
     useEffect(() => {
       
         getProDetails()
@@ -75,48 +83,30 @@ function PalasticBags() {
     };
       // Function to calculate the total price
   const calculateTotalPrice = () => {
-        //  cover cost
-    //     const sizeFactor = parseInt(sizesAndSquares[size]);
-    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-    //        console.log(numOfsquares)
-    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-    //      console.log(covertypeCost)
-    //      console.log(internalPaperPrice[paperType])
-    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-    //    console.log(solfanCost)
-    
-    //     const coverCost = parseFloat(covertypeCost + solfanCost);
-    // // console.log(coverCost)
-  
-    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    // console.log(flexCost)
-    
-    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    // console.log(pocketCost)
-  
-    //  const printingCost = numOfsquares * 1 ;
-    //  console.log(printingCost)
-    // // papers cost end
-    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-    //       console.log(totalCost);
-    //     setPrice(totalCost);
-    //       console.log(price);
-           
-    
+        //  type cost
+        const typeCost = parseFloat(typePrice[type] || 0);
+        const printCost = parseFloat(printPrice[printType] || 0);
+        const totalCost = (typeCost + printCost) * parseInt(quantity);
+        setPrice(totalCost);
+         console.log(typeCost)
+         console.log(printCost)
+         console.log(quantity)
+         console.log(totalCost);
+         console.log(price);
+
   }
     // Update total price whenever relevant state variables change
-    // useEffect(() => {
-    //     // calculateTotalPrice();
-    //     setPrice();
-    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
-  // Function to handle form submission
+    useEffect(() => {
+        // calculateTotalPrice();
+        setPrice();
+      }, [printPrice, typePrice, quantity, printType, type]);
+ 
 
   return (
     <>
     
     {proDetails?<div className='container-fluid my-4 '  style={{'overflow':'hidden'}}>
-    {/* <h1 className='mx-4 mb-5'>{proDetails.name}</h1> */}
-    <h1 className='mx-4 mb-5'>أكياس بلاستيك</h1>
+    <h1 className='mx-4 mb-5'>{proDetails.name}</h1>
      <form onSubmit={handleSubmit}>
      <div className='d-lg-flex  mx-0 '>
     <div className='col-lg-8 d-lg-flex  px-4'>
@@ -125,21 +115,21 @@ function PalasticBags() {
            <div className=''>
        <label className='mb-2 fw-bold'>النوع </label>
        <div className={`d-flex text-center ${style.measurewidth}`}>
-                     <img src={firstImg}
-                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === '1000' ? style.selected : ''}`}
-                      onClick={() => setType('1000')}
+                     <img src={firstImg} title={''}
+                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === 'type1' ? style.selected : ''}`}
+                      onClick={() => setType('type1')}
                      />
-                      <img src={secondImg}
-                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === '2000' ? style.selected : ''}`}
-                      onClick={() => setType('2000')}
+                      <img src={secondImg} title={''}
+                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === 'type2' ? style.selected : ''}`}
+                      onClick={() => setType('type2')}
                      />
-                      <img src={thirdImg}
-                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === '3000' ? style.selected : ''}`}
-                      onClick={() => setType('3000')}
+                      <img src={thirdImg} title={''}
+                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === 'type3' ? style.selected : ''}`}
+                      onClick={() => setType('type3')}
                      />
-                       <img src={fourImg}
-                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === '4000' ? style.selected : ''}`}
-                      onClick={() => setType('4000')}
+                       <img src={fourImg} title={''}
+                      className={`border rounded-pill col-3 p-1 hovercolor m-1 ${type === 'type4' ? style.selected : ''}`}
+                      onClick={() => setType('type4')}
                      />
        </div>
        </div>
@@ -160,7 +150,7 @@ function PalasticBags() {
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>الطباعة  </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-                    {proDetails.cut.map((selectedprint, index) => (
+                    {proDetails.printer_form.map((selectedprint, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${printType === selectedprint.name ? style.selected : ''}`}
@@ -174,7 +164,7 @@ function PalasticBags() {
           
 
        {/* item */}
-       <div className='d-flex border justify-content-between p-2  mt-5'>
+       <div className='d-flex border justify-content-between p-2  mt-5 '>
           <label className='fw-bold'>الكمية</label>
           <input
                     type='number'
@@ -182,7 +172,7 @@ function PalasticBags() {
                     placeholder='50'
                     value={quantity}
                     onChange={(e) => setQuantity(e.target.value)}
-                    className='bg-light p-1 text-center border-0'
+                    className='bg-light p-1 text-center border-0 '
                   />
                   kg
          </div>

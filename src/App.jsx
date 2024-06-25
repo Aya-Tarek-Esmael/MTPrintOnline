@@ -69,9 +69,15 @@ import ClothBags from './Components/Bags/ClothBags/ClothBags';
 import PalasticBags from './Components/Bags/PalasticBags/PalasticBags';
 import KraftBags from './Components/Bags/KraftBags/KraftBags';
 import Cups from './Components/Cups/Cups';
-import UniformForm from './Components/Uniform/UniformForm';
-import HalfSleevePolo from './Components/Uniform/HalfSleevePolo/HalfSleevePolo';
-import SleevePolo from './Components/Uniform/SleevePolo/SleevePolo';
+import UniformForm from './Components/Uniform/UniformForm/UniformForm';
+import Charcters from './Components/Characters/Characters';
+import Acrylic from './Components/Characters/Acrylic/Acrylic';
+import Face2ColorsxAcrylic from './Components/Characters/Face2ColorsxAcrylic/Face2ColorsxAcrylic';
+import AcrylicXAcrylicAndStainlessSteel from './Components/Characters/AcrylicXAcrylicAndStainlessSteel/AcrylicXAcrylicAndStainlessSteel';
+import SolidStainless from './Components/Characters/SolidStainless/SolidStainless';
+import StainlessXAcrylic from './Components/Characters/StainlessXAcrylic/StainlessXAcrylic';
+import Letters from './Components/Letters/Letters';
+import PanelsAndFacades from './Components/PanelsAndFacades/PanelsAndFacades';
 
 
 
@@ -152,23 +158,32 @@ function App() {
 
    {/* cups */}
    <Route path='/cups/' element={<Cups/>} />
-   <Route path='/cups/Plasticcups/' element={< PlasticCups/>} />
-   <Route path='/cups/Papercups/' element={< PaperCups/>} />
+   <Route path='/cups/35/' element={< PlasticCups/>} />
+   <Route path='/cups/36/' element={< PaperCups/>} />
 
    {/* bags */}
    <Route path='/bags/' element={< Bags/>} />
-   <Route path='/bags/binandnutsbags/' element={< BinAndNutsBags/>} />
-   <Route path='/bags/clothbags/' element={< ClothBags/>} />
-   <Route path='/bags/palasticbags/' element={< PalasticBags/>} />
-   <Route path='/bags/kraftbags/' element={< KraftBags/>} />
+   <Route path='/bags/38/' element={< BinAndNutsBags/>} />
+   <Route path='/bags/40/' element={< ClothBags/>} />
+   <Route path='/bags/37/' element={< PalasticBags/>} />
+   <Route path='/bags/39/' element={< KraftBags/>} />
 
    {/* uniform */}
    <Route path='/uniform/' element={<Uniform/>} />
-   <Route path='/uniform/uniformform/' element={<UniformForm/>} />
-   <Route path='/uniform/halfsleevepolo/' element={<HalfSleevePolo/>} />
-   <Route path='/uniform/sleevepolo/' element={<SleevePolo/>} />
+   <Route path='/uniform/:id/' element={<UniformForm/>} />
 
+  {/* PanelsAndFacades */}
+  <Route path='/panelsandfacades/' element={<PanelsAndFacades/>} />
 
+  {/* Charcters  */}
+  <Route path='/panelsandfacades/53/' element={<Letters/>} />
+  <Route path='/Charcters/' element={<Charcters/>} />
+  <Route path='/Charcters/acrylic/' element={<Acrylic/>} />
+  <Route path='/Charcters/37/' element={<Acrylic/>} />
+  <Route path='/Charcters/face2colorsxacrylic/' element={<Face2ColorsxAcrylic/>} />
+  <Route path='/Charcters/acrylicxacrylicandstainlesssteel/' element={<AcrylicXAcrylicAndStainlessSteel/>} />
+  <Route path='/charcters/solidstainless/' element={<SolidStainless/>} />
+  <Route path='/charcters/stainlessxacrylic/' element={<StainlessXAcrylic/>} />
     </Routes>
     <Footer />
     </div>
