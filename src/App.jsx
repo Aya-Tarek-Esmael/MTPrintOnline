@@ -178,12 +178,7 @@ function App() {
   {/* Charcters  */}
   <Route path='/panelsandfacades/letters/' element={<Letters/>} />
   {/* <Route path='/panelsandfacades/letterscard/' element={<LettersCard/>} /> */}
-  <Route path='/Charcters/' element={<Charcters/>} />
-  <Route path='/Charcters/53/' element={<Acrylic/>} />
-  <Route path='/Charcters/54/' element={<Face2ColorsxAcrylic/>} />
-  <Route path='/Charcters/55/' element={<AcrylicXAcrylicAndStainlessSteel/>} />
-  <Route path='/charcters/56/' element={<SolidStainless/>} />
-  <Route path='/charcters/57/' element={<StainlessXAcrylic/>} />
+
     </Routes>
     <Footer />
     </div>
