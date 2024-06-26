@@ -12,7 +12,6 @@ function KraftBags() {
   const dispatch = useDispatch();
   const [proDetails, setProDetails] = useState(null);
   const [printType, setPrintType] = useState('');
-  // const [size, setSize] = useState('');
   const [notes, setNotes] = useState('');
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
@@ -30,7 +29,7 @@ function KraftBags() {
     };
   
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/40/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/39/details`);
         console.log(data);
         setProDetails(data);
 
@@ -51,7 +50,9 @@ function KraftBags() {
        });
         setPrintPrice({
             [data.printer_form[0].name]: data.printer_form[0].price,
-            [data.printer_form[1].name]: data.printer_form[1].price
+            [data.printer_form[1].name]: data.printer_form[1].price,
+            [data.printer_form[2].name]: data.printer_form[2].price,
+            [data.printer_form[3].name]: data.printer_form[3].price
          });
          
     }
@@ -65,7 +66,7 @@ function KraftBags() {
         e.preventDefault();
         // Log selected choices
         console.log('Selected Paper Type:', printType);
-        console.log('Selected Size:', sizeWidth * sizeHeight);
+        console.log('Selected Size:', size);
         console.log('Selected Quantity:', quantity);
         console.log('Notes:', notes);
         console.log('Uploaded File:', file);
@@ -75,8 +76,7 @@ function KraftBags() {
           id:proDetails.id,
           name:proDetails.name,
             printType,
-            sizeWidth,
-            sizeHeight,
+            size,
             quantity,
             notes,
             file,
@@ -89,8 +89,7 @@ function KraftBags() {
         dispatch(addToCart(itemData));
     };
       // Function to calculate the total price
-  const calculateTotalPrice = () => {
-     
+  const calculateTotalPrice = () => {   
     const sizeCost = parseFloat(sizesPrice[size] || 0);
     const printCost = parseFloat(printPrice[printType] || 0);
     const totalCost = (printCost + sizeCost) * parseInt(quantity);
@@ -121,11 +120,11 @@ function KraftBags() {
 
   
               {/* item */}
-              <div className='mt-4'>
+               {/* <div className='mt-4'>
                   <label className='fw-bold'>المقاس</label>
                   <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
                   <div className='col-12 d-flex '>
-                  <div
+                 <div
               className={`border hovercolor me-0  col-4 py-1 ${style.marg} ${size === proDetails.sizes[0].name ? style.selected : ''}`}
               onClick={() => setSize(proDetails.sizes[0].name)}
             >
@@ -216,16 +215,17 @@ function KraftBags() {
              
                     </div>
                   </div>
-                  </div>
-       {/* المقاس
-      <div className='mt-4'>
+                  </div> */}
+
+       {/* المقاس */}
+      <div className=''>
       <label className='fw-bold'>المقاس</label>
-      <div className={`mt-1 me-0 col-12 text-center ${style.measurewidth}`}>
+      <div className={`mt-1 me-0 col-12 text-center `}>
         <div className='col-12 d-flex '>
           {proDetails.sizes.slice(0, 3).map((item, index) => (
             <div
               key={index}
-              className={`border hovercolor me-0 col-4 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
+              className={`border hovercolor ms-1 col-4 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
               onClick={() => handleSizeClick(item.name, item.image)}
             >
               {item.name}
@@ -233,10 +233,10 @@ function KraftBags() {
           ))}
         </div>
         <div className='col-12 d-flex mt-2'>
-          {proDetails.sizes.slice(3, 6).map((item, index) => (
+          {proDetails.sizes.slice(3, 5).map((item, index) => (
             <div
               key={index}
-              className={`border hovercolor me-0 col-4 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
+              className={`border hovercolor me-1 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
               onClick={() => handleSizeClick(item.name, item.image)}
             >
               {item.name}
@@ -244,10 +244,21 @@ function KraftBags() {
           ))}
         </div>
         <div className='col-12 d-flex mt-2'>
-          {proDetails.sizes.slice(6, 9).map((item, index) => (
+          {proDetails.sizes.slice(5, 7).map((item, index) => (
             <div
               key={index}
-              className={`border hovercolor me-0 col-4 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
+              className={`border hovercolor me-1 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
+              onClick={() => handleSizeClick(item.name, item.image)}
+            >
+              {item.name}
+            </div>
+          ))}
+        </div>
+        <div className='col-12 d-flex mt-2'>
+          {proDetails.sizes.slice(7, 9).map((item, index) => (
+            <div
+              key={index}
+              className={`border hovercolor me-1 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
               onClick={() => handleSizeClick(item.name, item.image)}
             >
               {item.name}
@@ -258,7 +269,7 @@ function KraftBags() {
           {proDetails.sizes.slice(9, 11).map((item, index) => (
             <div
               key={index}
-              className={`border hovercolor me-0 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
+              className={`border hovercolor me-1 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
               onClick={() => handleSizeClick(item.name, item.image)}
             >
               {item.name}
@@ -269,7 +280,7 @@ function KraftBags() {
           {proDetails.sizes.slice(11, 13).map((item, index) => (
             <div
               key={index}
-              className={`border hovercolor me-0 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
+              className={`border hovercolor me-1 col-6 py-1 ${style.marg} ${size === item.name ? style.selected : ''}`}
               onClick={() => handleSizeClick(item.name, item.image)}
             >
               {item.name}
@@ -278,9 +289,9 @@ function KraftBags() {
         </div>
       </div>
       <div className='mt-4'>
-        <img src={selectedImage} alt={size} />
+        <img src={`http://localhost:8000/images/${selectedImage}`} alt={size}  className='w-100 me-1'  />
       </div>
-    </div> */}
+    </div> 
                {/* item */}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>الطباعة  </label>
@@ -449,7 +460,7 @@ function KraftBags() {
      <img src={kraftbagsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
-     <div className="d-flex justify-content-center mt-5 ">
+     <div className="d-flex justify-content-center mt-2 me-2 ">
                      <Link id="" className="d-flex col-md-5 texthover" to='/'>
                         <i className="fa-solid fa-chalkboard-user mt-1"></i>
                          <span className="text ms-2">إرشادات الطباعة</span>

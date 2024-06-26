@@ -18,7 +18,7 @@ function PlasticCups() {
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
-  const [sizesAndSquares, setSizesAndSquares] = useState({});
+  const [sizesPrice, setSizesPrice] = useState({});
   const [coverTypePrice, setCoverTypePrice] = useState({});
   const [printPrice, setPrintPrice] = useState({});
   const [price, setPrice] = useState(0.00);
@@ -31,7 +31,7 @@ function PlasticCups() {
         let { data } = await axios.get(`http://localhost:8000/api/products/35/details`);
         console.log(data);
         setProDetails(data);
-        setSizesAndSquares({
+        setSizesPrice({
             [data.sizes[0].name]: data.sizes[0].price,
             [data.sizes[1].name]: data.sizes[1].price,
             [data.sizes[2].name]: data.sizes[2].price,
@@ -87,42 +87,27 @@ function PlasticCups() {
         dispatch(addToCart(itemData));
     };
       // Function to calculate the total price
-  const calculateTotalPrice = () => {
-        //  cover cost
-    //     const sizeFactor = parseInt(sizesAndSquares[size]);
-    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-    //        console.log(numOfsquares)
-    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-    //      console.log(covertypeCost)
-    //      console.log(internalPaperPrice[paperType])
-    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-    //    console.log(solfanCost)
-    
-    //     const coverCost = parseFloat(covertypeCost + solfanCost);
-    // // console.log(coverCost)
-  
-    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    // console.log(flexCost)
-    
-    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    // console.log(pocketCost)
-  
-    //  const printingCost = numOfsquares * 1 ;
-    //  console.log(printingCost)
-    // // papers cost end
-    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-    //       console.log(totalCost);
-    //     setPrice(totalCost);
-    //       console.log(price);
-           
+   // Function to calculate the total price
+   const calculateTotalPrice = () => {   
+    const sizeCost = parseFloat(sizesPrice[size] || 0);
+    const printCost = parseFloat(printPrice[printType] || 0);
+    const coverCost = parseFloat(coverTypePrice[coverType] || 0);
+    const totalCost = (printCost + sizeCost + coverCost) * parseInt(quantity);
+    setPrice(totalCost);
+     console.log(sizeCost)
+     console.log(printCost)
+     console.log(coverCost)
+     console.log(quantity)
+     console.log(totalCost);
+     console.log(price);   
     
   }
-    // Update total price whenever relevant state variables change
-    // useEffect(() => {
-    //     // calculateTotalPrice();
-    //     setPrice();
-    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
-  // Function to handle form submission
+
+// Update total price whenever relevant state variables change
+useEffect(() => {
+  // calculateTotalPrice();
+  setPrice();
+}, [printType,printPrice,size, sizesPrice, coverType, quantity]);
 
   return (
     <>
@@ -331,7 +316,7 @@ onClick={() => setSize(mysize.name)}
      <img src={plasticcupsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
-     <div className="d-flex justify-content-center mt-5 ">
+     <div className="d-flex justify-content-center mt-2 me-2 ">
                      <Link id="" className="d-flex col-md-5 texthover" to='/'>
                         <i className="fa-solid fa-chalkboard-user mt-1"></i>
                          <span className="text ms-2">إرشادات الطباعة</span>

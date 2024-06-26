@@ -309,12 +309,12 @@ function PalasticBags() {
 
 
 {/* leftside */}
-<div  className={`col-md-12 col-lg-4 col-sm-12  mt-0 `}>
+<div  className={`col-md-12 col-lg-4 col-sm-12  mt-0  me-3`}>
      <div className={`${style.circlebg} px-4 `} >
      <img src={palasticbagsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
-     <div className="d-flex justify-content-center mt-5 ">
+     <div className="d-flex justify-content-center mt-2  me-2 ">
                      <Link id="" className="d-flex col-md-5 texthover" to='/'>
                         <i className="fa-solid fa-chalkboard-user mt-1"></i>
                          <span className="text ms-2">إرشادات الطباعة</span>

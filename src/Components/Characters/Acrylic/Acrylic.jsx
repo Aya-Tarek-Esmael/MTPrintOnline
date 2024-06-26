@@ -11,8 +11,6 @@ function Acrylic() {
       // State variables to hold selected choices
   const dispatch = useDispatch();
   const [proDetails, setProDetails] = useState(null);
-  const [height , setHeight]= useState('');
-  const [width , setWidth]= useState(0);
   const [sideColor, setSideColor] = useState('');
   const [sideType, setSideType] = useState('');
   const [pressType, setPressType] = useState('');
@@ -24,20 +22,17 @@ function Acrylic() {
   const [quantity, setQuantity]= useState(0);
   const [deliveryDate, setDeliveryDate] = useState('');
   const [pressPrice, setPressPrice] = useState({});
-  const [heightPrice, setHeightPrice] = useState({});
+  const [typePrice, setTypePrice] = useState({});
   const [sidePrice, setSidePrice] = useState({});
   const [price, setPrice] = useState(0.00);
 
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/38/details`);
+        let { data } = await axios.get(`http://localhost:8000/api/products/53/details`);
         console.log(data);
         setProDetails(data);
-        setHeightPrice({
-          [data.sizes[0].name]: data.sizes[0].price,
-          [data.sizes[1].name]: data.sizes[1].price,
-          [data.sizes[2].name]: data.sizes[2].price,
-          [data.sizes[3].name]: data.sizes[3].price
+        setTypePrice({
+          [data.name]: data.price,
        });
         setPressPrice({
             [data.sizes[0].name]: data.sizes[0].price,
@@ -89,16 +84,14 @@ function Acrylic() {
     };
       // Function to calculate the total price
   const calculateTotalPrice = () => {
-        const area= ((parseFloat(height) * (width /100) )) * 2 ;
-        const areacost= area * parseFloat(heightPrice[height] );
         const sideCost = parseFloat(sidePrice[sideType] || 0);
         const pressCost = parseFloat(pressPrice[pressType] || 0);
-        const typecost = parseFloat(1000 || 0);
-        const totalCost = (1000 + sideCost + pressCost) 
+        const typecost = parseFloat(typePrice[0] || 0);
+        const totalCost = (typecost + sideCost + pressCost) 
         setPrice(totalCost);
+         console.log(typecost)
          console.log(pressCost)
          console.log(sideCost)
-         console.log(area)
          console.log(totalCost);
          console.log(price);
            
@@ -192,7 +185,7 @@ function Acrylic() {
        <div className='mt-4'>
        <label className='fw-bold'> نوع الكبس  </label>
        <div className={`d-flex mt-1 me-0 ps-2 col-12 text-center ${style.divwidth}`}>
-                                    {proDetails.sizes.map((selectedpresstype, index) => (
+                                    {proDetails.type.map((selectedpresstype, index) => (
 <div
 key={index}
 className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${pressType === selectedpresstype.name ? style.selected  : ''}`}
@@ -208,7 +201,7 @@ onClick={() => setPressType(selectedpresstype.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>نوع الجنب   </label>
        <div className={`d-flex ps-1 text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.printer_form.map((selectedsidetype, index) => (
+                    {proDetails.type_in_paper.map((selectedsidetype, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${sideType === selectedsidetype.name ? style.selected : ''}`}
@@ -220,36 +213,7 @@ onClick={() => setPressType(selectedpresstype.name)}
        </div>
        </div>
           
-               {/* item */}
-       <div className='mt-4'>
-       <label className='fw-bold'> الارتفاع</label>
-       <div className={`d-flex mt-1 me-0 ps-2 col-12 text-center ${style.divwidth}`}>
-                                    {['0.55', '1', '1.5', '2'].map((selectedheight, index) => (
-<div
-key={index}
-className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${height === selectedheight ? style.selected  : ''}`}
-onClick={() => setHeight(selectedheight)}
->
-{selectedheight} م
-</div>
-))} 
-       </div>
-       </div>
-        {/* item */}
-        <div className='d-flex border justify-content-between p-2   mt-4'>
-          <label className='fw-bold'>العرض</label>
-          <input
-                    type='number'
-                    placeholder='0'
-                    min='100'
-                    step={''}
-                    value={width}
-                    onChange={(e) => setWidth(e.target.value)}
-                    className='bg-light p-1 text-center border-0'
-                  />
-                  سم
-         </div>     
-     
+              
     </div>
 
      {/* ..... */}

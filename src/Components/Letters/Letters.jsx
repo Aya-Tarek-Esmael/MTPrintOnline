@@ -12,6 +12,11 @@ function Letters() {
     const {id} =useParams();
     const dispatch = useDispatch();
   const [proDetails, setProDetails] = useState(null);
+  const [proSecondDetails, setProSecondDetails] = useState(null);
+  const [proThirdDetails, setProThirdDetails] = useState(null);
+  const [proFourDetails, setProFourDetails] = useState(null);
+  const [proFiveDetails, setProFiveDetails] = useState(null);
+  const [catDetails, setCatDetails] = useState(null);
   const [type, setType] = useState('');
   const [sideStainless, setSideStainless] = useState('');
   const [sideColor, setSideColor] = useState('');
@@ -40,32 +45,35 @@ function Letters() {
   const [sidePrice, setSidePrice] = useState({});
   const [stainlessPrice, setStainlessPrice] = useState({});
   const [colorPrice, setColorPrice] = useState({});
+  const [cabelPrice, setCabelPrice] = useState({});
   const isAddToCartDisabled = !selectedType;
   const [textareaValue, setTextareaValue] = useState('');
   const [selectedFile, setSelectedFile] = useState(null);
-   
+  const [price, setPrice] = useState('');
+
+  async function getCatDetails(){
+    let { data} = await axios.get(`http://localhost:8000/api/categories/11`);
+    console.log(data)
+    setCatDetails(data);
+    setTypesAndPrices({
+      [data.products[0].name]: data.products[0].price,
+      [data.products[1].name]: data.products[1].price,
+      [data.products[2].name]: data.products[2].price,
+      [data.products[3].name]: data.products[3].price,
+      [data.products[4].name]: data.products[4].price
+  })
+  }
+  useEffect(() => {
+      
+    getCatDetails()
+
+}, [])
+
     async function getProDetails(){
       let { data } = await axios.get(`http://localhost:8000/api/products/53/details`);
       console.log(data)
-      console.log(data)
       setProDetails(data);
 
-      // Initialize sizesAndPrices after fetching data
-    //   setTypesAndPrices({
-    //     'اكليرك × اكليرك': data.typ_paper_cover[0].price,
-    //    'اكليرك "الوش 2 لون"×اكليرك': data.typ_paper_cover[1].price,
-    //    'اكليرك×اكليرك وعلية استانلس': data.typ_paper_cover[2].price,
-    //     'استانلس مصمت': data.typ_paper_cover[3].price,
-    //     'استانلس×اكليرك': data.typ_paper_cover[3].price,
-    // });
-
-    setTypesAndPrices({
-        [data.type_in_paper[0].name]: data.type_in_paper[0].price,
-        [data.type_in_paper[1].name]: data.type_in_paper[1].price,
-        [data.type_in_paper[2].name]: data.type_in_paper[2].price,
-        [data.type_in_paper[3].name]: data.type_in_paper[3].price,
-        [data.type_in_paper[4].name]: data.type_in_paper[4].price
-    })
     setPressPrice({
       [data.type[0].name]: data.type[0].price,
       [data.type[1].name]: data.type[1].price,
@@ -73,9 +81,63 @@ function Letters() {
       [data.type[3].name]: data.type[3].price
   })
   setSidePrice({
-    [data.inner_pocket[0].name]: data.inner_pocket[0].price,
-    [data.inner_pocket[1].name]: data.inner_pocket[1].price
+    [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+    [data.type_in_paper[1].name]: data.type_in_paper[1].price
 })
+
+    }
+    useEffect(() => {
+      
+      getProDetails()
+  
+  }, [])
+  
+  async function getProSecondDetails(){
+    let { data } = await axios.get(`http://localhost:8000/api/products/54/details`);
+    console.log(data)
+    setProSecondDetails(data);
+
+  setSidePrice({
+    [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+    [data.type_in_paper[1].name]: data.type_in_paper[1].price
+})
+
+  }
+  useEffect(() => {
+    
+    getProSecondDetails()
+
+}, [])
+
+async function getProThirdDetails(){
+  let { data } = await axios.get(`http://localhost:8000/api/products/55/details`);
+  console.log(data)
+  setProThirdDetails(data);
+
+setStainlessPrice({
+  [data.color[0].name]: data.color[0].price,
+  [data.color[1].name]: data.color[1].price
+})
+
+}
+useEffect(() => {
+  
+  getProThirdDetails()
+
+}, [])
+
+async function getProFourDetails(){
+  let { data } = await axios.get(`http://localhost:8000/api/products/56/details`);
+  console.log(data)
+  setProFourDetails(data);
+
+    setCabelPrice({
+      [data.sizes[0].name]: data.sizes[0].price,
+      [data.sizes[1].name]: data.sizes[1].price,
+      [data.sizes[2].name]: data.sizes[2].price,
+      [data.sizes[3].name]: data.sizes[3].price
+  })
+
 setLightTypePrice({
   [data.type_in_paper[0].name]: data.type_in_paper[0].price,
   [data.type_in_paper[1].name]: data.type_in_paper[1].price,
@@ -83,21 +145,45 @@ setLightTypePrice({
   [data.type_in_paper[3].name]: data.type_in_paper[3].price,
   [data.type_in_paper[4].name]: data.type_in_paper[4].price
 })
-setStainlessPrice({
-  [data.locl[0].name]: data.locl[0].price,
-  [data.locl[1].name]: data.locl[1].price
-})
+
 setColorPrice({
-  [data.locl[0].name]: data.locl[0].price,
-  [data.locl[1].name]: data.locl[1].price
+  [data.color[0].name]: data.color[0].price,
+  [data.color[1].name]: data.color[1].price
 })
-    }
+}
+useEffect(() => {
+  
+  getProFourDetails()
+
+}, [])
+
+async function getProFiveDetails(){
+  let { data } = await axios.get(`http://localhost:8000/api/products/57/details`);
+  console.log(data)
+  setProFiveDetails(data);
+
+  setSidePrice({
+    [data.type_in_paper[0].name]: data.type_in_paper[0].price,
+    [data.type_in_paper[1].name]: data.type_in_paper[1].price
+})
+
+setColorPrice({
+  [data.color[0].name]: data.color[0].price,
+  [data.color[1].name]: data.color[1].price
+})
+
+}
+useEffect(() => {
+  
+  getProFiveDetails()
+
+}, [])
 
     const onSubmit = (event) => {
         event.preventDefault(); // Prevent default form submission
       const itemData = {
-          id: proDetails.id,
-          name: proDetails.name,
+          id:catDetails.id,
+          name: selectedType,
           type: selectedType,
           pressType :pressType,
           sideColor: sideColor,
@@ -111,18 +197,14 @@ setColorPrice({
           quantity,
           notes: textareaValue,
           file: selectedFile,
-          price: price.toFixed(2) * quantity
+          price: price * quantity
       };
       dispatch(addToCart(itemData));
       console.log(itemData);
   };
   
   
-    useEffect(() => {
-      
-        getProDetails()
     
-    }, [])
     
     // 
 
@@ -189,24 +271,10 @@ const handleTextareaChange = (e) => {
 const handleFileChange = (e) => {
   setSelectedFile(e.target.files[0]);
 } 
-const [width, setWidth] = useState('');
-const [height, setHeight] = useState('');
-const [area, setArea] = useState('');
-const [price, setPrice] = useState('');
 
 
-const handleWidthChange = (event) => {
-    const newWidth = event.target.value;
-    console.log(newWidth)
-    setWidth(newWidth);
-    recalculatePrice(newWidth, height);
-};
 
-const handleHeightChange = (event) => {
-    const newHeight = event.target.value;
-    setHeight(newHeight);
-    recalculatePrice(width, newHeight);
-};
+
 
 const recalculatePrice = () => {
    
@@ -216,9 +284,15 @@ const recalculatePrice = () => {
         const stainlessCost = parseFloat(stainlessPrice[stainlessType] || 0);
         const typeCost = parseFloat(typesAndPrices[selectedType] || 0);
         const colorCost = parseFloat(colorPrice[selectedColor] || 0);
-        const totalCost = parseFloat(typeCost + colorCost + pressCost + sideCost+ lightCost + stainlessCost);
-       console.log(totalCost);
-       console.log(typeCost);
+        const cabelCost = parseFloat(cabelPrice[cabelType] || 0);
+        const totalCost = parseFloat(typeCost + colorCost + pressCost + sideCost+ lightCost + stainlessCost + cabelCost);
+        console.log(sideCost);
+        console.log(colorCost);
+        console.log(typeCost);
+        console.log(stainlessCost);
+        console.log(pressCost);
+        console.log(cabelCost);
+        console.log(lightCost);
       setPrice((parseFloat(totalCost)).toFixed(2));
       console.log('price',price)
 
@@ -230,11 +304,17 @@ useEffect(() => {
   const stainlessCost = parseFloat(stainlessPrice[stainlessType] || 0);
   const typeCost = parseFloat(typesAndPrices[selectedType] || 0);
   const colorCost = parseFloat(colorPrice[selectedColor] || 0);
-  const totalCost = parseFloat(typeCost + colorCost + pressCost + sideCost+ lightCost + stainlessCost);
- console.log(totalCost);
+  const cabelCost = parseFloat(cabelPrice[cabelType] || 0);
+  const totalCost = parseFloat(typeCost + colorCost + pressCost + sideCost+ lightCost + stainlessCost + cabelCost);
+ console.log(sideCost);
+ console.log(colorCost);
  console.log(typeCost);
+ console.log(stainlessCost);
+ console.log(pressCost);
+ console.log(cabelCost);
+ console.log(lightCost);
 setPrice((parseFloat(totalCost)).toFixed(2));
-}, [selectedType,quantity,typesAndPrices,sideType,stainlessType,selectedColor,pressType,pressPrice,stainlessPrice,sidePrice,colorPrice,lightTypePrice,lightType]);
+}, [selectedType,quantity,typesAndPrices,sideType,stainlessType,selectedColor,pressType,pressPrice,cabelType,stainlessPrice,sidePrice,colorPrice,lightTypePrice,lightType]);
 
 useEffect(() => {
  setCabelType('');
@@ -248,6 +328,7 @@ setOneFaceColor('');
 setTwoFaceColor('');
 setStainlessType('');
 setSideStainless('');
+setSelectedColor('')
 setPrice('');
  
 }, [selectedType]);
@@ -274,9 +355,9 @@ setPrice('');
         }}
       />
          )}
-      { selectedType &&  selectedType =='اكليرك × اكليرك' &&  (
+      { selectedType &&  selectedType == catDetails.products[0].name &&  (
       <img
-        src={`http://localhost:8000/images/${proDetails.printer_form[0].image}`} 
+        src={`http://localhost:8000/images/${catDetails.products[0].image}`} 
         alt={proDetails.title}
         className={`w-100  ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -287,9 +368,9 @@ setPrice('');
         }}
       />
          )}
-         { selectedType &&  selectedType =='اكليرك "الوش 2 لون"×اكليرك' &&  (
+         { selectedType &&  selectedType ==catDetails.products[1].name  &&  (
       <img
-        src={`http://localhost:8000/images/${proDetails.printer_form[1].image}`} 
+      src={`http://localhost:8000/images/${catDetails.products[1].image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -300,9 +381,9 @@ setPrice('');
         }}
       />
          )}
-         { selectedType &&  selectedType =='اكليرك×اكليرك وعلية استانلس' &&  (
+         { selectedType &&  selectedType ==catDetails.products[2].name  &&  (
       <img
-        src={`http://localhost:8000/images/${proDetails.printer_form[2].image}`} 
+      src={`http://localhost:8000/images/${catDetails.products[2].image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -313,9 +394,9 @@ setPrice('');
         }}
       />
          )}
-         { selectedType &&  selectedType =='استانلس مصمت' &&  (
+         { selectedType &&  selectedType ==catDetails.products[3].name  &&  (
       <img
-        src={`http://localhost:8000/images/${proDetails.printer_form[2].image}`} 
+      src={`http://localhost:8000/images/${catDetails.products[3].image}`}  
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -326,9 +407,9 @@ setPrice('');
         }}
       />
          )}
-         { selectedType &&  selectedType =='استانلس×اكليرك'&&  (
+         { selectedType &&  selectedType ==catDetails.products[4].name &&  (
       <img
-        src={`http://localhost:8000/images/${proDetails.printer_form[2].image}`} 
+      src={`http://localhost:8000/images/${catDetails.products[4].image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -341,7 +422,7 @@ setPrice('');
          )}
 
           <div>
-              <h3 className='mt-4'>{proDetails.name}</h3>
+              <h3 className='mt-4'>حروف بارزة</h3>
               <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos, voluptatem commodi omnis rem voluptas molestias cumque ratione vel minus repudiandae culpa quam sint dolorem consequatur atque aut, quae quidem corrupti!</p>
           </div>
     </div>
@@ -361,58 +442,19 @@ setPrice('');
                      onChange={handleTypeChange}
                      value={selectedType} >
                         <option value=""> النوع </option>
-                        {proDetails.type_in_paper.map((type, index) => (
+                        {catDetails.products.map((type, index) => (
                                             <option key={index} value={type.name}>{type.name} </option>
                                         ))}
-                        {/* <option value="اكليرك × اكليرك ">اكليرك × اكليرك </option>
-                        <option value='اكليرك "الوش 2 لون"×اكليرك '>اكليرك "الوش 2 لون"×اكليرك </option>
-                        <option value="اكليرك×اكليرك وعلية استانلس">اكليرك×اكليرك وعلية استانلس</option>
-                        <option value="استانلس مصمت ">استانلس مصمت </option>
-                        <option value="استانلس×اكليرك ">استانلس×اكليرك  </option> */}
-                     {/* <option
-                      className={`border col-4 p-1 hovercolor ${lightColor === 'اكليرك × اكليرك' ? style.selected : ''}`}
-                      onClick={() => setLightColor('اكليرك × اكليرك')}
-                    > اكليرك × اكليرك </option>
-                     <option
-                      className={`border col-4 p-1 hovercolor ${lightColor === 'اكليرك "الوش 2 لون"×اكليرك' ? style.selected : ''}`}
-                      onClick={() => setLightColor('اكليرك "الوش 2 لون"×اكليرك')}
-                    > اكليرك "الوش 2 لون"×اكليرك </option>
-                      <option
-                      className={`border col-4 p-1 hovercolor ${lightColor === 'اكليرك×اكليرك وعلية استانلس' ? style.selected : ''}`}
-                      onClick={() => setLightColor('اكليرك×اكليرك وعلية استانلس')}
-                    > اكليرك×اكليرك وعلية استانلس </option>
-                     <option
-                      className={`border col-4 p-1 hovercolor ${lightColor === 'استانلس مصمت' ? style.selected : ''}`}
-                      onClick={() => setLightColor('استانلس مصمت')}
-                    > استانلس مصمت  </option>
-                     <option
-                      className={`border col-4 p-1 hovercolor ${lightColor === 'استانلس×اكليرك' ? style.selected : ''}`}
-                      onClick={() => setLightColor('استانلس×اكليرك')}
-                    > استانلس×اكليرك </option>
-                         */}
+                        
                      </select>
                      </div>
                      <div>
-                    {/* <label className='fw-bold'>نوع السلفان</label> */}
-                    {/* <select className={`col-12 p-2 ${style.borderstyle}`} {...register('typesalfan')}
-                     onChange={handleTypeSalfanChange}>
-                        <option value="">اختر نوع السلفان</option>
-                        {proDetails.type.map((size, index) => (
-                                            <option key={index} value={size.name}>{size.name}  </option>
-                                        ))} */}
-                        {/* <option value="بدون">بدون</option>
-                        <option value="سلوفان لامع">سلوفان لامع</option>
-                        <option value="سلوفان مط">سلوفان مط</option> */}
-                     {/* </select> */}
-                     {/* {isPriceVisible &&  selectedTypeBanner &&  selectedTypeBanner == proDetails.type_in_paper[0].name && !selectedTypeSalfen && ( */}
-
-                     {isPriceVisible &&  selectedType &&  selectedType =='اكليرك × اكليرك' &&  (
+                   
+                     {isPriceVisible &&  selectedType &&  selectedType == catDetails.products[0].name &&  (
                              <>
                             <div className='col-12 '>
                                  <button  className="text-danger btn" onClick={resetSelectedType}>ازالة </button>
-                                 <div>
-                                 <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedType])} EGP</span>
-                                 </div>
+                               
                                  
            {/* one face color */}
         <div className=''>
@@ -494,25 +536,6 @@ onClick={() => setPressType(selectedpresstype.name)}
 {selectedpresstype.name}
 </div>
 ))} 
-  
-                  {/* <div
-                      className={`border col-3 p-1 hovercolor ${pressType === 'عادى ' ? style.selected : ''}`}
-                      onClick={() => setPressType('عادى ')}
-                    > عادى  </div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${pressType === 'هرمى ' ? style.selected : ''}`}
-                      onClick={() => setPressType('هرمى ')}
-                    > هرمى  
-                    </div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${pressType === 'بومبية ' ? style.selected : ''}`}
-                      onClick={() => setPressType('بومبية ')}
-                    >300 بومبية 
-                    </div>
-                    <div
-                      className={`border  me-1 col-3 p-1 hovercolor ${pressType === 'بدون ' ? style.selected : ''}`}
-                      onClick={() => setPressType('بدون ')}
-                    >بدون  </div> */}
                    
                   
                    
@@ -522,7 +545,7 @@ onClick={() => setPressType(selectedpresstype.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>نوع الجنب   </label>
        <div className={`d-flex ps-1 text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.inner_pocket.map((selectedsidetype, index) => (
+                    {proDetails.type_in_paper.map((selectedsidetype, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${sideType === selectedsidetype.name ? style.selected : ''}`}
@@ -531,27 +554,17 @@ onClick={() => setPressType(selectedpresstype.name)}
               {selectedsidetype.name}
             </div>
           ))}
-              {/* <div
-                      className={`border col-6 p-1 hovercolor ${sideType === 'مخرم ' ? style.selected : ''}`}
-                      onClick={() => setSideType('مخرم ')}
-                    >مخرم </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${sideType === 'بدون تخريم ' ? style.selected : ''}`}
-                      onClick={() => setSideType('بدون تخريم ')}
-                    >بدون تخريم </div> */}
        </div>
        </div>
                              </div>
                                 </>     
                
                            )}
-                                {isPriceVisible &&  selectedType && selectedType =='اكليرك "الوش 2 لون"×اكليرك'  &&  (
+                                {isPriceVisible &&  selectedType && selectedType ==catDetails.products[1].name &&  (
                              <>
                             <div className='col-12 '>
                                  <button  className="text-danger btn" onClick={resetSelectedType}>ازالة </button>
-                                 <div>
-                                 <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedType])} EGP</span>
-                                 </div>
+                                
                   {/* one face color */}
         <div className=''>
               <label className=" fw-bold"> لون الوش 1&nbsp;</label>
@@ -645,7 +658,7 @@ onClick={() => setPressType(selectedpresstype.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>نوع الجنب   </label>
        <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.inner_pocket
+                    {proSecondDetails.type_in_paper
 .map((selectedsidetype, index) => (
             <div
               key={index}
@@ -655,15 +668,6 @@ onClick={() => setPressType(selectedpresstype.name)}
               {selectedsidetype.name}
             </div>
           ))}
-
-                       {/* <div
-                      className={`border col-6 p-1 hovercolor ${sideType === 'مخرم ' ? style.selected : ''}`}
-                      onClick={() => setSideType('مخرم ')}
-                    >مخرم </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${sideType === 'بدون تخريم ' ? style.selected : ''}`}
-                      onClick={() => setSideType('بدون تخريم ')}
-                    >بدون تخريم </div> */}
        </div>
        </div>
                              </div>
@@ -671,13 +675,11 @@ onClick={() => setPressType(selectedpresstype.name)}
                
                            )}
 
-{isPriceVisible &&  selectedType &&  selectedType == 'اكليرك×اكليرك وعلية استانلس' &&  (
+{isPriceVisible &&  selectedType &&  selectedType == catDetails.products[2].name &&  (
                              <>
                             <div className='col-12 '>
                                  <button  className="text-danger btn" onClick={resetSelectedType}>ازالة </button>
-                                 <div>
-                                 <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedType])} EGP</span>
-                                 </div>
+                               
         {/* side color */}
         <div className=''>
               <label className=" fw-bold"> لون الجنب &nbsp;</label>
@@ -727,7 +729,7 @@ onClick={() => setPressType(selectedpresstype.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'> الاستانلس  </label>
        <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.locl.map((selectedstainlesstype, index) => (
+                    {proThirdDetails.color.map((selectedstainlesstype, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${stainlessType === selectedstainlesstype.name ? style.selected : ''}`}
@@ -737,32 +739,22 @@ onClick={() => setPressType(selectedpresstype.name)}
             </div>
           ))}
 
-                   {/* <div
-                      className={`border col-6 p-1 hovercolor ${stainlessType === 'دهبى' ? style.selected : ''}`}
-                      onClick={() => setStainlessType('دهبى')}
-                    >دهبى  </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${stainlessType === 'فضى ' ? style.selected : ''}`}
-                      onClick={() => setStainlessType('فضى ')}
-                    > فضى </div> */}
        </div>
        </div>
                              </div>
                                 </>     
                
                            )}
-                           {isPriceVisible &&  selectedType &&  selectedType == 'استانلس مصمت' &&  (
+                           {isPriceVisible &&  selectedType &&  selectedType == catDetails.products[3].name  &&  (
                              <>
                             <div className='col-12 '>
                                  <button  className="text-danger btn" onClick={resetSelectedType}>ازالة </button>
-                                 <div>
-                                 <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedType])} EGP</span>
-                                 </div>
+                                
           {/* item */}
 <div className=''>
        <label className='mb-2 fw-bold'> اللون  </label>
        <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.locl.map((selectedcolor, index) => (
+                    {proFourDetails.color.map((selectedcolor, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${selectedColor === selectedcolor.name ? style.selected : ''}`}
@@ -771,15 +763,6 @@ onClick={() => setPressType(selectedpresstype.name)}
               {selectedcolor.name}
             </div>
           ))}
-
-                   {/* <div
-                      className={`border col-6 p-1 hovercolor ${selectedColor === 'دهبى' ? style.selected : ''}`}
-                      onClick={() => setSelectedColor('دهبى')}
-                    >دهبى  </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${selectedColor === 'فضى' ? style.selected : ''}`}
-                      onClick={() => setSelectedColor('فضى')}
-                    > فضى </div> */}
        </div>
        </div>
 {/* item */}
@@ -787,61 +770,38 @@ onClick={() => setPressType(selectedpresstype.name)}
        <label className=' fw-bold'> إضاءة باك لايت  </label>
        <div className={` mt-1 me-0  col-12 text-center ${style.divwidth}`}>
                   <div className={`col-12 d-flex ${style.measurewidth}`}>
-                  {/* <div
-            className={`border  col-4 p-1 hovercolor ${lightColor === proDetails.sizes[0].name ? style.selected : ''}`}
-            onClick={() => setLightColor(proDetails.sizes[0].name)}
+                  <div
+            className={`border  col-4 p-1 hovercolor ${lightType === proFourDetails.type_in_paper[0].name ? style.selected : ''}`}
+            onClick={() => setLightType(proFourDetails.type_in_paper[0].name)}
           >
-            {proDetails.sizes[0].name}
+            {proFourDetails.type_in_paper[0].name}
           </div>
           <div
-            className={`border me-1 col-4 p-1 hovercolor ${lightColor === proDetails.sizes[1].name ? style.selected : ''}`}
-            onClick={() => setLightColor(proDetails.sizes[1].name)}
+            className={`border me-1 col-4 p-1 hovercolor ${lightType === proFourDetails.type_in_paper[1].name ? style.selected : ''}`}
+            onClick={() => setLightType(proFourDetails.type_in_paper[1].name)}
           >
-            {proDetails.sizes[1].name}
+            {proFourDetails.type_in_paper[1].name}
           </div>
           <div
-            className={`border me-1 col-4 p-1 hovercolor ${lightColor === proDetails.sizes[2].name ? style.selected : ''}`}
-            onClick={() => setLightColor(proDetails.sizes[2].name)}
+            className={`border me-1 col-4 p-1 hovercolor ${lightType === proFourDetails.type_in_paper[2].name ? style.selected : ''}`}
+            onClick={() => setLightType(proFourDetails.type_in_paper[2].name)}
           >
-            {proDetails.sizes[2].name}
+            {proFourDetails.type_in_paper[2].name}
           </div>
           </div>
           <div className='col-12 d-flex mt-1'>
           <div
-            className={`border  col-6 p-1 hovercolor ${lightColor === proDetails.sizes[3].name ? style.selected : ''}`}
-            onClick={() => setLightColor(proDetails.sizes[3].name)}
+            className={`border  col-6 p-1 hovercolor ${lightType === proFourDetails.type_in_paper[3].name ? style.selected : ''}`}
+            onClick={() => setLightType(proFourDetails.type_in_paper[3].name)}
           >
-            {proDetails.sizes[3].name}
+            {proFourDetails.type_in_paper[3].name}
           </div>
           <div
-            className={`border me-1 col-6 p-1 hovercolor ${lightColor === proDetails.sizes[3].name ? style.selected : ''}`}
-            onClick={() => setLightColor(proDetails.sizes[3].name)}
+            className={`border me-1 col-6 p-1 hovercolor ${lightType === proFourDetails.type_in_paper[4].name ? style.selected : ''}`}
+            onClick={() => setLightType(proFourDetails.type_in_paper[4].name)}
           >
-            {proDetails.sizes[3].name}
-          </div> */}
-           
-                  <div
-                      className={`border col-4 p-1 hovercolor ${lightType === 'بدون ' ? style.selected : ''}`}
-                      onClick={() => setLightType('بدون ')}
-                    > بدون  </div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${lightType === 'تلجى ' ? style.selected : ''}`}
-                      onClick={() => setLightType('تلجى ')}
-                    > تلجى </div>
-                    <div
-                      className={`border me-1 col-4 p-1 hovercolor ${lightType === 'ابيض' ? style.selected : ''}`}
-                      onClick={() => setLightType('ابيض')}
-                    >ابيض </div>
-                    </div>
-                     <div className='col-12 d-flex mt-2'>
-                    <div
-                      className={`border  col-6 p-1 hovercolor ${lightType === 'ورم' ? style.selected : ''}`}
-                      onClick={() => setLightType('ورم')}
-                    >ورم</div>
-                     <div
-                      className={`border me-2 col-6 p-1 hovercolor ${lightType === 'دهبى' ? style.selected : ''}`}
-                      onClick={() => setLightType('دهبى')}
-                    >دهبى </div>
+            {proFourDetails.type_in_paper[4].name}
+          </div>
 
            
     </div>
@@ -851,7 +811,7 @@ onClick={() => setPressType(selectedpresstype.name)}
        <div className='mt-4'>
        <label className='fw-bold'> كوابيل </label>
        <div className={`d-flex mt-1 me-0  col-12 text-center ${style.divwidth}`}>
-                                    {/* {proDetails.typ_paper_cover.map((selectedcabel, index) => (
+                                    {proFourDetails.sizes.map((selectedcabel, index) => (
 <div
 key={index}
 className={`border  hovercolor me-1 col-3 py-1 ${style.marg} ${cabelType === selectedcabel.name ? style.selected  : ''}`}
@@ -860,38 +820,17 @@ onClick={() => setCabelType(selectedcabel.name)}
 {selectedcabel.name}
 </div>
 ))} 
-   */}
-                     <div
-                      className={`border col-3 p-1 hovercolor ${cabelType === 'سم8 ' ? style.selected : ''}`}
-                      onClick={() => setCabelType('سم8 ')}
-                    > سم 8 </div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cabelType === 'سم5 ' ? style.selected : ''}`}
-                      onClick={() => setCabelType('سم5 ')}
-                    > سم 5   
-                    </div>
-                    <div
-                      className={`border me-1 col-3 p-1 hovercolor ${cabelType === 'سم3 ' ? style.selected : ''}`}
-                      onClick={() => setCabelType('سم3 ')}
-                    >3 سم 
-                    </div>
-                    <div
-                      className={`border  me-1 col-3 p-1 hovercolor ${cabelType === 'بدون ' ? style.selected : ''}`}
-                      onClick={() => setCabelType('بدون ')}
-                    >بدون  </div>
        </div>
        </div>
                              </div>
                                 </>     
                
                            )}
-                           {isPriceVisible &&  selectedType &&  selectedType == 'استانلس×اكليرك' &&  (
+                           {isPriceVisible &&  selectedType &&  selectedType == catDetails.products[4].name  &&  (
                              <>
                             <div className='col-12 '>
                                  <button  className="text-danger btn" onClick={resetSelectedType}>ازالة </button>
-                                 <div>
-                                 <span className='col-12 mx-3 text-danger fw-bold mt-1 fs-5'>{parseFloat(typesAndPrices[selectedType])} EGP</span>
-                                 </div>
+                                 
 {/* one face color */}
 <div className=''>
               <label className=" fw-bold"> لون الوش &nbsp;</label>
@@ -940,31 +879,23 @@ onClick={() => setCabelType(selectedcabel.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'> استانليس الجنب </label>
        <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.locl .map((selectedsidestainless, index) => (
+                    {proFiveDetails.color.map((selectedsidestainless, index) => (
             <div
               key={index}
-              className={`border me-1 col-6 py-1 hovercolor ${sideStainless === selectedsidestainless.name ? style.selected : ''}`}
-              onClick={() =>setSideStainless(selectedsidestainless.name)}
+              className={`border me-1 col-6 py-1 hovercolor ${selectedColor === selectedsidestainless.name ? style.selected : ''}`}
+              onClick={() =>setSelectedColor(selectedsidestainless.name)}
             >
               {selectedsidestainless.name}
             </div>
           ))}
 
-                     {/* <div
-                      className={`border col-6 p-1 hovercolor ${sideStainless === 'دهبى ' ? style.selected : ''}`}
-                      onClick={() => setSideStainless('دهبى')}
-                    >دهبى  </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${sideStainless === ' فضى ' ? style.selected : ''}`}
-                      onClick={() => setSideStainless('فضى ')}
-                    > فضى </div> */}
        </div>
        </div>
                {/* item */}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'>نوع الجنب   </label>
        <div className={`d-flex text-center ms-1 ${style.measurewidth}`}>
-                    {proDetails.inner_pocket.map((selectedsidetype, index) => (
+                    {proFiveDetails.type_in_paper.map((selectedsidetype, index) => (
             <div
               key={index}
               className={`border me-1 col-6 py-1 hovercolor ${sideType === selectedsidetype.name ? style.selected : ''}`}
@@ -974,14 +905,7 @@ onClick={() => setCabelType(selectedcabel.name)}
             </div>
           ))}
 
-                   {/* <div
-                      className={`border col-6 p-1 hovercolor ${sideType === 'مخرم ' ? style.selected : ''}`}
-                      onClick={() => setSideType('مخرم ')}
-                    >مخرم </div>
-                    <div
-                      className={`border me-1 col-6 p-1 hovercolor ${sideType === 'بدون تخريم ' ? style.selected : ''}`}
-                      onClick={() => setSideType('بدون تخريم ')}
-                    >بدون تخريم </div> */}
+              
        </div>
        </div>
                              </div>

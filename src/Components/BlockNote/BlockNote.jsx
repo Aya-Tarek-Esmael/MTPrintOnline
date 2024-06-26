@@ -32,42 +32,6 @@ function BlockNote() {
   const [internalPaperPrice, setInternalPaperPrice] = useState({});
   const [coverTypePrice, setCoverTypePrice] = useState({});
   // معادلات السعر
-  // const [sizesAndSquares, setSizesAndSquares] = useState({
-  //   "A4 (30 X 21)": 2,
-  //   "A5 (21 X 15)": 4,
-  //   "A6 (15 X 10)": 9,
-  //   "B4 (34 X 24)": 2,
-  //   "B5 (24 X 17)": 4,
-  //   "B6 (17 X 12)": 8
-  // });
-
-  // const [solfanPrice, setSolfanPrice] = useState({
-  //   "بدون": 0,
-  //   "مط": 1,
-  //   "لامع": 1,
-  // });
-
-  // const [coverTypePrice, setCoverTypePrice] = useState({
-  //   "200": 2,
-  //   "250": 2.5,
-  //   "300": 3,
-  //   "350": 4,
-  //   "هارد كافر": 1
-  // });
-
-  // const [internalPaperPrice, setInternalPaperPrice] = useState({
-  //   "60": .7,
-  //   "70": .8,
-  //   "80": 1,
-  //   "100": 1.20,
-  //   "120": 1.50
-  // });
-     
-  // const [printingType, setPrintingType] = useState({
-  //   'سادة غير مطبوع' : 0,
-  //   'مطبوع لون واحد': 0.50,
-  //   'مطبوع الوان': 1,
-  // });
   const [price, setPrice] = useState(0.00);
 
   // Constants for pricing

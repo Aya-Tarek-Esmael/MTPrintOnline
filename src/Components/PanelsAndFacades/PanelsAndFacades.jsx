@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getPanelsAndFacades } from '../../Redux/slices/PanelsAndFacadesSlice';
 import PanelsAndFacadesCard from './PanelsAndFacadesCard';
+import LettersCard from './LettersCard';
 import { Link } from 'react-router-dom';
 // import style from './PanelsAndFacades.module.css';
 import LoadingScrean from '../../Components/LoodingScreen/LoodingScreen';
@@ -33,13 +34,20 @@ function PanelsAndFacades() {
                     {flag ? (
                      <LoadingScrean/>
                     ) : (
-                        <div className='row'>
-                            {PanelsAndFacades.map((item) => (
-                                <div key={item.id} className='col-xs-12 col-sm-6 col-md-3 col-lg-3'>
-                                    <PanelsAndFacadesCard data={item} />
-                                </div>
-                            ))}
-                        </div>
+                        // <div className='row'>
+                        //     {PanelsAndFacades.map((item) => (
+                        //         <div key={item.id} className='col-xs-12 col-sm-6 col-md-3 col-lg-3'>
+                        //             <LettersCard data={item} />
+                        //         </div>
+                        //     ))}
+                        // </div>
+                         <div className='row'>
+                       
+                             <div  className='col-xs-12 col-sm-6 col-md-3 col-lg-3'>
+                                 <LettersCard  data={PanelsAndFacades} />
+                             </div>
+                       
+                     </div>
                     )}
                 </div>
             {/* </div> */}

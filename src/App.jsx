@@ -78,7 +78,7 @@ import SolidStainless from './Components/Characters/SolidStainless/SolidStainles
 import StainlessXAcrylic from './Components/Characters/StainlessXAcrylic/StainlessXAcrylic';
 import Letters from './Components/Letters/Letters';
 import PanelsAndFacades from './Components/PanelsAndFacades/PanelsAndFacades';
-
+import LettersCard from './Components/PanelsAndFacades/LettersCard';
 
 
 function App() {
@@ -176,14 +176,14 @@ function App() {
   <Route path='/panelsandfacades/' element={<PanelsAndFacades/>} />
 
   {/* Charcters  */}
-  <Route path='/panelsandfacades/53/' element={<Letters/>} />
+  <Route path='/panelsandfacades/letters/' element={<Letters/>} />
+  {/* <Route path='/panelsandfacades/letterscard/' element={<LettersCard/>} /> */}
   <Route path='/Charcters/' element={<Charcters/>} />
-  <Route path='/Charcters/acrylic/' element={<Acrylic/>} />
-  <Route path='/Charcters/37/' element={<Acrylic/>} />
-  <Route path='/Charcters/face2colorsxacrylic/' element={<Face2ColorsxAcrylic/>} />
-  <Route path='/Charcters/acrylicxacrylicandstainlesssteel/' element={<AcrylicXAcrylicAndStainlessSteel/>} />
-  <Route path='/charcters/solidstainless/' element={<SolidStainless/>} />
-  <Route path='/charcters/stainlessxacrylic/' element={<StainlessXAcrylic/>} />
+  <Route path='/Charcters/53/' element={<Acrylic/>} />
+  <Route path='/Charcters/54/' element={<Face2ColorsxAcrylic/>} />
+  <Route path='/Charcters/55/' element={<AcrylicXAcrylicAndStainlessSteel/>} />
+  <Route path='/charcters/56/' element={<SolidStainless/>} />
+  <Route path='/charcters/57/' element={<StainlessXAcrylic/>} />
     </Routes>
     <Footer />
     </div>

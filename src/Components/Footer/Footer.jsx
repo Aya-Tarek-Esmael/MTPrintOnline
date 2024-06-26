@@ -44,6 +44,7 @@ function Footer() {
               <div className="use-links">
                 <li><Link to="/الرئيسية"><i className="fa-solid fa-angles-right"></i> الرئيسية</Link></li>
                 <li><Link to='/bags/'><i className="fa-solid fa-angles-right"></i>أكياس </Link></li>
+                <li><Link to='/panelsandfacades/letters/'><i className="fa-solid fa-angles-right"></i>حروف بارزة </Link></li>
                 
                 {/* <li><Link to='/bags/37/'><i className="fa-solid fa-angles-right"></i>أكياس بلاستيك</Link></li>
                 <li><Link to='/bags/38/'><i className="fa-solid fa-angles-right"></i>أكياس بن ومكسرات</Link></li>

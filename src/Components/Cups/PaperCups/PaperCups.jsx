@@ -20,7 +20,7 @@ function PaperCups() {
   const [file, setFile] = useState('');
   const [fileLink, setFileLink] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
-  const [sizesAndSquares, setSizesAndSquares] = useState({});
+  const [sizesPrice, setSizesPrice] = useState({});
   const [coverTypePrice, setCoverTypePrice] = useState({});
   const [printPrice, setPrintPrice] = useState({});
   const [colorPrice, setColorPrice] = useState({});
@@ -31,7 +31,7 @@ function PaperCups() {
         let { data } = await axios.get(`http://localhost:8000/api/products/36/details`);
         console.log(data);
         setProDetails(data);
-        setSizesAndSquares({
+        setSizesPrice({
             [data.sizes[0].name]: data.sizes[0].price,
             [data.sizes[1].name]: data.sizes[1].price,
             [data.sizes[2].name]: data.sizes[2].price,
@@ -97,42 +97,27 @@ function PaperCups() {
         dispatch(addToCart(itemData));
     };
       // Function to calculate the total price
-  const calculateTotalPrice = () => {
-        //  cover cost
-    //     const sizeFactor = parseInt(sizesAndSquares[size]);
-    //     const numOfsquares = parseFloat((quantity / sizeFactor) * 2); // عدد الأغلفة الأمامية والخلفية
-    //        console.log(numOfsquares)
-    //     const covertypeCost = parseFloat(numOfsquares) * parseFloat(internalPaperPrice[paperType]);
-    //      console.log(covertypeCost)
-    //      console.log(internalPaperPrice[paperType])
-    //     const solfanCost = parseFloat(numOfsquares * solfanPrice[solfan]);
-    //    console.log(solfanCost)
-    
-    //     const coverCost = parseFloat(covertypeCost + solfanCost);
-    // // console.log(coverCost)
-  
-    // const flexCost = parseFloat(numOfsquares * flexTypePrice[heel] );
-    // console.log(flexCost)
-    
-    // const pocketCost = parseFloat(quantity * innerPocketPrice[innerPocket] );
-    // console.log(pocketCost)
-  
-    //  const printingCost = numOfsquares * 1 ;
-    //  console.log(printingCost)
-    // // papers cost end
-    //  const totalCost = parseFloat(coverCost  + printingCost + flexCost + pocketCost);
-    //       console.log(totalCost);
-    //     setPrice(totalCost);
-    //       console.log(price);
-           
-    
-  }
+      const calculateTotalPrice = () => {   
+        const sizeCost = parseFloat(sizesPrice[size] || 0);
+        const printCost = parseFloat(printPrice[printType] || 0);
+        const coverCost = parseFloat(coverTypePrice[coverType] || 0);
+        const totalCost = (printCost + sizeCost + coverCost) * parseInt(quantity);
+        setPrice(totalCost);
+         console.log(sizeCost)
+         console.log(printCost)
+         console.log(coverCost)
+         console.log(quantity)
+         console.log(totalCost);
+         console.log(price);   
+        
+      }
+
     // Update total price whenever relevant state variables change
-    // useEffect(() => {
-    //     // calculateTotalPrice();
-    //     setPrice();
-    //   }, [paperType,cutType,heel, solfan, size,innerPocket, quantity]);
-  // Function to handle form submission
+    useEffect(() => {
+      // calculateTotalPrice();
+      setPrice();
+    }, [printType,printPrice,size, sizesPrice, coverType, quantity]);
+
 
   return (
     <>
@@ -230,7 +215,7 @@ onClick={() => setColor(selectedcolor.name)}
   <div className='mt-4'>
        <label className='mb-2 fw-bold'> الغطاء </label>
        <div className={`d-flex text-center ms-1 ${style.divwidth}`}>
-       {size !== '1 بولة' && size !== '2 بولة' && size !== '3 بولة' && proDetails.cover.map((selectedCover, index) => (
+       {size !== '1 بولة' && size !== '2 بولة'&& size !== '3 بولة' && proDetails.cover.map((selectedCover, index) => (
                         <div
                           key={index}
                           className={`border hovercolor me-1 col-4 py-1 ${coverType === selectedCover.name ? style.selected : ''}`}
@@ -394,7 +379,7 @@ onClick={() => setColor(selectedcolor.name)}
      <img src={papercupsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
-     <div className="d-flex justify-content-center mt-5 ">
+     <div className="d-flex justify-content-center mt-2 me-2 ">
                      <Link id="" className="d-flex col-md-5 texthover" to='/'>
                         <i className="fa-solid fa-chalkboard-user mt-1"></i>
                          <span className="text ms-2">إرشادات الطباعة</span>

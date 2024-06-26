@@ -151,18 +151,14 @@ function Topbar() {
                                         <Link to={`/uniform/52/`}   className="dropdown-item text-right"   onClick={closeDropdown}>تصميمك </Link>
                                         */}
                                        {/* يفط وواجهات -حروف بارزة */}
-                                       <Link to={`/panelsandfacades/53/`}   className="dropdown-item text-right"   onClick={closeDropdown}>حروف بارزة </Link>
-                                        {/* <Link to={`/charcters/acrylic/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك xاكليرك </Link>
-                                        <Link to={`/charcters/face2colorsxacrylic/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك "الوش 2 لون"×اكليرك  </Link>
-                                        <Link to={`/charcters/acrylicxacrylicandstainlesssteel/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك×اكليرك وعلية استانلس </Link>
-                                        <Link to={`/charcters/solidstainless/`}   className="dropdown-item text-right"   onClick={closeDropdown}>استانلس مصمت</Link>
-                                        <Link to={`/charcters/stainlessxacrylic/`}   className="dropdown-item text-right"   onClick={closeDropdown}>استانلس×اكليرك</Link> */}
+                                       <Link to={`/panelsandfacades/letters/`}   className="dropdown-item text-right"   onClick={closeDropdown}>حروف بارزة </Link>
+                                        {/* <Link to={`/charcters/53/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك xاكليرك </Link>
+                                        <Link to={`/charcters/54/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك "الوش 2 لون"×اكليرك  </Link>
+                                        <Link to={`/charcters/55/`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكليرك×اكليرك وعلية استانلس </Link>
+                                        <Link to={`/charcters/56/`}   className="dropdown-item text-right"   onClick={closeDropdown}>استانلس مصمت</Link>
+                                        <Link to={`/charcters/57/`}   className="dropdown-item text-right"   onClick={closeDropdown}>استانلس×اكليرك</Link> */}
 
-                                        {/* 
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link>
-                                        <Link to={`/uniform/ /`}   className="dropdown-item text-right"   onClick={closeDropdown}>اكواب ورقية</Link> */}
+                                      
                                             {/* <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>كتب كتيبات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ملصقات واستيكرات</a>
                                             <a className="dropdown-item text-right" href="/" onClick={closeDropdown}>ورق لعب بلوت</a>

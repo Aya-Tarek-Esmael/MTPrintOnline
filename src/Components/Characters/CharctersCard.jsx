@@ -19,11 +19,11 @@ console.log(data);
  {/* cards container*/}
  <li className={`card ${style.product}   pb-2 mt-3 mb-2 `}>
         <Link to={`/charcters/${data.id}/`} title={data.name} className={style.cardimg}>
-		<img  src={cupsImg} className={`${style.cardimg} px-1 w-100 `} alt=""   />
+		<img  src={`http://localhost:8000/images/${data.image}`}  className={`${style.cardimg} px-2 w-100 py-1 `} alt={data.name}   />
 		</Link>
 			<div className="cardheader text-center">				
 				<div className="">
-					<Link to="/charcters/" className='text-dark' >اكواب</Link>, 
+					<Link to="/charcters/" className='text-dark' >حروف بارزة</Link>, 
 					<Link to=""  className='text-dark '>منتجات الطباعة</Link>
 					</div>			
 						<div className="mb-2">

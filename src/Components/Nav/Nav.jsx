@@ -66,10 +66,9 @@ function Nav() {
                                 </li>
                                 <li className="nav-item dropdown me-2">
                                     <NavLink className="nav-link" to="/panelsandfacades/" id="navbarDropdown1" role="button" onClick={() => toggleDropdown(1)} aria-haspopup="true" aria-expanded={activeDropdown === 1}>اليفط والواجهات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1">
-                                        {/* <Link to={`/charcters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
-                                        <span className="dropdown-item" onClick={closeMenus}>H 2</span> */}
-                                        <Link to={`/panelsandfacades/53/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1"> 
+                                        <Link to={`/panelsandfacades/letters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
+                                        {/* <Link to={`/charcters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link> */}
                                     </div>
                                 </li>
                                 <li className="nav-item dropdown me-2">
