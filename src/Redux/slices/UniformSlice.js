@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const getUniform = createAsyncThunk("uniforms/getAlluniforms", async () => {
-    let data = await axios.get('http://localhost:8000/api/categories/16');
+    let data = await axios.get('https://mtb3a.arabiangeeks.net/api/categories/16');
     return data.data.products;
 })
 const UniformSlice = createSlice({

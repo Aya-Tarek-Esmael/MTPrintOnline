@@ -24,7 +24,7 @@ function Envelopes() {
   // const [solfanPrice, setSolfanPrice] = useState({});
   // const [coverTypePrice, setCoverTypePrice] = useState({});
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/27/details`);
+        let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/27/details`);
         console.log(data);
         setProDetails(data);
         setSizesAndSquares({

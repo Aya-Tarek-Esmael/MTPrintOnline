@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const getCharcters = createAsyncThunk("charcters/getAllcharcters", async () => {
-    let data = await axios.get('http://localhost:8000/api/categories/11');
+    let data = await axios.get('https://mtb3a.arabiangeeks.net/api/categories/11');
     return data.data.products;
     
 })

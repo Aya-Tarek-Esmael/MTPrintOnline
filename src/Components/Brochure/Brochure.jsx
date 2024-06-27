@@ -30,7 +30,7 @@ const [price, setPrice] = useState(0.00);
        // Constants for pricing
        const WIRE_BINDING_COST_PER_CM = 0.25; // Wire binding cost per cm
        async function getProDetails() {
-           let { data } = await axios.get(`http://localhost:8000/api/products/26/details`);
+           let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/26/details`);
            console.log(data);
            setProDetails(data);
            setSizesAndSquares({

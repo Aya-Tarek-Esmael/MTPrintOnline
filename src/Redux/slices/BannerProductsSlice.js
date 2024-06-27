@@ -3,7 +3,7 @@ import axios from "axios";
 
 
 export const getBannerProducts = createAsyncThunk("banners/getAllbanners", async () => {
-    let data = await axios.get('http://localhost:8000/api/categories/12');
+    let data = await axios.get('https://mtb3a.arabiangeeks.net/api/categories/12');
     return data.data.products;
     
 })

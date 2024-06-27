@@ -28,7 +28,7 @@ function PalasticBags() {
   const [quantity, setQuantity] = useState(50);
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/37/details`);
+        let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/37/details`);
         console.log(data);
         setProDetails(data);
 

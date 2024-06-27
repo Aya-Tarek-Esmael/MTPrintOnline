@@ -28,7 +28,7 @@ function PaperCups() {
   const [price, setPrice] = useState(0.00);
 
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/36/details`);
+        let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/36/details`);
         console.log(data);
         setProDetails(data);
         setSizesPrice({

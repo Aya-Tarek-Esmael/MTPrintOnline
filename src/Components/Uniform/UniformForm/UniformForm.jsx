@@ -42,7 +42,7 @@ function UniformForm() {
   const [price, setPrice] = useState(0.00);
   
   async function getProDetails() {
-      let { data} = await axios.get(`http://localhost:8000/api/products/${id}/details`);
+      let { data} = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/${id}/details`);
       console.log(data);
       setProDetails(data);
       setSizePrice({
@@ -264,11 +264,11 @@ const handleFileChange = (e) => {
               <label className="col-3  fw-bold"> مكان الطباعة :&nbsp;</label>
                 <div className='d-flex col-9 col-md-9 col-sm-9 col-xl-9 mt-2 justify-content-center'>
                 <div className={`p-1 hovercolor border rounded-2 col-4 ${printPlace === proDetails.printer_form[0].name ? style.selected : ''}`} onClick={() => setPrintPlace(proDetails.printer_form[0].name)} style={{ cursor: 'pointer' }}>
-                    <img src={`http://localhost:8000/images/${proDetails.printer_form[0].image}`} alt={proDetails.printer_form[0].name}className="w-100 rounded-1" />
+                    <img src={`https://mtb3a.arabiangeeks.net/images/${proDetails.printer_form[0].image}`} alt={proDetails.printer_form[0].name}className="w-100 rounded-1" />
                     <div className="text-center">{proDetails.printer_form[0].name}</div>
                   </div>
                   <div className={`p-1 hovercolor border rounded-2 col-4 me-1 ${printPlace === proDetails.printer_form[1].name ? style.selected : ''}`} onClick={() => setPrintPlace( proDetails.printer_form[1].name)} style={{ cursor: 'pointer' }}>
-                    <img src={`http://localhost:8000/images/${proDetails.printer_form[1].image}`} alt={proDetails.printer_form[1].name} className="w-100 rounded-1" />
+                    <img src={`https://mtb3a.arabiangeeks.net/images/${proDetails.printer_form[1].image}`} alt={proDetails.printer_form[1].name} className="w-100 rounded-1" />
                     <div className="text-center">{proDetails.printer_form[1].name}</div>
                   </div>
                   <div className={`p-1 hovercolor border rounded-2 col-4 me-1 ${printPlace === proDetails.printer_form[2].name ? style.selected : ''}`} onClick={() => setPrintPlace(proDetails.printer_form[2].name)} style={{ cursor: 'pointer' }}>
@@ -276,7 +276,7 @@ const handleFileChange = (e) => {
                     <img src={frontImg} alt="Front" className="w-50 ms-0" />
                     <img src={backImg} alt="Back" className="w-50" />
                     </div> */}
-                    <img src={`http://localhost:8000/images/${proDetails.printer_form[2].image}`} alt={proDetails.printer_form[2].name} className="w-100 rounded-1" />
+                    <img src={`https://mtb3a.arabiangeeks.net/images/${proDetails.printer_form[2].image}`} alt={proDetails.printer_form[2].name} className="w-100 rounded-1" />
                     <div className="text-center">{proDetails.printer_form[2].name}</div>
                   </div>
 
@@ -371,7 +371,7 @@ const handleFileChange = (e) => {
 
           {/* left side */}
           <div  className={`col-md-12 col-lg-4 col-xl-4 col-sm-12  mt-5 me-4`}>
-           <img src={`http://localhost:8000/images/${proDetails.image}`} alt='brochureImg' className={`w-100 rounded ${style.brochImg}`}/>
+           <img src={`https://mtb3a.arabiangeeks.net/images/${proDetails.image}`} alt='brochureImg' className={`w-100 rounded ${style.brochImg}`}/>
          </div>
         </form>
       </div>

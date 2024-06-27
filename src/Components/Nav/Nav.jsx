@@ -9,7 +9,7 @@ function Nav() {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isNavOpen, setIsNavOpen] = useState(false);
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/categories/`);
+        let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/categories/`);
         console.log(data);
         setProDetails(data);
     }

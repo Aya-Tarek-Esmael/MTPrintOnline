@@ -29,7 +29,7 @@ function KraftBags() {
     };
   
     async function getProDetails() {
-        let { data } = await axios.get(`http://localhost:8000/api/products/39/details`);
+        let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/39/details`);
         console.log(data);
         setProDetails(data);
 
@@ -457,7 +457,7 @@ function KraftBags() {
 {/* leftside */}
 <div  className={`col-md-12 col-lg-4 col-sm-12  mt-0 `}>
      <div className={`${style.circlebg} px-4 `} >
-     <img src={kraftbagsImg} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
+     <img src={data.image} alt='brochureImg' className={` rounded ${style.brochImg}`}/>
      </div>
      
      <div className="d-flex justify-content-center mt-2 me-2 ">

@@ -52,7 +52,7 @@ function Letters() {
   const [price, setPrice] = useState('');
 
   async function getCatDetails(){
-    let { data} = await axios.get(`http://localhost:8000/api/categories/11`);
+    let { data} = await axios.get(`https://mtb3a.arabiangeeks.net/api/categories/11`);
     console.log(data)
     setCatDetails(data);
     setTypesAndPrices({
@@ -70,7 +70,7 @@ function Letters() {
 }, [])
 
     async function getProDetails(){
-      let { data } = await axios.get(`http://localhost:8000/api/products/53/details`);
+      let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/53/details`);
       console.log(data)
       setProDetails(data);
 
@@ -93,7 +93,7 @@ function Letters() {
   }, [])
   
   async function getProSecondDetails(){
-    let { data } = await axios.get(`http://localhost:8000/api/products/54/details`);
+    let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/54/details`);
     console.log(data)
     setProSecondDetails(data);
 
@@ -110,7 +110,7 @@ function Letters() {
 }, [])
 
 async function getProThirdDetails(){
-  let { data } = await axios.get(`http://localhost:8000/api/products/55/details`);
+  let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/55/details`);
   console.log(data)
   setProThirdDetails(data);
 
@@ -127,7 +127,7 @@ useEffect(() => {
 }, [])
 
 async function getProFourDetails(){
-  let { data } = await axios.get(`http://localhost:8000/api/products/56/details`);
+  let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/56/details`);
   console.log(data)
   setProFourDetails(data);
 
@@ -158,7 +158,7 @@ useEffect(() => {
 }, [])
 
 async function getProFiveDetails(){
-  let { data } = await axios.get(`http://localhost:8000/api/products/57/details`);
+  let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/57/details`);
   console.log(data)
   setProFiveDetails(data);
 
@@ -344,7 +344,7 @@ setPrice('');
     >
       { !selectedType  &&  (
       <img
-        src={`http://localhost:8000/images/${proDetails.image}`} 
+        src={`https://mtb3a.arabiangeeks.net/images/${proDetails.image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -357,7 +357,7 @@ setPrice('');
          )}
       { selectedType &&  selectedType == catDetails.products[0].name &&  (
       <img
-        src={`http://localhost:8000/images/${catDetails.products[0].image}`} 
+        src={`https://mtb3a.arabiangeeks.net/images/${catDetails.products[0].image}`} 
         alt={proDetails.title}
         className={`w-100  ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -370,7 +370,7 @@ setPrice('');
          )}
          { selectedType &&  selectedType ==catDetails.products[1].name  &&  (
       <img
-      src={`http://localhost:8000/images/${catDetails.products[1].image}`} 
+      src={`https://mtb3a.arabiangeeks.net/images/${catDetails.products[1].image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -383,7 +383,7 @@ setPrice('');
          )}
          { selectedType &&  selectedType ==catDetails.products[2].name  &&  (
       <img
-      src={`http://localhost:8000/images/${catDetails.products[2].image}`} 
+      src={`https://mtb3a.arabiangeeks.net/images/${catDetails.products[2].image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -396,7 +396,7 @@ setPrice('');
          )}
          { selectedType &&  selectedType ==catDetails.products[3].name  &&  (
       <img
-      src={`http://localhost:8000/images/${catDetails.products[3].image}`}  
+      src={`https://mtb3a.arabiangeeks.net/images/${catDetails.products[3].image}`}  
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}
@@ -409,7 +409,7 @@ setPrice('');
          )}
          { selectedType &&  selectedType ==catDetails.products[4].name &&  (
       <img
-      src={`http://localhost:8000/images/${catDetails.products[4].image}`} 
+      src={`https://mtb3a.arabiangeeks.net/images/${catDetails.products[4].image}`} 
         alt={proDetails.title}
         className={`w-100 ${style['zoomable-image']} ${isDragging ? style.dragging : ''}`}
         onMouseDown={handleMouseDown}

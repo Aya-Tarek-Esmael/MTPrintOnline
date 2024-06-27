@@ -19,7 +19,7 @@ console.log(data);
  {/* cards container*/}
  <li className={`card ${style.product}   pb-2 mt-3 mb-2 `}>
         <Link to={`/charcters/${data.id}/`} title={data.name} className={style.cardimg}>
-		<img  src={`http://localhost:8000/images/${data.image}`}  className={`${style.cardimg} px-2 w-100 py-1 `} alt={data.name}   />
+		<img  src={`https://mtb3a.arabiangeeks.net/images/${data.image}`}  className={`${style.cardimg} px-2 w-100 py-1 `} alt={data.name}   />
 		</Link>
 			<div className="cardheader text-center">				
 				<div className="">
