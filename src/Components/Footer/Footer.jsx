@@ -77,7 +77,7 @@ function Footer() {
               </div>
             </div>
           </div>
-
+{/*  */}
                  <div className="col-md-3 col-sm-12">
             <a href="index.html">
                 <img src={logo} alt="" className="img-fluid logo-footer m-0"/>
