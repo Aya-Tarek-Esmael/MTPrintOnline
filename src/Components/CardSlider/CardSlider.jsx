@@ -17,6 +17,9 @@ function CardSlider() {
     {id:7,name:'samsung',price:12000,category:'mobile',onsale:true},
     {id:8,name:'samsung',price:30000,category:'tv',onsale:false},
     {id:9,name:'oppo',price:8000,category:'mobile',onsale:true},
+    {id:10,name:'oppo',price:7000,category:'mobile',onsale:true},
+    {id:8,name:'samsung',price:30000,category:'tv',onsale:false},
+    {id:9,name:'oppo',price:8000,category:'mobile',onsale:true},
     {id:10,name:'oppo',price:7000,category:'mobile',onsale:true},]
     
     const responsive = {
@@ -26,15 +29,15 @@ function CardSlider() {
           items: 6
         },
         desktop: {
-          breakpoint: { max: 3000, min: 1024 },
+          breakpoint: { max: 3000, min: 1116 },
           items: 5
-        },
+        },    
         tablet: {
-          breakpoint: { max: 1024, min: 464 },
+          breakpoint: { max: 1116, min: 736 },
           items: 3
         },
         mobile: {
-          breakpoint: { max: 464, min: 0 },
+          breakpoint: { max: 736, min: 0 },
           items: 1
         }
       };

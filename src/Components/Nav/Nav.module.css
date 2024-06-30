@@ -77,3 +77,84 @@
 ::-webkit-scrollbar-thumb:hover {
     background: #b4b4b4; 
   }
+
+  /* Add this to your Nav.module.css or a separate CSS file */
+
+  .close_button {
+    display: none;
+    }
+@media only screen and (max-width: 991px) {
+
+  .mobile_nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 45%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.938); /* Semi-transparent black background */
+    z-index: 1000; /* Ensure it overlays other content */
+    display: none; /* Initially hidden */
+    overflow-y: auto; /* Enable scrolling if menu exceeds screen height */
+    color: rgb(0, 0, 0);
+    /* background-color: rgba(0, 0, 0, 0.5); */
+  }
+  
+  .mobile_nav.show {
+    display: block; /* Show mobile menu when isNavOpen is true */
+  }
+  
+  .close_button {
+    position: absolute;
+    top: 20px;
+    left: 10px;
+    font-size: 30px;
+    color:rgb(29, 27, 27); /* White color for close button */
+    background: none;
+    border: none;
+    cursor: pointer;
+    display: block;
+    z-index: 1000;
+  }
+  
+  .mobileMenu {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .mobileMenu .nav-item {
+    margin-bottom: 10px;
+  }
+  
+  .mobileMenu .nav-link {
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    display: block;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+  }
+  
+  .mobileMenu .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Semi-transparent white background on hover */
+  }
+  
+  .bgcolormob{
+    background-color: #f3f3f3;
+  }
+  .textnavcolor{
+    color:rgb(29, 27, 27);
+  }
+  .textnavcolor:active{
+    color:rgb(29, 27, 27) !important;
+  }
+ }
+
+ .navcontainer {
+  position: relative;
+}
+
+.blurred {
+  filter: blur(5px);
+  pointer-events: none;
+}

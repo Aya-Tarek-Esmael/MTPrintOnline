@@ -35,10 +35,10 @@ function Footer() {
     <>
     <footer id="footer">
       <div className="container">
-        <div className="row">
+        <div className="row ">
          
-          <div className="col-md-3">
-            <div className="useful-link mt-4">
+          <div className="col-md-3 col-sm-4">
+            <div className="useful-link mt-4 ">
               <h2>Useful Links</h2>
               <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" />
               <div className="use-links">
@@ -54,41 +54,41 @@ function Footer() {
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3 col-sm-4">
             <div className="useful-link mt-4">
               <h2>Useful Links</h2>
               <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" />
               <div className="use-links">
               <li><Link to='/uniform/'><i className="fa-solid fa-angles-right"></i>يونيفورم </Link></li>
-              <li><Link to='/uniform/'><i className="fa-solid fa-angles-right"></i> </Link></li>
+              <li><Link to='/cups/'><i className="fa-solid fa-angles-right"></i> اكواب</Link></li>
               <li><Link to='/uniform/'><i className="fa-solid fa-angles-right"></i> </Link></li>
               <li><Link to='/uniform/'><i className="fa-solid fa-angles-right"></i> </Link></li>
               </div>
             </div>
           </div>
-          <div className="col-md-3">
+          <div className="col-md-3  col-sm-4">
             <div className="address mt-4">
-              <h2>Address</h2>
+              <h2>تواصل معنا</h2>
               <img src="./assets/images/about/home_line.png" alt="" className="img-fluid "/>
               <div className="address-links">
-                <li className="address1"><i className="fa-solid fa-location-dot"></i> Egypt ,bla bla bla</li>
-                   <li><a href=""><i className="fa-solid fa-phone"></i> +91 90904500112</a></li>
-                   <li><a href=""><i className="fa-solid fa-envelope"></i> mail@1234567.com</a></li>
+                <li className="address1"><i className="fa-solid fa-location-dot"></i> مصر,القاهرة </li>
+                   <li><a href=""><i className="fa-solid fa-phone"></i> +02 11111111111 </a></li>
+                   <li><a href="" style={{'fontSize':'14px'}}><i className="fa-solid fa-envelope "></i> matb3a@gmail.com</a></li>
               </div>
             </div>
           </div>
 
-                 <div className="col-md-3">
+                 <div className="col-md-3 col-sm-12">
             <a href="index.html">
                 <img src={logo} alt="" className="img-fluid logo-footer m-0"/>
                 </a>
-                      <div className="footer-about">
+                      <div className="footer-about text-center">
                           <p>Lorem Ipsum is simply dummy text  the  printing  standard dummy text ever since the 1500s.  </p>
                       </div>
 
-                     <div className="social-links">
-                       <h2>Follow Us</h2>
-                       <div className="social-icons">
+                     <div className="social-links col-sm-12">
+                       <h2 className='text-center'>Follow Us</h2>
+                       <div className="social-icons col-sm-12 justify-conent-center">
                         <li><a href=""><i className="fa-brands fa-facebook-f"></i></a></li>
                         <li><a href=""><i className="fa-brands fa-instagram"></i></a></li>
                         <li><a href=""><i className="fa-brands fa-linkedin-in"></i></a></li>

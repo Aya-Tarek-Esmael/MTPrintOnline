@@ -13,8 +13,8 @@
       <h5 className="card-title"></h5>
       <p className="card-text">Lorem ipsum dolor sit,iusto architecto facere enim..</p>
     </div>
-    <div className="text-center mb-3">
-    <button onClick={''}   className={` btn btn-danger ${style.cardbtn }`}>اضف الي السلة <i   className="fa-solid fa-cart-plus m-1 text-light fa-1x "></i></button>
+    <div className="text-center mb-3 ">
+    <button onClick={''}   className={`w-75 btn btn-danger ${style.cardbtn }`}>اضف الي السلة <i   className="fa-solid fa-cart-plus m-1 text-light fa-1x "></i></button>
     <button onClick={''}   className={` btn btn-danger ms-1 ${style.cardbtn }`}><i   className="fa-solid fa-heart m-1 text-light fa-1x "></i></button>
 
     </div>

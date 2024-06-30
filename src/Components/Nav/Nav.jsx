@@ -9,7 +9,7 @@ function Nav() {
     const [activeDropdown, setActiveDropdown] = useState(null);
     const [isNavOpen, setIsNavOpen] = useState(false);
     async function getProDetails() {
-        let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/categories/`);
+        let { data } = await axios.get(`http://localhost:8000/api/categories/`);
         console.log(data);
         setProDetails(data);
     }
@@ -31,97 +31,30 @@ function Nav() {
 
     const toggleMobileNav = () => {
         setIsNavOpen(!isNavOpen);
+        document.getElementById('main-content').classList.toggle(style.blurred, !isNavOpen);
+
     };
 
     const closeMenus = () => {
         setIsDropdownOpen(false);
         setActiveDropdown(null);
         setIsNavOpen(false);
+        document.getElementById('main-content').classList.remove(style.blurred);
     };
 
     return (
-        <div className={`container-fluid mb-30 ${style.navcontainer}`}>
-            <div className="row px-xl-2 ">
-                <div className="col-lg-3 bg-light d-lg-none ">
-                    <a href="" className="text-decoration-none d-block d-lg-none text-center">
-                        <img src={logo} alt='logo' className='w-50 ' />
-                    </a>
-                </div>
-                <div className="col-lg-9">
-                    <nav className="navbar navbar-expand-lg text-light navbar-dark py-3 py-lg-0">
-                        <button className={`navbar-toggler ${style.btnnavcolor}`} type="button" onClick={toggleMobileNav}>
-                            <span className="navbar-toggler-icon"></span>
-                        </button>
-                        <div className={`collapse navbar-collapse justify-content-start ml-auto  me-3 ${isNavOpen ? 'show' : ''}`}>
-                            <ul className="navbar-nav ml-auto text-right">
-                                <li className="nav-item">
-                                    <NavLink to='/الرئيسية' className="nav-link" onClick={closeMenus}>الرئيسية</NavLink>
-                                </li>
-                                <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="#" id="navbarDropdown5" role="button" onClick={() => toggleDropdown(5)} aria-haspopup="true" aria-expanded={activeDropdown === 4}>الشركات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 5 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown5">
-                                        <span className="dropdown-item" onClick={closeMenus}>m 1</span>
-                                        <span className="dropdown-item" onClick={closeMenus}>m 2</span>
-                                    </div>
-                                </li>
-                                <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="/panelsandfacades/" id="navbarDropdown1" role="button" onClick={() => toggleDropdown(1)} aria-haspopup="true" aria-expanded={activeDropdown === 1}>اليفط والواجهات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1"> 
-                                        <Link to={`/panelsandfacades/letters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
-                                        {/* <Link to={`/charcters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link> */}
-                                    </div>
-                                </li>
-                                <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="/bannerproducts/" id="navbarDropdown2" role="button" onClick={() => toggleDropdown(2)} aria-haspopup="true" aria-expanded={activeDropdown === 2}>منتجات بانر<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 2 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown2">
-                                        <Link to={`/bannerproducts/5/`} className="dropdown-item" onClick={closeMenus}>ادجستل استاند</Link>
-                                        <Link to={`/bannerproducts/10/`} className="dropdown-item" onClick={closeMenus}>بانر عاكس</Link>
-                                        <Link to={`/bannerproducts/23/`} className="dropdown-item" onClick={closeMenus}>ورق حائط</Link>
-                                        <Link to={`/bannerproducts/8/`} className="dropdown-item" onClick={closeMenus}>اكس بانر</Link>
-                                        <Link to={`/bannerproducts/15/`} className="dropdown-item" onClick={closeMenus}>ستان</Link>
-                                        <Link to={`/bannerproducts/14/`} className="dropdown-item" onClick={closeMenus}>سي ثرو</Link>
-                                        <Link to={`/bannerproducts/9/`} className="dropdown-item" onClick={closeMenus}>بانر عادي</Link>
-                                        <Link to={`/bannerproducts/17/`} className="dropdown-item" onClick={closeMenus}>كانفاس</Link>
-                                        <Link to={`/bannerproducts/16/`} className="dropdown-item" onClick={closeMenus}>الفينيل</Link>
-                                        <Link to={`/bannerproducts/22/`} className="dropdown-item" onClick={closeMenus}>ملصق سيارات</Link>
-                                        <Link to={`/bannerproducts/7/`} className="dropdown-item" onClick={closeMenus}>رول اب</Link>
-                                        <Link to={`/bannerproducts/6/`} className="dropdown-item" onClick={closeMenus}>بوب اب كامل</Link>
-                                        <Link to={'/bannerproducts/13/'} className="dropdown-item" onClick={closeMenus}>فليكس</Link>
-                                        <Link to={`/bannerproducts/12/`} className="dropdown-item" onClick={closeMenus}>جلوسي</Link>
-                                        <Link to={`/bannerproducts/11/`} className="dropdown-item" onClick={closeMenus}>بانر كوتيد</Link>
-                                        <Link to={`/bannerproducts/18/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
-
-                                    </div>
-                                </li>
-                                <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="/papers/" id="navbarDropdown3" role="button" onClick={() => toggleDropdown(3)} aria-haspopup="true" aria-expanded={activeDropdown === 3}>ورقيات<i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 3 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown3">
-                                        <Link to='/personalcards/' className="dropdown-item" onClick={closeMenus}>كروت شخصية</Link>
-                                        <Link to='/papers/34/' className="dropdown-item" onClick={closeMenus}>مجلات</Link>
-                                        <Link to='/papers/24/' className="dropdown-item" onClick={closeMenus}>بلوك نوت</Link>
-                                        <Link to='/papers/30/' className="dropdown-item" onClick={closeMenus}>روشتات</Link>
-                                        <Link to='/papers/31/' className="dropdown-item" onClick={closeMenus}>ستيكر</Link>
-                                        <Link to='/papers/33/' className="dropdown-item" onClick={closeMenus}>كتالوج</Link>
-                                        <Link to='/papers/29/' className="dropdown-item" onClick={closeMenus}>ليترهيد</Link>
-                                        <Link to='/papers/27/' className="dropdown-item" onClick={closeMenus}>اظرف</Link>
-                                        <Link to='/papers/32/' className="dropdown-item" onClick={closeMenus}>فولدر</Link>
-                                        <Link to='/papers/26/' className="dropdown-item" onClick={closeMenus}>بروشور</Link>
-                                        <Link to='/papers/25/' className="dropdown-item" onClick={closeMenus}>كتب</Link>
-                                        <Link to='/papers/28/' className="dropdown-item" onClick={closeMenus}>دفتر فواتير</Link>
-                                    </div>
-                                </li>
-                                <li className="nav-item dropdown me-2">
-                                    <NavLink className="nav-link" to="/cups/" id="navbarDropdown4" role="button" onClick={() => toggleDropdown(4)} aria-haspopup="true" aria-expanded={activeDropdown === 4}> اكواب <i className="fa fa-angle-down mt-1"></i></NavLink>
-                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 4 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown4">
-                                        <Link to={`/cups/35/`} className="dropdown-item" onClick={closeMenus} > اكواب بلاستيك</Link>
-                                        <Link to={`/cups/36/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
-                                    </div>
-                                </li>
-        
-                            </ul>
-                        </div>
-
-                        <div className="col-10 border rounded-pill p-0 bg-light d-lg-none">
+        <div className={`container-fluid mb-30 ${style.navcontainer} `}>
+        <div className={`row px-xl-2 ${style.bgcolormob}`}>
+       
+            <div className={`col-sm-3 col-lg-9`} >
+                <nav className={`navbar navbar-expand-lg text-light navbar-dark py-3 py-lg-0`}>
+                    <button className={`navbar-toggler ${style.btnnavcolor} ${isNavOpen ? 'd-none' : ''}`} type="button" onClick={toggleMobileNav}>
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                    
+                    <div className={` px-2 ${style.mobile_nav} ${isNavOpen ? style.show : ''} `}>
+                    <button className={style.close_button} onClick={toggleMobileNav}>×</button>
+                    <div className="col-10  border rounded-pill p-0 bg-light d-lg-none mt-4 justify-content-center mb-2 me-3">
                             <form action="" className="search-form">
                                 <div className="input-group border-dark">
                                     <input type="text" className="form-control border-0 rounded-end-5" placeholder="ادخل كلمة البحث ..." />
@@ -215,7 +148,98 @@ function Nav() {
                                 </div>
                             </form>
                         </div>
+                        <ul className="navbar-nav ml-auto text-right mt-0 ">
+                        
+                            <li className="nav-item">
+                                <NavLink to='/الرئيسية' className={`nav-link ${style.textnavcolor} me-3`} onClick={closeMenus}>الرئيسية</NavLink>
+                            </li>
+                                <li className="nav-item dropdown me-3">
+                                <div className='d-flex justify-content-between align-items-center'>
+                                    <NavLink className={`nav-link ${style.textnavcolor} `} to="/home" id="navbarDropdown5" >الشركات</NavLink>
+                                    <i role="button" onClick={() => toggleDropdown(5)} aria-haspopup="true" aria-expanded={activeDropdown === 4} className="fa fa-angle-down mt-1"></i>
+                                    </div>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 5 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown5">
+                                        <Link to='/home' className="dropdown-item" onClick={closeMenus}>m 1</Link>
+                                        <span className="dropdown-item" onClick={closeMenus}>m 2</span>
+                                    </div>
+                                </li>
+                                <li className="nav-item dropdown me-3">
+                                     <div className='d-flex justify-content-between align-items-center'>
+                                    <NavLink className={`nav-link ${style.textnavcolor} `} to="/panelsandfacades/" id="navbarDropdown1" >اليفط والواجهات</NavLink>
+                                    <i onClick={() => toggleDropdown(1)} aria-haspopup="true" aria-expanded={activeDropdown === 1} className="fa fa-angle-down mt-1"></i>
+                                    </div>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 1 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown1"> 
+                                        <Link to={`/panelsandfacades/letters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link>
+                                        {/* <Link to={`/charcters/`} className="dropdown-item" onClick={closeMenus}>حروف بارزة </Link> */}
+                                    </div>
+                                </li>
+                                <li className="nav-item dropdown me-3">
+                                <div className='d-flex justify-content-between align-items-center'>
+                                    <NavLink className={`nav-link ${style.textnavcolor}`} to="/bannerproducts/" id="navbarDropdown2" >منتجات بانر</NavLink>
+                                    <i role="button" onClick={() => toggleDropdown(2)} aria-haspopup="true" aria-expanded={activeDropdown === 2} className="fa fa-angle-down mt-1"></i>
+                                    </div>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 2 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown2">
+                                        <Link to={`/bannerproducts/5/`} className="dropdown-item" onClick={closeMenus}>ادجستل استاند</Link>
+                                        <Link to={`/bannerproducts/10/`} className="dropdown-item" onClick={closeMenus}>بانر عاكس</Link>
+                                        <Link to={`/bannerproducts/23/`} className="dropdown-item" onClick={closeMenus}>ورق حائط</Link>
+                                        <Link to={`/bannerproducts/8/`} className="dropdown-item" onClick={closeMenus}>اكس بانر</Link>
+                                        <Link to={`/bannerproducts/15/`} className="dropdown-item" onClick={closeMenus}>ستان</Link>
+                                        <Link to={`/bannerproducts/14/`} className="dropdown-item" onClick={closeMenus}>سي ثرو</Link>
+                                        <Link to={`/bannerproducts/9/`} className="dropdown-item" onClick={closeMenus}>بانر عادي</Link>
+                                        <Link to={`/bannerproducts/17/`} className="dropdown-item" onClick={closeMenus}>كانفاس</Link>
+                                        <Link to={`/bannerproducts/16/`} className="dropdown-item" onClick={closeMenus}>الفينيل</Link>
+                                        <Link to={`/bannerproducts/22/`} className="dropdown-item" onClick={closeMenus}>ملصق سيارات</Link>
+                                        <Link to={`/bannerproducts/7/`} className="dropdown-item" onClick={closeMenus}>رول اب</Link>
+                                        <Link to={`/bannerproducts/6/`} className="dropdown-item" onClick={closeMenus}>بوب اب كامل</Link>
+                                        <Link to={'/bannerproducts/13/'} className="dropdown-item" onClick={closeMenus}>فليكس</Link>
+                                        <Link to={`/bannerproducts/12/`} className="dropdown-item" onClick={closeMenus}>جلوسي</Link>
+                                        <Link to={`/bannerproducts/11/`} className="dropdown-item" onClick={closeMenus}>بانر كوتيد</Link>
+                                        <Link to={`/bannerproducts/18/`} className="dropdown-item" onClick={closeMenus}>برنت اند كات</Link>
+
+                                    </div>
+                                </li>
+                                <li className="nav-item dropdown me-3">
+                                <div className='d-flex justify-content-between align-items-center'>
+                                    <NavLink className={`nav-link ${style.textnavcolor} `} to="/papers/" id="navbarDropdown3" >ورقيات</NavLink>
+                                    <i role="button" onClick={() => toggleDropdown(3)} aria-haspopup="true" aria-expanded={activeDropdown === 3} className="fa fa-angle-down mt-1"></i>
+                                    </div>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 3 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown3">
+                                        <Link to='/personalcards/' className="dropdown-item" onClick={closeMenus}>كروت شخصية</Link>
+                                        <Link to='/papers/34/' className="dropdown-item" onClick={closeMenus}>مجلات</Link>
+                                        <Link to='/papers/24/' className="dropdown-item" onClick={closeMenus}>بلوك نوت</Link>
+                                        <Link to='/papers/30/' className="dropdown-item" onClick={closeMenus}>روشتات</Link>
+                                        <Link to='/papers/31/' className="dropdown-item" onClick={closeMenus}>ستيكر</Link>
+                                        <Link to='/papers/33/' className="dropdown-item" onClick={closeMenus}>كتالوج</Link>
+                                        <Link to='/papers/29/' className="dropdown-item" onClick={closeMenus}>ليترهيد</Link>
+                                        <Link to='/papers/27/' className="dropdown-item" onClick={closeMenus}>اظرف</Link>
+                                        <Link to='/papers/32/' className="dropdown-item" onClick={closeMenus}>فولدر</Link>
+                                        <Link to='/papers/26/' className="dropdown-item" onClick={closeMenus}>بروشور</Link>
+                                        <Link to='/papers/25/' className="dropdown-item" onClick={closeMenus}>كتب</Link>
+                                        <Link to='/papers/28/' className="dropdown-item" onClick={closeMenus}>دفتر فواتير</Link>
+                                    </div>
+                                </li>
+                                <li className="nav-item dropdown me-3">
+                                <div className='d-flex justify-content-between align-items-center'>
+                                    <NavLink className={`nav-link ${style.textnavcolor} `} to="/cups/" id="navbarDropdown4" > اكواب </NavLink>
+                                    <i role="button" onClick={() => toggleDropdown(4)} aria-haspopup="true" aria-expanded={activeDropdown === 4}  className="fa fa-angle-down mt-1"></i>
+                                    </div>
+                                    <div className={`dropdown-menu bg-light rounded-1 border-1 m-0 ${activeDropdown === 4 ? 'show' : ''}`} onMouseLeave={() => toggleDropdown()} style={{ 'textAlign': 'right' }} aria-labelledby="navbarDropdown4">
+                                        <Link to={`/cups/35/`} className="dropdown-item" onClick={closeMenus} > اكواب بلاستيك</Link>
+                                        <Link to={`/cups/36/`} className="dropdown-item" onClick={closeMenus}>اكواب ورقية</Link>
+                                    </div>
+                                </li>
+        
+                            </ul>
+                            
+                        </div>
+
+                        
                     </nav>
+                </div>
+                <div className={`col-sm-9 col-xl-9  d-lg-none align-items-center mt-1 ${style.bgcolormob}`}>
+                    <Link to="/الرئيسية" className="text-decoration-none d-block d-lg-none text-center align-items-center">
+                        <img src={logo} alt='logo' className='w-25' />
+                    </Link>
                 </div>
             </div>
         </div>

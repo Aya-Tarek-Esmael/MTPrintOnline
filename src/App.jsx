@@ -79,22 +79,27 @@ import StainlessXAcrylic from './Components/Characters/StainlessXAcrylic/Stainle
 import Letters from './Components/Letters/Letters';
 import PanelsAndFacades from './Components/PanelsAndFacades/PanelsAndFacades';
 import LettersCard from './Components/PanelsAndFacades/LettersCard';
-
+import LoadingScrean from './Components/LoodingScreen/LoodingScreen';
+import Login from './Components/Login/Login';
+import Register from './Components/Register/Register';
 
 function App() {
 
 
   return (
-    <div className=''>
+    <div className='' >
      <Topbar/>
      <Nav />
      {/* <Home/> */}
-    <Routes>
+     <div id='main-content'>
+    <Routes >
     <Route path='/'  element={<Home/>} />
     <Route path='/الرئيسية'  element={<Home/>} />
     <Route path='/اتصل بنا'  element={<Contact/>} />
     <Route path="/cart" element={<Cart />} />
-    
+    <Route path='/login'  element={<Login/>} />
+    <Route path='/register'  element={<Register/>} />
+
     <Route path='/personalcards/' element={ <PersonalCards />}/>
     <Route path='/personalcards/كارت-عادي' element={<NormallCard />} />
     <Route path='/personalcards/كارت-كيرف' element={<CurveCard />} />
@@ -181,6 +186,7 @@ function App() {
 
     </Routes>
     <Footer />
+    </div>
     </div>
   )
 }

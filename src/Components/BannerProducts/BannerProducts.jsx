@@ -46,7 +46,7 @@ function BannerProducts() {
 </div>
 </header>
 {/* end header */}
-<div className="d-flex justify-content-between mt-5">
+{/* <div className="d-flex justify-content-between mt-5">
         <form className="" method="get">
 	    <select name="orderby" className="orderby btn " aria-label="نظام المتجر">
 					<option value="menu_order"  selected='selected'>الترتيب الافتراضي</option>
@@ -59,7 +59,7 @@ function BannerProducts() {
 	<input type="hidden" name="paged" value="1" />
 	</form>
 <p className="">عرض جميع النتائج 16</p>	
-</div>
+</div> */}
 
 
     {/* <div className=' col-lg-12 col-sm-12 col-md-12 d-md-flex flex-wrap'>

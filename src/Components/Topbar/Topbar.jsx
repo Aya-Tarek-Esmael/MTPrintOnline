@@ -52,7 +52,7 @@ function Topbar() {
                             <div className={`btn-group mx-3 ${style.fontcolor}`}>
                                 <span className="text-light"><i className="fa-solid fa-phone-flip ms-2"></i> 012345678910 </span>
                                 <span className="text-light mx-1">|</span>
-                                <a className="">تسجيل الدخول</a>
+                                <Link to='/'> تسجيل دخول</Link>
                             </div>
                         </div>
 
@@ -186,7 +186,7 @@ function Topbar() {
                             <div>
                                 <div className={`text-right ${style.logintitle}`}>
                                     <h6>مرحبا بك</h6>
-                                    <a>تسجيل دخول</a> / <a>تسجيل</a>
+                                    <Link to='/'>تسجيل دخول</Link> / <Link to='/'>تسجيل</Link>
                                 </div>
                             </div>
                         </div>
