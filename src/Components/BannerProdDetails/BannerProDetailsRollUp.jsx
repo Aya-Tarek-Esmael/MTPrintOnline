@@ -30,7 +30,7 @@ function BannerProDetailsRollUp() {
     console.log(id);
    
     async function getProDetails() {
-      let { data } = await axios.get(`http://localhost:8000/api/products/7/details`);
+      let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/7/details`);
       console.log(data)
       console.log(data)
       setProDetails(data);

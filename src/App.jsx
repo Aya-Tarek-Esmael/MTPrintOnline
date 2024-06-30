@@ -145,10 +145,10 @@ function App() {
 
     {/* product Details */}
     <Route path='/bannerproducts/5/' element={<BannerProDetailsStand />} />
-    <Route path='/bannerproducts/8' element={<BannerProDetailsXBanner />} />
-    <Route path='/bannerproducts/9' element={<BannerProDetailsBannerNormall />} />
     <Route path='/bannerproducts/6/' element={<BannerProDetailsBobUP />} />
     <Route path='/bannerproducts/7/'element={<BannerProDetailsRollUp />} />
+    <Route path='/bannerproducts/8' element={<BannerProDetailsXBanner />} />
+    <Route path='/bannerproducts/9' element={<BannerProDetailsBannerNormall />} />
     <Route path='/bannerproducts/13/' element={<BannerProDetailsFlex/>} />
     <Route path='/bannerproducts/17/'element={<BannerProDetailsCanvas/>} />
     <Route path='/bannerproducts/16/' element={<BannerProDetailsVinyl/>} />

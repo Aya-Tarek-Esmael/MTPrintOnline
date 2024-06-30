@@ -23,7 +23,7 @@ function BannerProDetailsStand() {
     console.log(id);
    
     async function getProDetails() {
-      let { data } = await axios.get(`http://localhost:8000/api/products/5/details`);
+      let { data } = await axios.get(`https://mtb3a.arabiangeeks.net/api/products/5/details`);
       console.log(data)
       console.log(data.sizes[0].name)
       setProDetails(data);

@@ -38,9 +38,9 @@ function Footer() {
         <div className="row ">
          
           <div className="col-md-3 col-sm-4">
-            <div className="useful-link mt-4 ">
+            <div className="useful-link mt-3 ">
               <h2>Useful Links</h2>
-              <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" />
+              {/* <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" /> */}
               <div className="use-links">
                 <li><Link to="/الرئيسية"><i className="fa-solid fa-angles-right"></i> الرئيسية</Link></li>
                 <li><Link to='/bags/'><i className="fa-solid fa-angles-right"></i>أكياس </Link></li>
@@ -55,9 +55,9 @@ function Footer() {
             </div>
           </div>
           <div className="col-md-3 col-sm-4">
-            <div className="useful-link mt-4">
+            <div className="useful-link mt-3">
               <h2>Useful Links</h2>
-              <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" />
+              {/* <img src="./assets/images/about/home_line.png" alt="" className="img-fluid" /> */}
               <div className="use-links">
               <li><Link to='/uniform/'><i className="fa-solid fa-angles-right"></i>يونيفورم </Link></li>
               <li><Link to='/cups/'><i className="fa-solid fa-angles-right"></i> اكواب</Link></li>
@@ -67,13 +67,13 @@ function Footer() {
             </div>
           </div>
           <div className="col-md-3  col-sm-4">
-            <div className="address mt-4">
+            <div className="address mt-3">
               <h2>تواصل معنا</h2>
-              <img src="./assets/images/about/home_line.png" alt="" className="img-fluid "/>
+              {/* <img src="./assets/images/about/home_line.png" alt="" className="img-fluid "/> */}
               <div className="address-links">
                 <li className="address1"><i className="fa-solid fa-location-dot"></i> مصر,القاهرة </li>
                    <li><a href=""><i className="fa-solid fa-phone"></i> +02 11111111111 </a></li>
-                   <li><a href="" style={{'fontSize':'14px'}}><i className="fa-solid fa-envelope "></i> matb3a@gmail.com</a></li>
+                   <li><a href="" style={{'fontSize':'12px'}}><i className="fa-solid fa-envelope "></i> matb3a@gmail.com</a></li>
               </div>
             </div>
           </div>

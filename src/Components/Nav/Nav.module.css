@@ -91,12 +91,13 @@
     right: 0;
     width: 45%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.938); /* Semi-transparent black background */
+    background-color: rgb(250, 246, 246); /* Semi-transparent black background */
     z-index: 1000; /* Ensure it overlays other content */
     display: none; /* Initially hidden */
     overflow-y: auto; /* Enable scrolling if menu exceeds screen height */
     color: rgb(0, 0, 0);
     /* background-color: rgba(0, 0, 0, 0.5); */
+    /* background-color: rgba(255, 255, 255, 0.938); */
   }
   
   .mobile_nav.show {
@@ -157,4 +158,10 @@
 .blurred {
   filter: blur(5px);
   pointer-events: none;
+}
+
+
+
+@media only screen and (max-width: 576) {
+ 
 }

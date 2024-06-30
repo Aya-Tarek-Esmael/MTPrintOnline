@@ -44,21 +44,21 @@ function Nav() {
 
     return (
         <div className={`container-fluid mb-30 ${style.navcontainer} `}>
-        <div className={`row px-xl-2 ${style.bgcolormob}`}>
+        <div className={`row px-xl-2 ${style.bgcolormob}  ${style.smallscreen} `}>
        
-            <div className={`col-sm-3 col-lg-9`} >
-                <nav className={`navbar navbar-expand-lg text-light navbar-dark py-3 py-lg-0`}>
-                    <button className={`navbar-toggler ${style.btnnavcolor} ${isNavOpen ? 'd-none' : ''}`} type="button" onClick={toggleMobileNav}>
+            <div className={`col-sm-3 col-3 col-xl-9 col-md-3 `} >
+                <nav className={`navbar navbar-expand-lg text-light navbar-dark py-3 py-lg-0 `}>
+                    <button className={` navbar-toggler ${style.btnnavcolor} ${isNavOpen ? 'd-none' : ''}`} type="button" onClick={toggleMobileNav}>
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     
                     <div className={` px-2 ${style.mobile_nav} ${isNavOpen ? style.show : ''} `}>
                     <button className={style.close_button} onClick={toggleMobileNav}>×</button>
-                    <div className="col-10  border rounded-pill p-0 bg-light d-lg-none mt-4 justify-content-center mb-2 me-3">
-                            <form action="" className="search-form">
-                                <div className="input-group border-dark">
-                                    <input type="text" className="form-control border-0 rounded-end-5" placeholder="ادخل كلمة البحث ..." />
-                                    <div className="input-group-prepend ms-1">
+                    <div className="  col-9  border rounded-pill p-0 bg-light d-lg-none mt-4 justify-content-center mb-2 me-2">
+                            <form action="" className="search-form ">
+                                <div className="input-group border-dark d-flex col-12">
+                                    <input type="text" className=" col-9 form-control border-0 rounded-end-5" placeholder="  ابحث ..." />
+                                    <div className="input-group-prepend ms-1 d-none">
                                         <div className="dropdown">
                                             <button className="btn btn-transparent text-dark  " type="button" onClick={() => toggleDropdown('categories')} data-toggle="dropdown" aria-haspopup="true" aria-expanded={activeDropdown === 'categories'}>
                                                 Categories<i className="fa fa-angle-down mt-1 text-secondary"></i>
@@ -142,7 +142,7 @@ function Nav() {
                                             </div>
                                         </div>
                                     </div>
-                                    <button type="submit" name="submit_search" className={`btn rounded-start-5 text-light ${style.btnnavcolor}`}>
+                                    <button type="submit" name="submit_search" className={` col-3 px-2 btn rounded-start-5 text-light ${style.btnnavcolor}`}>
                                         <i className="fa fa-search"></i>
                                     </button>
                                 </div>
@@ -236,11 +236,12 @@ function Nav() {
                         
                     </nav>
                 </div>
-                <div className={`col-sm-9 col-xl-9  d-lg-none align-items-center mt-1 ${style.bgcolormob}`}>
+                <div className={`col-sm-9 col-9 col-md-9 col-xl-3  d-lg-none align-items-center py-3 ${style.bgcolormob} `}>
                     <Link to="/الرئيسية" className="text-decoration-none d-block d-lg-none text-center align-items-center">
                         <img src={logo} alt='logo' className='w-25' />
                     </Link>
                 </div>
+                
             </div>
         </div>
     );
